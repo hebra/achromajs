@@ -20,6 +20,10 @@
  * 
  */
 
+// http://www.karlhorky.com/2012/06/cross-browser-image-grayscale-with-css.html
+// http://demosthenes.info/blog/532/Convert-Images-To-Black-And-White-With-CSS
+// https://developer.mozilla.org/de/docs/Web/CSS/filter
+
 var chromatjs = window.chromatjs || {}
 
 chromatjs.inject = function() {
