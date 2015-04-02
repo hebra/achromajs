@@ -12,11 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * See file LICENSE-Apache-2.0 for the full license.
  */
 
 /**
  * @author Hendrik Brandt
- * @version 15.03
+ * @version 15.04
  * 
  */
 
@@ -256,8 +258,17 @@ achromajs.setContrast = function(pEvent)
 	}
 }
 
+achromajs.setMode = function(pEvent)
+{
+	
+
+}
+
 document.addEventListener("DOMContentLoaded", function(event)
 {
-	console.log("Injecting achromajs into DOM.");
-	achromajs.inject();
+	console.log("Check if achromajs is enabled via URL or cookie.");
+	if ( achromajs.enabled() ) {
+		console.log("Injecting achromajs into DOM.");
+		achromajs.inject();
+	}
 });
