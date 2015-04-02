@@ -40,7 +40,7 @@ body:before {
 #ACHROMAJS_WRAPPER {
 	position: absolute;
 	z-index: 9999;
-	top: -38px;
+	top: -40px;
 	left: 50%;
 	transition: 0.5s;
 	-webkit-transition: 0.5s;
@@ -69,6 +69,7 @@ body:before {
 	vertical-align: top;
 	border-bottom-left-radius: 5px;
 	right: -32px;
+    box-shadow: 0 0 10px #000;
 }
 
 #ACHROMAJS_CONTAINER ul~ul {
