@@ -258,16 +258,16 @@ achromajs.setContrast = function(pEvent)
 	}
 }
 
-achromajs.setMode = function(pEvent)
+achromajs.isEnabled = function()
 {
 	
-
+	return true;
 }
 
 document.addEventListener("DOMContentLoaded", function(event)
 {
 	console.log("Check if achromajs is enabled via URL or cookie.");
-	if ( achromajs.enabled() ) {
+	if ( achromajs.isEnabled() ) {
 		console.log("Injecting achromajs into DOM.");
 		achromajs.inject();
 	}
