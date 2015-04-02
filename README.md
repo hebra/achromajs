@@ -1,4 +1,4 @@
-## chromatjs
+## AchromaJS
 
-ChromatJS
+AchromaJS
 
