@@ -3,7 +3,7 @@
 =======
 ## AchromaJS
 
-AchromaJS is a helper Javascript library to simulate different conditions of eye vision.
+AchromaJS is a Javascript library to simulate different conditions of eye vision.
 
 <<<<<<< Upstream, based on branch 'master' of https://github.com/hebra/achromajs.git
 >>>>>>> cded83d - rename to AchromaJS - restyle selector - implement selection of all color blindness modes and all contrast modes
