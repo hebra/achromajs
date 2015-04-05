@@ -196,7 +196,7 @@ achromajs.setContrast = function(pEvent) {
 
 				pNode.setAttribute( "data-achromajs-blur-level", tNewBlurLevel );
 				document.body.setAttribute( "data-achromajs-blur-level", tNewBlurLevel );
-				
+
 			} else {
 				pNode.setAttribute( "data-achromajs-blur-level", 0 );
 				document.body.setAttribute( "data-achromajs-blur-level", 0 );
@@ -219,7 +219,20 @@ achromajs.setContrast = function(pEvent) {
 
 achromajs.isEnabled = function() {
 
-	return true;
+	// Read URL parameters into JSON object
+	var tURIParameters = window.location.search.substring( 1 ) ? JSON.parse( '{"'
+		+ window.location.search.substring( 1 ).replace( /&/g, '","' ).replace( /=/g, '":"' ) + '"}', function(pKey, pValue) {
+		return pKey === "" ? pValue : decodeURIComponent( pValue )
+	} ) : {}
+
+	// Set enabled cookie if parameter enable is set
+	if ( tURIParameters.achromajs && tURIParameters.achromajs == "enable" ) {
+		document.cookie = "achromajs=" + ( tURIParameters.achromajs == "enable" ? "enable" : "disable" ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+	}
+
+	var tCookies = JSON.parse( '{' + document.cookie.replace( /=/g, ':' ).replace( /; /g, '","' ).replace( /\w+/g, '"$&"') + '}' );
+
+	return tCookies.achromajs && tCookies.achromajs == "enable";
 }
 
 document.addEventListener( "DOMContentLoaded", function(event) {
