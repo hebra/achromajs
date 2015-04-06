@@ -9,12 +9,22 @@ module.exports = function(grunt) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' + '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 		// Task configuration.
+		concat: {
+			options: {
+				banner: '<%= banner %>',
+				stripBanners: true
+			},
+			dist: {
+				src: [ 'src/achroma.js', 'src/achroma-webkit-filter-svg-path-fix.js' ],
+				dest: 'dist/achroma.js'
+			}
+		},
 		uglify: {
 			options: {
 				banner: '<%= banner %>'
 			},
 			dist: {
-				src: 'src/achroma.js',
+				src: '<%= concat.dist.dest %>',
 				dest: 'dist/achroma.min.js'
 			}
 		},
@@ -66,12 +76,13 @@ module.exports = function(grunt) {
 
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-xmlmin' );
 
 	// Default task.
-	grunt.registerTask( 'default', [ 'jshint', 'uglify', 'cssmin', 'xmlmin' ] );
+	grunt.registerTask( 'default', [ 'jshint', 'concat', 'uglify', 'cssmin', 'xmlmin' ] );
 
 };

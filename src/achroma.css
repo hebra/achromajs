@@ -21,7 +21,7 @@
  * @version 15.04
  * 
  */
-
+ 
 body:before {
 	content: "";
 	position: absolute;
@@ -137,7 +137,11 @@ body:before {
 	no-repeat bottom center;
 }
 
-/* Forgotten glasses */
+/*
+ * The Filters
+ */
+
+/* Blur (aka forgot my glasses)*/
 .achromajs-blur-1, body.achromajs-blur-1-Body:before {
 	filter: blur(1px);
 	-webkit-filter: blur(1px);
@@ -155,7 +159,8 @@ body:before {
 
 /* Invert all colours */
 .achromajs-invert, body.achromajs-invert-Body:before {
-	filter: invert(1);
+	filter: invert(100%);
+	-webkit-filter: invert(100%);
 }
 
 .achromajs-lowcontrast, body.achromajs-lowcontrast-Body:before {
@@ -206,4 +211,9 @@ body:before {
 .achromajs-Tritanopia, body.achromajs-Tritanopia-Body:before {
 	filter: url(color-filters.svg#Tritanopia);
 	-webkit-filter: url(color-filters.svg#Tritanopia);
+}
+
+/* Set some extra styles for touch enabled devices */
+.achromajs-touch #ACHROMAJS_WRAPPER {
+	top: 0;
 }
