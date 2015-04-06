@@ -32,8 +32,10 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
   * alternatively you can link directly to the Javascript and CSS files on Github
 * include the CSS and Javascript file in your HTML page header, e.g. as this:
 
-	<link type='text/css' rel='stylesheet' href='achroma/achroma.css' />
-	<script type="text/javascript" src="achroma/achroma.js"></script>
+```
+<link type='text/css' rel='stylesheet' href='achroma/achroma.css' />
+<script type="text/javascript" src="achroma/achroma.js"></script>
+```
 	
 * make sure all files (.js, .css and .svg) are in the same directory
 * load the page in a web browser and add the parameter `achromajs=enable` to the URL
