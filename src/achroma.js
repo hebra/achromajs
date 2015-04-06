@@ -234,7 +234,7 @@ achromajs.isEnabled = function() {
 		document.cookie = "achromajs=" + ( tURIParameters.achromajs == "enable" ? "enable" : "disable" ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
 	}
 
-	var tCookies = JSON.parse( '{' + document.cookie.replace( /=/g, ':' ).replace( /; /g, '","' ).replace( /\w+/g, '"$&"' ) + '}' );
+	var tCookies = JSON.parse( '{' + document.cookie.replace( /[^=;]+/g, '"$&"' ).replace( /=/g, ':' ).replace( /;/g, ',' ) + '}' );
 
 	return tCookies.achromajs && tCookies.achromajs == "enable";
 }
