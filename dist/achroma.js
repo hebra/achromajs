@@ -1,4 +1,4 @@
-/*! AchromaJS - v15.4.1 - 2015-04-06
+/*! AchromaJS - v15.4.1 - 2015-04-07
 * Copyright (c) 2015 Hendrik Brandt; Licensed Apache, CC-BY-SA */
 /**
  * @author Hendrik Brandt
@@ -7,6 +7,11 @@
  */
 
 var achromajs = window.achromajs || {}
+
+achromajs.localConfig = {
+        "enabled": false,
+        "filter": null
+}
 
 achromajs.blindnessModes = {
 	'achromato': {
@@ -217,13 +222,26 @@ achromajs.isEnabled = function() {
 	} ) : {}
 
 	// Set enabled cookie if parameter enable is set
-	if ( tURIParameters.achromajs && tURIParameters.achromajs == "enable" ) {
-		document.cookie = "achromajs=" + ( tURIParameters.achromajs == "enable" ? "enable" : "disable" ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+	var tAchromaCookie = document.cookie.replace(/(?:(?:^|.*;\s*)achromajs\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	
+	if ( tURIParameters.achromajs ) {
+	    if (tAchromaCookie != "") {
+	        var tConfig = JSON.parse(tAchromaCookie);
+	        achromajs.localConfig.filter = tConfig.filter;
+	    }
+	    
+	    achromajs.localConfig.enabled = tURIParameters.achromajs == "enable";
+	    
+		document.cookie = "achromajs=" + ( JSON.stringify(achromajs.localConfig) ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+	} else {
+        if (tAchromaCookie != "") {
+            var tConfig = JSON.parse(tAchromaCookie);
+            achromajs.localConfig.enabled = tConfig.enabled;
+            achromajs.localConfig.filter = tConfig.filter;
+        }
 	}
-
-	var tCookies = JSON.parse( '{' + document.cookie.replace( /[^=;]+/g, '"$&"' ).replace( /=/g, ':' ).replace( /;/g, ',' ) + '}' );
-
-	return tCookies.achromajs && tCookies.achromajs == "enable";
+	
+	return achromajs.localConfig.enabled;
 }
 
 document.addEventListener( "DOMContentLoaded", function(event) {
@@ -266,8 +284,8 @@ achromajs.webkitSvgPathFix = function() {
 			return;
 		}
 
-		var tPath = tCSSLink.href.replace( /achroma(.*)\.css/g, '' );
-
+		var tPath = tCSSLink.href.replace( /achroma([\.min]*)\.css$/g, '' );
+		
 		var tCSSBody = document.createElement( 'style' );
 		tCSSBody.setAttribute( 'type', 'text/css' );
 		tCSSBody.setAttribute( 'rel', 'stylesheet' );

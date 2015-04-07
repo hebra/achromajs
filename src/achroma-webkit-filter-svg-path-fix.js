@@ -44,8 +44,8 @@ achromajs.webkitSvgPathFix = function() {
 			return;
 		}
 
-		var tPath = tCSSLink.href.replace( /achroma(.*)\.css/g, '' );
-
+		var tPath = tCSSLink.href.replace( /achroma([\.min]*)\.css$/g, '' );
+		
 		var tCSSBody = document.createElement( 'style' );
 		tCSSBody.setAttribute( 'type', 'text/css' );
 		tCSSBody.setAttribute( 'rel', 'stylesheet' );
