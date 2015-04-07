@@ -19,13 +19,34 @@
  * 
  */
 
+/**
+ * Start injecting as soon as the DOM model is ready
+ */
+document.addEventListener( "DOMContentLoaded", function(event) {
+	console.log( "Check if achromajs is enabled via URL or cookie." );
+	if ( achromajs.isEnabled() ) {
+		console.log( "Injecting achromajs into DOM." );
+		achromajs.inject();
+		achromajs.webkitSvgPathFix();
+	}
+} );
+
+/**
+ * Define a namespace for AchromaJS.
+ */
 var achromajs = window.achromajs || {}
 
+/**
+ * Set the default configuration.
+ */
 achromajs.localConfig = {
-        "enabled": false,
-        "filter": null
+	"enabled": false,
+	"filter": null
 }
 
+/**
+ * Set map with all supported color vision modes
+ */
 achromajs.blindnessModes = {
 	'achromato': {
 		'Achromatomaly': 'Lacking most color vision',
@@ -45,6 +66,30 @@ achromajs.blindnessModes = {
 	}
 };
 
+/**
+ * Define contrast modes
+ */
+achromajs.contrastModes = {
+	'blur': {
+		"blur-1": "1 pixel blur",
+		"blur-2": "2 pixels blur",
+		"blur-3": "3 pixels blur"
+	},
+	"lowcontrast": {
+		"lowcontrast": "Laptop or mobile in sunlight"
+	},
+	"highcontrast": {
+		"highcontrast": "Just black and white colors"
+	},
+	"invert": {
+		"invert": "Invert colors"
+	}
+}
+
+/**
+ * Inject the AchromaJS mode selector into the page. Also add additional attribute to each body root node.
+ * 
+ */
 achromajs.inject = function() {
 
 	// Check if touch-based
@@ -68,21 +113,25 @@ achromajs.inject = function() {
 	// Create the left blur and contrast mode selection list
 	var tContrastModeList = document.createElement( 'ul' );
 
-	[ "blur", "lowcontrast", "highcontrast", "invert" ].forEach( function(pModeName) {
+	Object.keys( achromajs.contrastModes ).forEach( function(pModeName) {
 		// Create a selector
 		var tItem = document.createElement( 'li' );
 		tItem.setAttribute( "data-achromajs-modus", pModeName );
-		tItem.addEventListener( "click", achromajs.setContrast );
+		tItem.addEventListener( "click", achromajs.setMode );
+
+		var tVariantsList = "";
+
+		Object.keys( achromajs.contrastModes[ pModeName ] ).forEach( function(pModeVariant, pIndex) {
+			tVariantsList += (pIndex > 0 ? " " : "") + pModeVariant;
+		} );
+
+		tItem.setAttribute( "data-achromajs-modus-variants", tVariantsList );
 
 		tContrastModeList.appendChild( tItem );
 	} );
 
 	// Create the right color mode selection list
 	var tColorModeList = document.createElement( 'ul' );
-
-	var tBlindCSS = document.createElement( 'style' );
-	tBlindCSS.type = 'text/css';
-	tBlindCSS.rel = 'stylesheet';
 
 	// Create the list of blindness selectors
 	// and of CSS style filters for each variant
@@ -94,10 +143,8 @@ achromajs.inject = function() {
 
 		var tVariantsList = "";
 
-		Object.keys( achromajs.blindnessModes[ pModeName ] ).forEach(
-
-		function(pModeVariant) {
-			tVariantsList += pModeVariant + " ";
+		Object.keys( achromajs.blindnessModes[ pModeName ] ).forEach( function(pModeVariant, pIndex) {
+			tVariantsList += (pIndex > 0 ? " " : "") + pModeVariant;
 		} );
 
 		tItem.setAttribute( "data-achromajs-modus-variants", tVariantsList );
@@ -117,13 +164,12 @@ achromajs.inject = function() {
 	document.body.appendChild( tWrapper );
 
 	// Define extra pseudo-element styles for body background
-
 	var tBodyPseudoCSS = document.createElement( 'style' );
 	tBodyPseudoCSS.setAttribute( "id", "achromajs_BODY_CSS" );
 	tBodyPseudoCSS.setAttribute( "type", "text/css" );
 	tBodyPseudoCSS.setAttribute( "rel", "stylesheet" );
 
-	// Apply the selected filter also to the pseudo element body CSS
+	// Create a pseudo body element for applying filters to the background image
 	if ( window.getComputedStyle ) {
 		var tBodyCSS = window.getComputedStyle( document.body, null );
 
@@ -142,90 +188,69 @@ achromajs.inject = function() {
 	document.body.appendChild( tBodyPseudoCSS );
 }
 
-achromajs.setMode = function(pEvent) {
+/**
+ * Remove all achromjs-specific filter classes from the DOM nodes
+ */
+achromajs.clearNodeClasses = function() {
 
-	var tSender = pEvent.target;
-	var tModus = tSender.getAttribute( 'data-achromajs-modus' );
-	var tCurrentVariant = tSender.getAttribute( "data-achromajs-selected-variant" );
-	var tVariants = tSender.getAttribute( "data-achromajs-modus-variants" ).split( " " );
+	[].forEach.call( document.querySelectorAll( '[data-achromajs]' ), function(pNode) {
 
-	Array.prototype.slice.call( document.querySelectorAll( '[data-achromajs]' ), 0 ).forEach(
+		Object.keys( achromajs.blindnessModes ).forEach( function(pModeName) {
 
-	function(pNode) {
-
-		Object.keys( achromajs.blindnessModes ).forEach(
-
-		function(pModeName) {
-			// First remove already applied
-			// achromajs CSS classes
-			Object.keys( achromajs.blindnessModes[ pModeName ] ).forEach(
-
-			function(pModeVariant) {
+			Object.keys( achromajs.blindnessModes[ pModeName ] ).forEach( function(pModeVariant) {
 				pNode.classList.remove( "achromajs-" + pModeVariant );
 				document.body.classList.remove( 'achromajs-' + pModeVariant + '-Body' );
 			} );
 		} );
 
-		tCurrentVariant = pNode.getAttribute( 'data-achromajs' );
+		Object.keys( achromajs.contrastModes ).forEach( function(pModeName) {
 
-		if ( tCurrentVariant == tVariants[ 1 ] ) {
-			pNode.setAttribute( 'data-achromajs', '' );
-		} else if ( tCurrentVariant == tVariants[ 0 ] ) {
-			pNode.classList.add( "achromajs-" + tVariants[ 1 ] );
-			pNode.setAttribute( 'data-achromajs', tVariants[ 1 ] );
-			document.body.classList.add( 'achromajs-' + tVariants[ 1 ] + '-Body' );
-		} else {
-			pNode.classList.add( "achromajs-" + tVariants[ 0 ] );
-			pNode.setAttribute( 'data-achromajs', tVariants[ 0 ] );
-			document.body.classList.add( 'achromajs-' + tVariants[ 0 ] + '-Body' );
-		}
-	} );
-}
-
-achromajs.setContrast = function(pEvent) {
-	var tSender = pEvent.target;
-	var tSelected = tSender.getAttribute( "data-achromajs-modus" );
-
-	Array.prototype.slice.call( document.querySelectorAll( '[data-achromajs]' ), 0 ).forEach(
-
-	function(pNode) {
-		[ "blur-1", "blur-2", "blur-3", "lowcontrast", "highcontrast", "invert" ].forEach( function(pModeName) {
-			pNode.classList.remove( "achromajs-" + pModeName );
-			document.body.classList.remove( 'achromajs-' + pModeName + '-Body' );
+			Object.keys( achromajs.contrastModes[ pModeName ] ).forEach( function(pModeVariant) {
+				pNode.classList.remove( "achromajs-" + pModeVariant );
+				document.body.classList.remove( 'achromajs-' + pModeVariant + '-Body' );
+			} );
 		} );
 
-		if ( tSelected == "blur" ) {
-			var tCurrentBlurLevel = ( pNode.getAttribute( "data-achromajs-blur-level" ) || "0" ) * 1;
-
-			if ( tCurrentBlurLevel < 3 ) {
-				var tNewBlurLevel = tCurrentBlurLevel + 1;
-
-				pNode.classList.add( "achromajs-" + tSelected + "-" + tNewBlurLevel );
-				document.body.classList.add( 'achromajs-' + tSelected + "-" + tNewBlurLevel + '-Body' );
-
-				pNode.setAttribute( "data-achromajs-blur-level", tNewBlurLevel );
-				document.body.setAttribute( "data-achromajs-blur-level", tNewBlurLevel );
-
-			} else {
-				pNode.setAttribute( "data-achromajs-blur-level", 0 );
-				document.body.setAttribute( "data-achromajs-blur-level", 0 );
-			}
-		} else if ( document.body.getAttribute( "achromajs-current-contrast" ) != tSelected ) {
-			pNode.classList.add( "achromajs-" + tSelected );
-			document.body.classList.add( 'achromajs-' + tSelected + '-Body' );
-			pNode.setAttribute( "data-achromajs-blur-level", 0 );
-			document.body.setAttribute( "data-achromajs-blur-level", 0 );
-		}
-
 	} );
-
-	if ( document.body.getAttribute( "achromajs-current-contrast" ) != tSelected ) {
-		document.body.setAttribute( "achromajs-current-contrast", tSelected );
-	} else {
-		document.body.setAttribute( "achromajs-current-contrast", "" );
-	}
 }
 
+/**
+ * Apply the selected color or contrast mode
+ */
+achromajs.setMode = function(pEvent) {
+	var tSender = pEvent.target;
+	var tModus = tSender.getAttribute( 'data-achromajs-modus' );
+	var tCurrentVariant = tSender.getAttribute( "data-achromajs-selected-variant" );
+	var tVariants = tSender.getAttribute( "data-achromajs-modus-variants" ).split( " " );
+
+	achromajs.clearNodeClasses();
+
+	[].forEach.call( document.querySelectorAll( '[data-achromajs]' ), function(pNode) {
+
+		tCurrentVariant = pNode.getAttribute( 'data-achromajs' );
+
+		var tActiveVariantIndex = -1; 
+		
+		tVariants.forEach( function(pVariant, pIndex) {
+			if (pVariant == tCurrentVariant) {
+				tActiveVariantIndex = pIndex;
+			}
+		});
+			
+		if ( tActiveVariantIndex < tVariants.length - 1 ) {
+			pNode.classList.add( "achromajs-" + tVariants[ tActiveVariantIndex + 1 ] );
+			pNode.setAttribute( 'data-achromajs', tVariants[ tActiveVariantIndex + 1 ] );
+			document.body.classList.add( 'achromajs-' + tVariants[ tActiveVariantIndex + 1 ] + '-Body' );
+		} else {
+			pNode.setAttribute( 'data-achromajs', '' );
+		}
+	} );
+}
+
+/**
+ * Check if AchromaJS is enabled either via URL parameter or via cookie. The cookie is only set once the enabled URL
+ * parameter was set for a domain.
+ */
 achromajs.isEnabled = function() {
 
 	// Read URL parameters into JSON object
@@ -235,33 +260,28 @@ achromajs.isEnabled = function() {
 	} ) : {}
 
 	// Set enabled cookie if parameter enable is set
-	var tAchromaCookie = document.cookie.replace(/(?:(?:^|.*;\s*)achromajs\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	
+	var tAchromaCookie = document.cookie.replace( /(?:(?:^|.*;\s*)achromajs\s*\=\s*([^;]*).*$)|^.*$/, "$1" );
+
 	if ( tURIParameters.achromajs ) {
-	    if (tAchromaCookie != "") {
-	        var tConfig = JSON.parse(tAchromaCookie);
-	        achromajs.localConfig.filter = tConfig.filter;
-	    }
-	    
-	    achromajs.localConfig.enabled = tURIParameters.achromajs == "enable";
-	    
-		document.cookie = "achromajs=" + ( JSON.stringify(achromajs.localConfig) ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+		if ( tAchromaCookie != "" ) {
+			var tConfig = JSON.parse( tAchromaCookie );
+			achromajs.localConfig.filter = tConfig.filter;
+		}
+
+		achromajs.localConfig.enabled = tURIParameters.achromajs == "enable";
+
+		document.cookie = "achromajs=" + ( JSON.stringify( achromajs.localConfig ) ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
 	} else {
-        if (tAchromaCookie != "") {
-            var tConfig = JSON.parse(tAchromaCookie);
-            achromajs.localConfig.enabled = tConfig.enabled;
-            achromajs.localConfig.filter = tConfig.filter;
-        }
+		if ( tAchromaCookie != "" ) {
+			var tConfig = JSON.parse( tAchromaCookie );
+			achromajs.localConfig.enabled = tConfig.enabled;
+			achromajs.localConfig.filter = tConfig.filter;
+		}
 	}
-	
+
 	return achromajs.localConfig.enabled;
 }
 
-document.addEventListener( "DOMContentLoaded", function(event) {
-	console.log( "Check if achromajs is enabled via URL or cookie." );
-	if ( achromajs.isEnabled() ) {
-		console.log( "Injecting achromajs into DOM." );
-		achromajs.inject();
-		achromajs.webkitSvgPathFix();
-	}
-} );
+// todo: check if browser supports all JS magic
+// todo: add popup info for each mode selector
+
