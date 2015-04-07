@@ -21,6 +21,11 @@
 
 var achromajs = window.achromajs || {}
 
+achromajs.localConfig = {
+        "enabled": false,
+        "filter": null
+}
+
 achromajs.blindnessModes = {
 	'achromato': {
 		'Achromatomaly': 'Lacking most color vision',
@@ -230,13 +235,26 @@ achromajs.isEnabled = function() {
 	} ) : {}
 
 	// Set enabled cookie if parameter enable is set
-	if ( tURIParameters.achromajs && tURIParameters.achromajs == "enable" ) {
-		document.cookie = "achromajs=" + ( tURIParameters.achromajs == "enable" ? "enable" : "disable" ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+	var tAchromaCookie = document.cookie.replace(/(?:(?:^|.*;\s*)achromajs\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	
+	if ( tURIParameters.achromajs ) {
+	    if (tAchromaCookie != "") {
+	        var tConfig = JSON.parse(tAchromaCookie);
+	        achromajs.localConfig.filter = tConfig.filter;
+	    }
+	    
+	    achromajs.localConfig.enabled = tURIParameters.achromajs == "enable";
+	    
+		document.cookie = "achromajs=" + ( JSON.stringify(achromajs.localConfig) ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+	} else {
+        if (tAchromaCookie != "") {
+            var tConfig = JSON.parse(tAchromaCookie);
+            achromajs.localConfig.enabled = tConfig.enabled;
+            achromajs.localConfig.filter = tConfig.filter;
+        }
 	}
-
-	var tCookies = JSON.parse( '{' + document.cookie.replace( /[^=; ]+/g, '"$&"' ).replace( /=/g, ':' ).replace( /;/g, ',' ) + '}' );
-
-	return tCookies.achromajs && tCookies.achromajs == "enable";
+	
+	return achromajs.localConfig.enabled;
 }
 
 document.addEventListener( "DOMContentLoaded", function(event) {
