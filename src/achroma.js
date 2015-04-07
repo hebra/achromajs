@@ -28,6 +28,7 @@ document.addEventListener( "DOMContentLoaded", function(event) {
 		console.log( "Injecting achromajs into DOM." );
 		achromajs.inject();
 		achromajs.webkitSvgPathFix();
+		achromajs.restoreFilter();
 	}
 } );
 
@@ -41,7 +42,30 @@ var achromajs = window.achromajs || {}
  */
 achromajs.localConfig = {
 	"enabled": false,
-	"filter": null
+	"filter": "",
+	"variant": "",
+
+	/**
+	 * Store the current local config as JSON in the achromajs cookie
+	 */
+	save: function() {
+		document.cookie = "achromajs=" + ( JSON.stringify( this ) ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
+	},
+
+	/**
+	 * Load values from the achromajs cookie into the current local config 
+	 */
+	load: function() {
+		var tAchromaCookie = document.cookie.replace( /(?:(?:^|.*;\s*)achromajs\s*\=\s*([^;]*).*$)|^.*$/, "$1" );
+		
+		if (tAchromaCookie != "") {
+			var tConfig = JSON.parse( tAchromaCookie );
+
+			this.enabled = tConfig.enabled;
+			this.filter = tConfig.filter;
+			this.variant = tConfig.variant;
+		}
+	}
 }
 
 /**
@@ -95,13 +119,13 @@ achromajs.inject = function() {
 	// Check if touch-based
 	document.documentElement.className += ( ( "ontouchstart" in document.documentElement ) ? ' achromajs-touch' : '' );
 
+	achromajs.localConfig.load();
+
 	// Add an additional data attribute to all body root children to retrieve
 	// them easier later on
-	Array.prototype.slice.call( document.body.childNodes, 0 ).forEach(
-
-	function(pNode) {
+	Array.prototype.slice.call( document.body.childNodes, 0 ).forEach( function(pNode) {
 		if ( pNode.nodeName != '#text' && pNode.nodeName != '#comment' ) {
-			pNode.setAttribute( "data-achromajs", "NORMAL" );
+			pNode.setAttribute( "data-achromajs", achromajs.localConfig.variant );
 		}
 	} );
 
@@ -118,15 +142,6 @@ achromajs.inject = function() {
 		var tItem = document.createElement( 'li' );
 		tItem.setAttribute( "data-achromajs-modus", pModeName );
 		tItem.addEventListener( "click", achromajs.setMode );
-
-		var tVariantsList = "";
-
-		Object.keys( achromajs.contrastModes[ pModeName ] ).forEach( function(pModeVariant, pIndex) {
-			tVariantsList += (pIndex > 0 ? " " : "") + pModeVariant;
-		} );
-
-		tItem.setAttribute( "data-achromajs-modus-variants", tVariantsList );
-
 		tContrastModeList.appendChild( tItem );
 	} );
 
@@ -140,14 +155,6 @@ achromajs.inject = function() {
 		var tItem = document.createElement( 'li' );
 		tItem.setAttribute( "data-achromajs-modus", pModeName );
 		tItem.addEventListener( "click", achromajs.setMode );
-
-		var tVariantsList = "";
-
-		Object.keys( achromajs.blindnessModes[ pModeName ] ).forEach( function(pModeVariant, pIndex) {
-			tVariantsList += (pIndex > 0 ? " " : "") + pModeVariant;
-		} );
-
-		tItem.setAttribute( "data-achromajs-modus-variants", tVariantsList );
 
 		tColorModeList.appendChild( tItem );
 	} );
@@ -217,34 +224,61 @@ achromajs.clearNodeClasses = function() {
 /**
  * Apply the selected color or contrast mode
  */
-achromajs.setMode = function(pEvent) {
-	var tSender = pEvent.target;
-	var tModus = tSender.getAttribute( 'data-achromajs-modus' );
-	var tCurrentVariant = tSender.getAttribute( "data-achromajs-selected-variant" );
-	var tVariants = tSender.getAttribute( "data-achromajs-modus-variants" ).split( " " );
+achromajs.setMode = function(pEvent, pModus, pVariant ) {
 
+	var tModus = pModus;
+	var tCurrentVariant = pVariant;
+	
+	if (pEvent != null)	{
+		var tSender = pEvent.target;
+		tModus = tSender.getAttribute( 'data-achromajs-modus' );
+	}
+	
+	var tVariants = Object.keys( achromajs.contrastModes[tModus] || achromajs.blindnessModes[tModus] || {}); 
+	
+	if (tVariants.length == 0) {
+		return;
+	}
+	
 	achromajs.clearNodeClasses();
+	
+	var tNewVariant = "";
 
 	[].forEach.call( document.querySelectorAll( '[data-achromajs]' ), function(pNode) {
 
-		tCurrentVariant = pNode.getAttribute( 'data-achromajs' );
+		var tCurrentVariant = pNode.getAttribute( 'data-achromajs' );
 
 		var tActiveVariantIndex = -1; 
 		
-		tVariants.forEach( function(pVariant, pIndex) {
-			if (pVariant == tCurrentVariant) {
-				tActiveVariantIndex = pIndex;
+		tVariants.forEach( function(pCurrent, pIndex) {
+			if (pCurrent == tCurrentVariant) {
+				tActiveVariantIndex = pVariant == undefined ? pIndex : pIndex - 1;
 			}
 		});
 			
 		if ( tActiveVariantIndex < tVariants.length - 1 ) {
-			pNode.classList.add( "achromajs-" + tVariants[ tActiveVariantIndex + 1 ] );
-			pNode.setAttribute( 'data-achromajs', tVariants[ tActiveVariantIndex + 1 ] );
-			document.body.classList.add( 'achromajs-' + tVariants[ tActiveVariantIndex + 1 ] + '-Body' );
+			tNewVariant = tVariants[ tActiveVariantIndex + 1 ];
+			pNode.classList.add( "achromajs-" + tNewVariant );
+			pNode.setAttribute( 'data-achromajs', tNewVariant );
 		} else {
 			pNode.setAttribute( 'data-achromajs', '' );
+			tModus = null;
 		}
 	} );
+	
+	document.body.classList.add( 'achromajs-' + tNewVariant + '-Body' );
+	
+	achromajs.localConfig.filter = tModus;
+	achromajs.localConfig.variant = tNewVariant;
+	
+	achromajs.localConfig.save();
+}
+
+/**
+ * Restore previously saved filter settings from cookie on page load
+ */
+achromajs.restoreFilter = function() {
+	achromajs.setMode( null, achromajs.localConfig.filter, achromajs.localConfig.variant );
 }
 
 /**
@@ -259,24 +293,12 @@ achromajs.isEnabled = function() {
 		return pKey === "" ? pValue : decodeURIComponent( pValue )
 	} ) : {}
 
+	achromajs.localConfig.load();
+
 	// Set enabled cookie if parameter enable is set
-	var tAchromaCookie = document.cookie.replace( /(?:(?:^|.*;\s*)achromajs\s*\=\s*([^;]*).*$)|^.*$/, "$1" );
-
 	if ( tURIParameters.achromajs ) {
-		if ( tAchromaCookie != "" ) {
-			var tConfig = JSON.parse( tAchromaCookie );
-			achromajs.localConfig.filter = tConfig.filter;
-		}
-
 		achromajs.localConfig.enabled = tURIParameters.achromajs == "enable";
-
-		document.cookie = "achromajs=" + ( JSON.stringify( achromajs.localConfig ) ) + "; expires=Thu, 31 Dec 2099 12:00:00 UTC; path=/";
-	} else {
-		if ( tAchromaCookie != "" ) {
-			var tConfig = JSON.parse( tAchromaCookie );
-			achromajs.localConfig.enabled = tConfig.enabled;
-			achromajs.localConfig.filter = tConfig.filter;
-		}
+		achromajs.localConfig.save();
 	}
 
 	return achromajs.localConfig.enabled;
