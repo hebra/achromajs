@@ -8,15 +8,18 @@
   "chrome://xulschoolhello/locale/browserOverlay.dtd">
 
 <overlay id="xulschoolhello-browser-overlay"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript"
-    src="chrome://xulschoolhello/content/browserOverlay.js" />
+	<script type="application/x-javascript" src="chrome://xulschoolhello/content/browserOverlay.js" />
 
-  <stringbundleset id="stringbundleset">
-    <stringbundle id="xulschoolhello-string-bundle"
-      src="chrome://xulschoolhello/locale/browserOverlay.properties" />
-  </stringbundleset>
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="xulschoolhello-string-bundle"
+			src="chrome://xulschoolhello/locale/browserOverlay.properties" />
+	</stringbundleset>
 
-
+	<hbox id="urlbar-icons">
+		<image id="invertinput12urlbarIcon" insertbefore="star-button"
+			src="chrome://invertinput12/skin/icon16.png" onclick="invertInput12.invertUrl();"
+			tooltiptext="&invertInput12CM.invertUrl;" />
+	</hbox>
 </overlay>
