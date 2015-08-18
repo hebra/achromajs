@@ -1,0 +1,13 @@
+{
+  "title": "AchromaJS",
+  "name": "achromajs",
+  "version": "0.0.0",
+  "description": "AchromaJS is an add-on to simulate different conditions of eye vision.",
+  "main": "content/index.js",
+  "author": "Hendrik Brandt",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "Apache-2.0, CC-BY-SA-4.0"
+}
