@@ -15,26 +15,26 @@ module.exports = function (grunt) {
 				expand: true,
 				cwd: 'src/chrome',
 				src: '**',
-				dest: 'dist/chrome/',
+				dest: 'dist/achromeatic/',
 			},
 			common_chrome: {
 				expand: true,
 				cwd: 'src/common',
 				src: '**',
-				dest: 'dist/chrome/',
+				dest: 'dist/achromeatic/',
 			},
 			assets_chrome: {
 				expand: true,
 				cwd: 'src/assets',
 				src: '**',
-				dest: 'dist/chrome/assets/',
+				dest: 'dist/achromeatic/assets/',
 			},
 			// Firefox Extension
 			assets_firefox: {
 				expand: true,
 				cwd: 'src/assets',
 				src: '**',
-				dest: 'dist/firefox/assets/',
+				dest: 'dist/achromafox/assets/',
 			},
 			// Independent Javascript library
 			assets_library: {
@@ -45,7 +45,19 @@ module.exports = function (grunt) {
 			},
 
 		},
-
+		replace: {
+			version: {
+				src: ['dist/achromeatic/manifest.json'],
+				overwrite: true,
+				replacements: [{
+					from: '%PROJECT_VERSION%',
+					to: "<%= pkg.version %>"
+				}, {
+					from: '%AUTHOR_NAME%',
+					to: '<%= pkg.author.name %>'
+				}]
+			}
+		},
 
 		// concat: {
 		// 	options: {
@@ -105,9 +117,9 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			gruntfile: {
-				files: '<%= jshint.gruntfile.src %>',
-				tasks: ['jshint:gruntfile']
+			sources: {
+				files: 'src/**',
+				tasks: ['default']
 			}
 		}
 	});
@@ -120,9 +132,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-xmlmin');
+	grunt.loadNpmTasks('grunt-text-replace');
 
 	// Default task.
 	//grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'xmlmin']);
-	grunt.registerTask('default', ['copy']);
+	grunt.registerTask('default', ['copy', 'replace']);
 
 };

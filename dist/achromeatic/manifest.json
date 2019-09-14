@@ -1,6 +1,6 @@
 {
     "name": "Achromeatic",
-    "version": "19.10",
+    "version": "19.10.0", 
     "description": "Achromeatic is an AchromaJS-based tool to simulate different conditions of eye vision.",
     "author": "Hendrik Brandt",
     "background": {
