@@ -48,3 +48,15 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
 * **Webkit/Blink** SVG filters on the body background image are not applied due a bug in the rendering engine 
 * **Safari on iOS** Body background image filters are sometimes not reset properly, reloading the page helps
 
+## Developers
+
+### Preconditions
+
+- recommneded editor is Visual Studio Code
+- a recent NPM and Node installed
+- a globally installed grunt (npm -g i  grunt@latest)
+- npm install eslint
+
+### First steps
+
+- after cloning and each pull it is recommended to run `npm install` to update the installed packages to latest changes

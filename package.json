@@ -1,11 +1,11 @@
 {
     "engines": {
-        "node": ">= 0.10.0"
+        "node": ">= 10"
     },
     "name": "achromajs",
     "title": "AchromaJS",
-    "description": "A Javascript library to simulate different conditions of eye vision.",
-    "version": "15.4.1",
+    "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
+    "version": "19.10",
     "main": "dist/achroma.js",
     "author": {
         "name": "Hendrik Brandt"
@@ -16,6 +16,10 @@
     },
     "keywords": [
         "achromajs",
+        "achromatic",
+        "ui",
+        "ui-testing",
+        "testing",
         "accessibility",
         "simulate",
         "colorblind",
@@ -36,12 +40,14 @@
         }
     ],
     "devDependencies": {
-        "grunt": "~0.4.5",
-        "grunt-contrib-jshint": "~0.10.0",
-        "grunt-contrib-watch": "~0.6.1",
-        "grunt-contrib-concat": "~0.4.0",
-        "grunt-contrib-uglify": "~0.5.0",
-        "grunt-contrib-cssmin": "~0.12.2",
+        "eslint": "^6.4.0",
+        "grunt": "^1.0.4",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-cssmin": "^3.0.0",
+        "grunt-contrib-jshint": "^2.1.0",
+        "grunt-contrib-uglify": "^4.0.1",
+        "grunt-contrib-watch": "^1.1.0",
         "grunt-xmlmin": "~0.1.4"
     },
     "scripts": {
