@@ -1,6 +1,6 @@
 {
     "name": "Achromeatic",
-    "version": "%PROJECT_VERSION%", 
+    "version": "%PROJECT_VERSION%",
     "description": "Achromeatic is an AchromaJS-based tool to simulate different conditions of eye vision.",
     "author": "%AUTHOR_NAME%",
     "background": {
@@ -10,9 +10,12 @@
         "persistent": false
     },
     "permissions": [
+        "tabs",
         "activeTab",
         "declarativeContent",
-        "storage"
+        "storage",
+        "http://*/",
+        "https://*/"
     ],
     "page_action": {
         "default_popup": "popup.html",
@@ -23,6 +26,17 @@
             "128": "assets/icon_128.png"
         }
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "all_frames": true,
+            "css": [
+                "filters.css"
+            ]
+        }
+    ],
     "icons": {
         "16": "assets/icon_16.png",
         "32": "assets/icon_32.png",

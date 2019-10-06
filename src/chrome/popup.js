@@ -1,12 +1,3 @@
-// let changeColor = document.getElementById('changeColor');
-
-// chrome.storage.sync.get('color', function (data) {
-//     changeColor.style.backgroundColor = data.color;
-//     changeColor.setAttribute('value', data.color);
-// });
-
-//};
-
 /**
  * Create the popup menu list of possible actions (in addition to No Filter).
  */
@@ -16,26 +7,26 @@ Object.keys(modes).forEach(function (section) {
 
     actionList.append(document.createElement('hr'));
 
-    Object.keys(modes[section]).forEach(function (modeName) {
-
+    modes[section].forEach(function (mode) {
         const input = document.createElement('input');
 
-        input.value = modeName;
-        input.id = modeName;
+        input.value = mode.id;
+        input.id = mode.id;
         input.name = 'Action';
         input.type = 'radio';
 
         const label = document.createElement('label');
-        label.innerHTML = modeName;
-        label.htmlFor = modeName;
+        label.innerHTML = mode.name;
+        label.htmlFor = mode.id;
 
         const li = document.createElement('li');
         li.append(input);
         li.append(label);
-        li.title = modes[section][modeName];
+        li.title = mode.description;
 
         li.setAttribute('data-section', section);
-        li.setAttribute('data-mode', modeName);
+        li.setAttribute('data-mode', mode.id);
+        li.setAttribute('data-cssclass', mode.cssClass);
         li.onclick = actions_onclick;
 
         actionList.append(li);

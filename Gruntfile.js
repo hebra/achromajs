@@ -9,6 +9,16 @@ module.exports = function (grunt) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' + '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 		// Task configuration.
+		imageEmbed: {
+			dist: {
+				src: ["src/filters/filters.css"],
+				dest: "src/common/filters.css",
+				options: {
+					deleteAfterEncoding: false,
+					preEncodeCallback: function (filename) { return true; }
+				}
+			}
+		},
 		copy: {
 			// Chrome Extension
 			chrome: {
@@ -46,7 +56,8 @@ module.exports = function (grunt) {
 
 		},
 		replace: {
-			version: {
+			// Populate version and author placeholders
+			placeholders: {
 				src: ['dist/achromeatic/manifest.json'],
 				overwrite: true,
 				replacements: [{
@@ -56,8 +67,19 @@ module.exports = function (grunt) {
 					from: '%AUTHOR_NAME%',
 					to: '<%= pkg.author.name %>'
 				}]
+			},
+			// Add a #filter to each of the generates base64 SVG filters
+			fix_css_embedded: {
+				src: ['dist/**/filters.css'],
+				overwrite: true,
+				replacements: [{
+					from: ');;',
+					to: '#Filter);'
+				}]
 			}
 		},
+
+
 
 		// concat: {
 		// 	options: {
@@ -124,18 +146,22 @@ module.exports = function (grunt) {
 		}
 	});
 
-	// These plugins provide necessary tasks.
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	// grunt.loadNpmTasks('grunt-contrib-cssmin');
+	// grunt.loadNpmTasks('grunt-contrib-concat');
+	// grunt.loadNpmTasks('grunt-contrib-uglify');
+	// grunt.loadNpmTasks('grunt-contrib-jshint');
+	// grunt.loadNpmTasks('grunt-xmlmin');
+
+
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-xmlmin');
 	grunt.loadNpmTasks('grunt-text-replace');
+	grunt.loadNpmTasks("grunt-image-embed");
+	grunt.loadNpmTasks("grunt-image-embed");
+
 
 	// Default task.
 	//grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'xmlmin']);
-	grunt.registerTask('default', ['copy', 'replace']);
+	grunt.registerTask('default', ['imageEmbed', 'copy', 'replace']);
 
 };

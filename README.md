@@ -59,4 +59,13 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
 
 ### First steps
 
-- after cloning and each pull it is recommended to run `npm install` to update the installed packages to latest changes
+- after cloning the repository (and each pull in gernal), it is recommended to run `npm install` to update the installed packages to latest changes
+
+### Serve the testpage
+
+Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just loading a local file from disk.
+To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
+
+- if not already done install a global Node and NPM
+- next run `npm install` to locally install packages listed in package.json (this will install a simple static webserver)
+- start the server via `node test/server.js` and open http://localhost:8080 in a browser
