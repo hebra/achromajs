@@ -1,36 +1,6 @@
-/**
- * Create the popup menu list of possible actions (in addition to No Filter).
+'use strict';
+
+/*
+ * Trigger the popup rendering from common list.js
  */
-const actionList = document.getElementById('ActionList');
-
-Object.keys(modes).forEach(function (section) {
-
-    actionList.append(document.createElement('hr'));
-
-    modes[section].forEach(function (mode) {
-        const input = document.createElement('input');
-
-        input.value = mode.id;
-        input.id = mode.id;
-        input.name = 'Action';
-        input.type = 'radio';
-
-        const label = document.createElement('label');
-        label.innerHTML = mode.name;
-        label.htmlFor = mode.id;
-
-        const li = document.createElement('li');
-        li.append(input);
-        li.append(label);
-        li.title = mode.description;
-
-        li.setAttribute('data-section', section);
-        li.setAttribute('data-mode', mode.id);
-        li.setAttribute('data-cssclass', mode.cssClass);
-        li.onclick = actions_onclick;
-
-        actionList.append(li);
-
-    });
-});
-
+achromajs.createFilterList('ActionList');

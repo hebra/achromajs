@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Set the filter as stored in the browsers storage by domain.
  */

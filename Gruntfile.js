@@ -20,40 +20,50 @@ module.exports = function (grunt) {
 			}
 		},
 		copy: {
+			assets: {
+				files: [
+					{ expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromeatic/assets/' },
+					{ expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromafox/assets/' },
+					{ expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromajs/assets/' },
+				]
+			},
+			common: {
+				files: [
+					{ expand: true, cwd: 'src/common', src: '**', dest: 'dist/achromeatic/' },
+					{ expand: true, cwd: 'src/common', src: '**', dest: 'dist/achromafox/' },
+					{ expand: true, cwd: 'src/common', src: '**', dest: 'dist/achromajs/' },
+				]
+			},
+
 			// Chrome Extension
-			chrome: {
+			achromeatic: {
 				expand: true,
 				cwd: 'src/chrome',
 				src: '**',
 				dest: 'dist/achromeatic/',
 			},
-			common_chrome: {
-				expand: true,
-				cwd: 'src/common',
-				src: '**',
-				dest: 'dist/achromeatic/',
-			},
-			assets_chrome: {
-				expand: true,
-				cwd: 'src/assets',
-				src: '**',
-				dest: 'dist/achromeatic/assets/',
-			},
 			// Firefox Extension
-			assets_firefox: {
+			achromafox: {
 				expand: true,
-				cwd: 'src/assets',
+				cwd: 'src/firefox',
 				src: '**',
-				dest: 'dist/achromafox/assets/',
+				dest: 'dist/achromafox/',
 			},
 			// Independent Javascript library
-			assets_library: {
+			achromajs: {
 				expand: true,
-				cwd: 'src/assets',
+				cwd: 'src/library',
 				src: '**',
-				dest: 'dist/library/assets/',
+				dest: 'dist/achromajs/',
 			},
-
+			// This is the last task to be executed
+			// It will copy the dist/achromajs folder to test
+			tests: {
+				expand: true,
+				cwd: 'dist',
+				src: 'achroma.js',
+				dest: 'test/',
+			}
 		},
 		replace: {
 			// Populate version and author placeholders
@@ -81,16 +91,50 @@ module.exports = function (grunt) {
 
 
 
-		// concat: {
-		// 	options: {
-		// 		banner: '<%= banner %>',
-		// 		stripBanners: true
-		// 	},
-		// 	dist: {
-		// 		src: ['src/achroma.js', 'src/achroma-webkit-filter-svg-path-fix.js'],
-		// 		dest: 'dist/achroma.js'
-		// 	}
-		// },
+		concat: {
+			javascript: {
+				src: ['dist/achromajs/*js'],
+				dest: 'dist/achroma.js'
+			},
+			css: {
+				src: ['dist/achromajs/*css'],
+				dest: 'dist/achromajs/combined.css'
+			}
+		},
+
+		cssmin: {
+			target: {
+				files: [{
+					expand: true,
+					cwd: 'dist/achromajs/',
+					src: ['combined.css'],
+					dest: 'dist/achromajs',
+					ext: '.min.css'
+				}]
+			}
+		},
+
+		// Embed the AchromaJS library CSS into the generated achrom.js file
+		'string-replace': {
+			inline: {
+				files: [{
+					expand: true,
+					cwd: 'dist',
+					src: 'achroma.js',
+					dest: 'dist'
+				}], 
+				options: {
+					replacements: [
+						{
+							pattern: 'MINIFIED_CSS',
+							replacement: "<%= grunt.file.read('dist/achromajs/combined.min.css') %>"
+						}
+					]
+				}
+			}
+		},
+
+
 		// uglify: {
 		// 	options: {
 		// 		banner: '<%= banner %>'
@@ -98,24 +142,6 @@ module.exports = function (grunt) {
 		// 	dist: {
 		// 		src: '<%= concat.dist.dest %>',
 		// 		dest: 'dist/achroma.min.js'
-		// 	}
-		// },
-		// cssmin: {
-		// 	target: {
-		// 		files: [{
-		// 			expand: true,
-		// 			cwd: 'src',
-		// 			src: ['*.css'],
-		// 			dest: 'dist',
-		// 			ext: '.min.css'
-		// 		}]
-		// 	}
-		// },
-		// xmlmin: {
-		// 	dist: {
-		// 		files: {
-		// 			'dist/color-filters.svg': 'src/color-filters.svg'
-		// 		}
 		// 	}
 		// },
 		jshint: {
@@ -146,22 +172,30 @@ module.exports = function (grunt) {
 		}
 	});
 
-	// grunt.loadNpmTasks('grunt-contrib-cssmin');
-	// grunt.loadNpmTasks('grunt-contrib-concat');
 	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	// grunt.loadNpmTasks('grunt-contrib-jshint');
-	// grunt.loadNpmTasks('grunt-xmlmin');
 
-
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks("grunt-image-embed");
 	grunt.loadNpmTasks("grunt-image-embed");
-
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-string-replace');
 
 	// Default task.
-	//grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'xmlmin']);
-	grunt.registerTask('default', ['imageEmbed', 'copy', 'replace']);
+	grunt.registerTask('default',
+		['imageEmbed',
+			'copy:assets',
+			'copy:common',
+			'copy:achromeatic',
+			'copy:achromafox',
+			'copy:achromajs',
+			'replace',
+			'concat',
+			'cssmin',
+			'string-replace',
+			'copy:tests']);
 
 };
