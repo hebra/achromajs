@@ -8,11 +8,16 @@ module.exports = function (grunt) {
 		banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' + '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
-		// Task configuration.
+		// Run the Typescript compilation
+		run: {
+			tsc: {
+				exec: 'npm run build:grunt'
+			}
+		},
 		imageEmbed: {
 			dist: {
 				src: ["src/filters/filters.css"],
-				dest: "src/common/filters.css",
+				dest: "dist/achromajs/filters.css",
 				options: {
 					deleteAfterEncoding: false,
 					preEncodeCallback: function (filename) { return true; }
@@ -27,41 +32,12 @@ module.exports = function (grunt) {
 					{ expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromajs/assets/' },
 				]
 			},
-			common: {
-				files: [
-					{ expand: true, cwd: 'src/common', src: '**', dest: 'dist/achromeatic/' },
-					{ expand: true, cwd: 'src/common', src: '**', dest: 'dist/achromafox/' },
-					{ expand: true, cwd: 'src/common', src: '**', dest: 'dist/achromajs/' },
-				]
-			},
-
-			// Chrome Extension
-			achromeatic: {
-				expand: true,
-				cwd: 'src/chrome',
-				src: '**',
-				dest: 'dist/achromeatic/',
-			},
-			// Firefox Extension
-			achromafox: {
-				expand: true,
-				cwd: 'src/firefox',
-				src: '**',
-				dest: 'dist/achromafox/',
-			},
-			// Independent Javascript library
-			achromajs: {
-				expand: true,
-				cwd: 'src/library',
-				src: '**',
-				dest: 'dist/achromajs/',
-			},
-			// This is the last task to be executed
-			// It will copy the dist/achromajs folder to test
+			// // This is the last task to be executed
+			// // It will copy the dist/achromajs folder to test
 			tests: {
 				expand: true,
-				cwd: 'dist',
-				src: 'achroma.js',
+				cwd: 'dist/achromajs',
+				src: 'achroma.js*',
 				dest: 'test/',
 			}
 		},
@@ -89,19 +65,15 @@ module.exports = function (grunt) {
 			}
 		},
 
-
-
 		concat: {
-			javascript: {
-				src: ['dist/achromajs/*js'],
-				dest: 'dist/achroma.js'
+			options: {
+				separator: ';',
 			},
-			css: {
-				src: ['dist/achromajs/*css'],
-				dest: 'dist/achromajs/combined.css'
-			}
+			dist: {
+				src: ['src/achromajs/*.css', 'dist/achromajs/filters.css'],
+				dest: 'dist/achromajs/combined.css',
+			},
 		},
-
 		cssmin: {
 			target: {
 				files: [{
@@ -122,7 +94,7 @@ module.exports = function (grunt) {
 					cwd: 'dist',
 					src: 'achroma.js',
 					dest: 'dist'
-				}], 
+				}],
 				options: {
 					replacements: [
 						{
@@ -132,37 +104,7 @@ module.exports = function (grunt) {
 					]
 				}
 			}
-		},
 
-
-		// uglify: {
-		// 	options: {
-		// 		banner: '<%= banner %>'
-		// 	},
-		// 	dist: {
-		// 		src: '<%= concat.dist.dest %>',
-		// 		dest: 'dist/achroma.min.js'
-		// 	}
-		// },
-		jshint: {
-			options: {
-				curly: true,
-				eqeqeq: true,
-				immed: true,
-				latedef: true,
-				newcap: true,
-				noarg: true,
-				sub: true,
-				undef: true,
-				unused: true,
-				boss: true,
-				eqnull: true,
-				browser: true,
-				globals: {}
-			},
-			gruntfile: {
-				src: 'Gruntfile.js'
-			}
 		},
 		watch: {
 			sources: {
@@ -172,12 +114,10 @@ module.exports = function (grunt) {
 		}
 	});
 
-	// grunt.loadNpmTasks('grunt-contrib-uglify');
-	// grunt.loadNpmTasks('grunt-contrib-jshint');
-
-	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-run');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks("grunt-image-embed");
 	grunt.loadNpmTasks("grunt-image-embed");
@@ -186,12 +126,10 @@ module.exports = function (grunt) {
 
 	// Default task.
 	grunt.registerTask('default',
-		['imageEmbed',
+		[
+			'run',
+			'imageEmbed',
 			'copy:assets',
-			'copy:common',
-			'copy:achromeatic',
-			'copy:achromafox',
-			'copy:achromajs',
 			'replace',
 			'concat',
 			'cssmin',

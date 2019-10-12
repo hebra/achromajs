@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outFile": "dist/achromafox/achromafox.js",
+    "outDir": "dist/achromafox",
+  },
+  "exclude": [
+    "src/chrome",
+    "src/library"
+  ]
+}

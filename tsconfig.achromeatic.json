@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outFile": "dist/achromeatic/achromeatic.js",
+    "outDir": "dist/achromeatic"
+  },
+  "exclude": [
+    "src/firefox",
+    "src/library"
+  ]
+}

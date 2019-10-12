@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outFile": "dist/achromajs/achroma.js"
+  },
+  "exclude": [
+    "src/firefox",
+    "src/chrome"
+  ]
+}

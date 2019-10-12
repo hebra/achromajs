@@ -1,4 +1,12 @@
 {
+    "scripts": {
+        "build:achromajs": "npx tsc -p tsconfig.achromajs.json",
+        "build:achromafox": "npx tsc -p tsconfig.achromafox.json",
+        "build:achromeatic": "npx tsc -p tsconfig.achromeatic.json",
+        "build:grunt": "npm run build:achromajs && npm run build:achromafox && npm run build:achromeatic",
+        "build": "npm install && grunt",
+        "start": "grunt watch"
+    },
     "engines": {
         "node": ">= 10"
     },
@@ -40,22 +48,17 @@
         }
     ],
     "devDependencies": {
-        "eslint": "^6.4.0",
+        "eslint": "^6.5.1",
         "grunt": "^1.0.4",
         "grunt-contrib-concat": "^1.0.1",
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-cssmin": "^3.0.0",
-        "grunt-contrib-jshint": "^2.1.0",
-        "grunt-contrib-uglify": "^4.0.1",
         "grunt-contrib-watch": "^1.1.0",
         "grunt-image-embed": "^0.3.3",
+        "grunt-run": "^0.8.1",
         "grunt-string-replace": "^1.3.1",
         "grunt-text-replace": "^0.4.0",
-        "grunt-xmlmin": "~0.1.4"
-    },
-    "scripts": {
-        "build": "npm install && grunt",
-        "start": "grunt watch"
+        "typescript": "^3.6.4"
     },
     "commitplease": {},
     "dependencies": {

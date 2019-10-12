@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "none",
+    "sourceMap": true,
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "removeComments": true,
+    "strict": true
+  },
+  "include": [
+    "src"
+  ]
+}
