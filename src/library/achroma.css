@@ -1,8 +1,25 @@
 .achromajs-wrapper {
+    font-family: sans-serif;
     position: absolute;
     top: 0;
-    left: 0;
+    left: calc(50vw - 100px);
     width: 200px;
-    height: 200px;
-    background: red !important;
+    height: auto;
+}
+
+.achromajs-icon {
+    position: absolute;
+    z-index: 999999;
+    top: -42px;
+    border: none;
+    width: 64px;
+    height: 64px;
+    left: calc(50vw - 32px);
+    cursor: pointer;
+    transition: top 0.5s ease-in;
+}
+
+.achromajs-icon:hover {
+    top: -16px;
+    transition: top 0.5s ease-in;
 }

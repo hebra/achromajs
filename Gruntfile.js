@@ -32,6 +32,13 @@ module.exports = function (grunt) {
 					{ expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromajs/assets/' },
 				]
 			},
+			chrome: {
+				files: [
+					{ expand: true, cwd: 'src/chrome', src: 'manifest.json', dest: 'dist/achromeatic/' },
+					{ expand: true, cwd: 'src/chrome', src: 'popup.html', dest: 'dist/achromeatic/' },
+					{ expand: true, cwd: 'dist/achromajs', src: 'filters.css', dest: 'dist/achromeatic/' }
+				]
+			},
 			// // This is the last task to be executed
 			// // It will copy the dist/achromajs folder to test
 			tests: {
@@ -67,10 +74,10 @@ module.exports = function (grunt) {
 
 		concat: {
 			options: {
-				separator: ';',
+				separator: '\\n',
 			},
 			dist: {
-				src: ['src/achromajs/*.css', 'dist/achromajs/filters.css'],
+				src: ['src/common/default.css', 'src/library/*.css', 'dist/achromajs/filters.css'],
 				dest: 'dist/achromajs/combined.css',
 			},
 		},
@@ -91,14 +98,14 @@ module.exports = function (grunt) {
 			inline: {
 				files: [{
 					expand: true,
-					cwd: 'dist',
+					cwd: 'dist/achromajs',
 					src: 'achroma.js',
-					dest: 'dist'
+					dest: 'dist/achromajs'
 				}],
 				options: {
 					replacements: [
 						{
-							pattern: 'MINIFIED_CSS',
+							pattern: 'PLACEHOLDER_FILTER_CSS',
 							replacement: "<%= grunt.file.read('dist/achromajs/combined.min.css') %>"
 						}
 					]
@@ -130,6 +137,7 @@ module.exports = function (grunt) {
 			'run',
 			'imageEmbed',
 			'copy:assets',
+			'copy:chrome',
 			'replace',
 			'concat',
 			'cssmin',

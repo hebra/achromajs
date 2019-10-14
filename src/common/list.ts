@@ -21,10 +21,8 @@
 /**
  * Build the HTML list of available filters, pre-select the last selected one and inject the new HTML code into the parent object.
  */
-
-
 class FiltersUIList {
-    constructor(private listContainer: HTMLElement | null) {
+    constructor(private listContainer: HTMLElement | null, private clickCallback: any) {
         Filters.getAll().forEach((section) => {
             if (this.listContainer === null) {
                 console.error('List holder element is null.');
@@ -52,7 +50,7 @@ class FiltersUIList {
 
                 li.setAttribute('data-mode', mode.id);
                 li.setAttribute('data-cssclass', mode.cssClass);
-                li.onclick = this.clickHandler;
+                li.onclick = clickCallback;
 
 
                 if (this.listContainer !== null) {
@@ -61,12 +59,6 @@ class FiltersUIList {
 
             });
         });
-    }
-
-    clickHandler(ev: Event) {
-
-        console.log('click', ev);
-
     }
 
 }

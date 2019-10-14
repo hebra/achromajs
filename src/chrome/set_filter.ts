@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="style.css" rel="stylesheet" type="text/css">
-</head>
-
-<!--
+/**
  * Copyright 2015-2019 Hendrik Brandt
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,13 +14,20 @@
  * 
  * @author Hendrik Brandt
  *
--->
+ */
 
-<body>
-    <ul id="ActionList">
-    </ul>
-    <script src="common/modes.js"></script>
-    <script src="common/list.js"></script>
-    <script src="chrome/popup.js"></script>
-</body>
-</html>
+/**
+ * Set the filter as stored in the browsers storage by domain.
+ */
+
+declare var tabId: string;
+declare var tabDomain: number;
+
+if (chrome && chrome.storage && typeof tabId !== 'undefined' && typeof tabDomain !== 'undefined') {
+    chrome.storage.local.get('achromajsSelectedFilter', function (items) {
+        if (items.achromajsSelectedFilter) {
+            document.body.classList.forEach((c) => { if (c.startsWith('achromajs-')) document.body.classList.remove(c); });
+            document.body.classList.add(items.achromajsSelectedFilter[tabDomain]);
+        }
+    });
+}
