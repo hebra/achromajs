@@ -18,9 +18,13 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
 * **High Contrast** Pure black-white filter
 * **Inverted Colors** Invert all colors of a web page
 
-## Freifxo Addon
+## Firefox Addon
+
+Coming soon
 
 ## Chrome Extension
+
+Coming soon
 
 ### Developers
 
@@ -32,6 +36,8 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
 
 
 ## Javascript library
+
+Coming soon
 
 ## Supported browsers
 
