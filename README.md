@@ -18,6 +18,21 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
 * **High Contrast** Pure black-white filter
 * **Inverted Colors** Invert all colors of a web page
 
+## Freifxo Addon
+
+## Chrome Extension
+
+### Developers
+
+* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
+* open the URL [chrome://extensions](chrome://extensions) in Chrome
+* Enable **Developer mode** in the top-right corner
+* click on **Load unpacked**
+* open the folder `dist/achromeatic`
+
+
+## Javascript library
+
 ## Supported browsers
 
 * Mozilla Firefox

@@ -36,6 +36,7 @@ module.exports = function (grunt) {
 				files: [
 					{ expand: true, cwd: 'src/chrome', src: 'manifest.json', dest: 'dist/achromeatic/' },
 					{ expand: true, cwd: 'src/chrome', src: 'popup.html', dest: 'dist/achromeatic/' },
+					{ expand: true, cwd: 'src/chrome', src: 'style.css', dest: 'dist/achromeatic/' },
 					{ expand: true, cwd: 'dist/achromajs', src: 'filters.css', dest: 'dist/achromeatic/' }
 				]
 			},

@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener(function () {
  * Apply selected filter (if any) on page load or change
  */
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (!tab || !tab.url || !tab.url.split(":")[0].startsWith('http')) {
+    if (!tab || !tab.url || !tab.url.startsWith('http')) {
         return;
     }
     if (changeInfo.status == 'complete' && tab.active) {

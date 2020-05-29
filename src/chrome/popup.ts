@@ -23,8 +23,10 @@ class AchromeaticPopup {
     }
 
     public init() {
-        // Inject the list of filters
-        new FiltersUIList(document.getElementById('ActionList'), this.filterClicked)
+        chrome.storage.local.get('achromajsSelectedFilter', (items) => {
+            // Inject the list of filters
+            new FiltersUIList(document.getElementById('ActionList')).build(this.filterClicked, items.achromajsSelectedFilter);
+        });
     }
 
     /**

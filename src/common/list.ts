@@ -16,49 +16,63 @@
  *
  */
 
- /// <reference path="./modes.ts" />
+/// <reference path="./modes.ts" />
 
 /**
  * Build the HTML list of available filters, pre-select the last selected one and inject the new HTML code into the parent object.
  */
 class FiltersUIList {
-    constructor(private listContainer: HTMLElement | null, private clickCallback: any) {
-        Filters.getAll().forEach((section) => {
-            if (this.listContainer === null) {
-                console.error('List holder element is null.');
-                return;
-            }
+    constructor(private listContainer: HTMLElement | null) {
+    }
 
-            this.listContainer.append(document.createElement('hr'));
+    build(clickCallback: any, savedSiteFilters?: any) {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tabDomain = (new URL(tabs[0].url || '').host);
 
-            section.forEach((mode) => {
-                const input = document.createElement('input');
+            const currentTabFilter = savedSiteFilters ? savedSiteFilters[tabDomain] : null;
 
-                input.value = mode.id;
-                input.id = mode.id;
-                input.name = 'Action';
-                input.type = 'radio';
+            Filters.getAll().forEach((section) => {
 
-                const label = document.createElement('label');
-                label.innerHTML = mode.name;
-                label.htmlFor = mode.id;
-
-                const li = document.createElement('li');
-                li.append(input);
-                li.append(label);
-                li.title = mode.description;
-
-                li.setAttribute('data-mode', mode.id);
-                li.setAttribute('data-cssclass', mode.cssClass);
-                li.onclick = clickCallback;
-
-
-                if (this.listContainer !== null) {
-                    this.listContainer.append(li);
+                if (this.listContainer === null) {
+                    console.error('List holder element is null.');
+                    return;
                 }
 
+                this.listContainer.append(document.createElement('hr'));
+
+                section.forEach((mode) => {
+                    const input = document.createElement('input');
+
+                    input.value = mode.id;
+                    input.id = mode.id;
+                    input.name = 'Action';
+                    input.type = 'radio';
+                    input.checked = currentTabFilter && currentTabFilter == mode.cssClass;
+
+                    const label = document.createElement('label');
+                    label.innerHTML = mode.name;
+                    label.htmlFor = mode.id;
+
+                    const li = document.createElement('li');
+                    li.append(input);
+                    li.append(label);
+                    li.title = mode.description;
+
+                    li.setAttribute('data-mode', mode.id);
+                    li.setAttribute('data-cssclass', mode.cssClass);
+                    li.onclick = clickCallback;
+
+
+                    if (this.listContainer !== null) {
+                        this.listContainer.append(li);
+                    }
+
+                });
             });
         });
+
+
+
     }
 
 }
