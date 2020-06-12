@@ -15,19 +15,19 @@
 }
 
 .achromajs-filter-achromatomaly {
-    filter: url(achromatomaly.svg#Filter);;
+    filter: url(achromatomaly.svg#Filter);
 }
 
 .achromajs-filter-achromatopsia {
-    filter: url(achromatopsia.svg#Filter);;
+    filter: url(achromatopsia.svg#Filter);
 }
 
 .achromajs-filter-deuteranopia {
-    filter: url(deuteranopia.svg#Filter);;
+    filter: url(deuteranopia.svg#Filter);
 }
 
 .achromajs-filter-deuteranomaly {
-    filter: url(deuteranomaly.svg#Filter);;
+    filter: url(deuteranomaly.svg#Filter);
 }
 
 .achromajs-filter-invert {
@@ -39,21 +39,21 @@
 }
 
 .achromajs-filter-highcontrast {
-    filter: url(highcontrast.svg#Filter);;
+    filter: url(highcontrast.svg#Filter);
 }
 
 .achromajs-filter-protanomaly {
-    filter: url(protanomaly.svg#Filter);;
+    filter: url(protanomaly.svg#Filter);
 }
 
 .achromajs-filter-protanopia {
-    filter: url(protanopia.svg#Filter);;
+    filter: url(protanopia.svg#Filter);
 }
 
 .achromajs-filter-tritanopia {
-    filter: url(tritanopia.svg#Filter);;
+    filter: url(tritanopia.svg#Filter);
 }
 
 .achromajs-filter-tritanomaly {
-    filter: url(tritanomaly.svg#Filter);;
+    filter: url(tritanomaly.svg#Filter);
 }

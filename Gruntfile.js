@@ -14,16 +14,14 @@ module.exports = function (grunt) {
 				exec: 'npm run build:grunt'
 			}
 		},
-		imageEmbed: {
-			dist: {
-				src: ["src/filters/filters.css"],
-				dest: "dist/achromajs/filters.css",
-				options: {
-					deleteAfterEncoding: false,
-					preEncodeCallback: function (filename) { return true; }
+		cssUrlEmbed: {
+			encodeDirectly: {
+				files: {
+					'dist/achromajs/filters.css': ['src/filters/filters.css']
 				}
 			}
 		},
+
 		copy: {
 			assets: {
 				files: [
@@ -67,8 +65,8 @@ module.exports = function (grunt) {
 				src: ['dist/**/filters.css'],
 				overwrite: true,
 				replacements: [{
-					from: ');;',
-					to: '#Filter);'
+					from: '");',
+					to: '#Filter");'
 				}]
 			}
 		},
@@ -127,8 +125,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-text-replace');
-	grunt.loadNpmTasks("grunt-image-embed");
-	grunt.loadNpmTasks("grunt-image-embed");
+	grunt.loadNpmTasks('grunt-css-url-embed');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-string-replace');
 
@@ -136,7 +133,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('default',
 		[
 			'run',
-			'imageEmbed',
+			'cssUrlEmbed',
 			'copy:assets',
 			'copy:chrome',
 			'replace',

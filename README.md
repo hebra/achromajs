@@ -39,6 +39,15 @@ Coming soon
 
 Coming soon
 
+### Developers
+
+Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just loading a local file from disk.
+To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
+
+* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
+* in a second terminal start `npm run start-server`
+* open the URL http://localhost:8080 in your browser
+
 ## Supported browsers
 
 * Mozilla Firefox
@@ -75,18 +84,3 @@ Coming soon
 
 - recommneded editor is Visual Studio Code
 - a recent NPM and Node installed
-- a globally installed grunt (npm -g i  grunt@latest)
-- npm install eslint
-
-### First steps
-
-- after cloning the repository (and each pull in gernal), it is recommended to run `npm install` to update the installed packages to latest changes
-
-### Serve the testpage
-
-Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just loading a local file from disk.
-To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
-
-- if not already done install a global Node and NPM
-- next run `npm install` to locally install packages listed in package.json (this will install a simple static webserver)
-- start the server via `node test/server.js` and open http://localhost:8080 in a browser
