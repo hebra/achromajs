@@ -33,4 +33,4 @@ jobs:
     - name: Run a multi-line script
       run: |
         npm ci
-        npm run build:grunt
+        npx grunt
