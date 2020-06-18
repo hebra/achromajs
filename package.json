@@ -1,21 +1,22 @@
 {
+    "name": "achromajs",
+    "title": "AchromaJS",
+    "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
+    "version": "20.06.0",
     "scripts": {
+        "clean": "npx rimraf dist",
+        "build:release": "npm run clean && npm run build && npx grunt bundle",
         "build:achromajs": "npx tsc -p tsconfig.achromajs.json",
         "build:achromafox": "npx tsc -p tsconfig.achromafox.json",
         "build:achromeatic": "npx tsc -p tsconfig.achromeatic.json",
         "build:grunt": "npm run build:achromajs && npm run build:achromafox && npm run build:achromeatic",
-        "build": "npm install && grunt",
-        "start": "grunt watch",
-	"start-server": "node test/server.js"
+        "build": "npm ci && npx grunt",
+        "start": "npx grunt watch",
+        "start-server": "node test/server.js"
     },
     "engines": {
         "node": ">= 10"
     },
-    "name": "achromajs",
-    "title": "AchromaJS",
-    "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
-    "version": "19.10.0",
-    "main": "dist/achroma.js",
     "author": {
         "name": "Hendrik Brandt"
     },
@@ -38,20 +39,12 @@
     "bugs": {
         "url": "https://github.com/hebra/achromajs/issues"
     },
-    "licenses": [
-        {
-            "type": "Apache",
-            "url": "https://github.com/hebra/achromajs/blob/master/LICENSE"
-        },
-        {
-            "type": "CC-BY-SA",
-            "url": "https://github.com/hebra/achromajs/blob/master/LICENSE-CC-BY-SA-4.0"
-        }
-    ],
+    "license": "Apache-2.0",
     "devDependencies": {
-        "@types/chrome": "0.0.114",
+        "@types/chrome": "0.0.115",
         "eslint": "^7.2.0",
         "grunt": "^1.1.0",
+        "grunt-contrib-compress": "^1.6.0",
         "grunt-contrib-concat": "^1.0.1",
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-cssmin": "^3.0.0",
@@ -60,6 +53,7 @@
         "grunt-run": "^0.8.1",
         "grunt-string-replace": "^1.3.1",
         "grunt-text-replace": "^0.4.0",
+        "rimraf": "^3.0.2",
         "typescript": "^3.9.5"
     },
     "commitplease": {},

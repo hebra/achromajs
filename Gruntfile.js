@@ -112,6 +112,20 @@ module.exports = function (grunt) {
 			}
 
 		},
+		// zip-up release bundles
+		compress: {
+			achromeatic: {
+				options: {
+					archive: './dist/achromeatic.zip',
+					mode: 'zip'
+				},
+				files: [{
+					src: ['**/*'],
+					cwd: 'dist/achromeatic',
+					expand: true
+				}]
+			}
+		},
 		watch: {
 			sources: {
 				files: 'src/**',
@@ -128,6 +142,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-css-url-embed');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-string-replace');
+	grunt.loadNpmTasks('grunt-contrib-compress');
 
 	// Default task.
 	grunt.registerTask('default',
@@ -141,5 +156,9 @@ module.exports = function (grunt) {
 			'cssmin',
 			'string-replace',
 			'copy:tests']);
+
+	grunt.registerTask('bundle',
+		[
+			'compress:achromeatic']);
 
 };
