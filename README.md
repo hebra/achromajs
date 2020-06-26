@@ -24,8 +24,7 @@ Coming soon
 
 ## Chrome Extension
 
-Available in the official Chrome webstore: [https://chrome.google.com/webstore/detail/achromeatic/aaljbccmkbfdgnlbndbngcfimephplbi](Get Achromeatic Chrome extension)
-Coming soon
+Available in the official Chrome webstore: [Get Achromeatic Chrome extension](https://chrome.google.com/webstore/detail/achromeatic/aaljbccmkbfdgnlbndbngcfimephplbi)
 
 ### Developers
 
