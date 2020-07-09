@@ -1,5 +1,5 @@
 /**
- * Copyright 2015-2019 Hendrik Brandt
+ * Copyright 2015-2020 Hendrik Brandt
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,14 +18,13 @@
 
 /// <reference path="../common/list.ts" />
 
-class AchromeaticPopup {
+class AchromafoxPopup {
     constructor() {
     }
 
     public init() {
-        chrome.storage.local.get('achromajsSelectedFilter', (items) => {
-            // Inject the list of filters
-            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        browser.storage.local.get('achromajsSelectedFilter').then((items) => {
+            browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
                 new FiltersUIList(document.getElementById('ActionList')).build(this.filterClicked, tabs, items.achromajsSelectedFilter);
             });
         });
@@ -37,34 +36,34 @@ class AchromeaticPopup {
      */
     filterClicked(ev: Event) {
         const selectedCSSClass = (<HTMLElement>ev.currentTarget).getAttribute('data-cssclass');
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
             const tabId = tabs[0].id;
             const tabDomain = (new URL(tabs[0].url || '').host);
 
-            chrome.storage.local.get('achromajsSelectedFilter', function (savedTabs) {
+            browser.storage.local.get('achromajsSelectedFilter').then((savedTabs) => {
 
                 const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {};
 
                 newSavedTabs[tabDomain] = selectedCSSClass;
 
-                chrome.storage.local.set({
+                browser.storage.local.set({
                     achromajsSelectedFilter: newSavedTabs
-                }, function () {
-                    chrome.tabs.executeScript(
+                }).then(() => {
+                    browser.tabs.executeScript(
                         tabId || 0, {
                         code: `
                         var tabId=` + tabId + `;
                         var tabDomain='` + tabDomain + `';
                     `
-                    }, function () {
-                        chrome.tabs.executeScript(
+                    }).then(() => {
+                        browser.tabs.executeScript(
                             tabId || 0, {
-                            file: 'chrome/set_filter.js'
-                        }, window.close)
-                    });
-                });
-            });
-        });
+                            file: 'firefox/set_filter.js'
+                        }).then(window.close).catch(console.error);
+                    }).catch(console.error);
+                }).catch(console.error);
+            }).catch(console.error);
+        }).catch(console.error);
     }
 
 }
@@ -73,6 +72,6 @@ class AchromeaticPopup {
  * Inject the AchromJS popup wrapper into the document.body DOM.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    const ajs = new AchromeaticPopup();
+    const ajs = new AchromafoxPopup();
     ajs.init();
 });

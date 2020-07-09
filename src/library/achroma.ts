@@ -61,7 +61,7 @@ class AchromaJS {
         const wrapper = document.createElement('div');
         wrapper.classList.add('achromajs-wrapper');
         wrapper.classList.add('background-color');
-        new FiltersUIList(wrapper).build(this.filterClicked);
+        new FiltersUIList(wrapper).build(this.filterClicked, undefined);
         document.body.append(wrapper);
 
         // Toggle Icon

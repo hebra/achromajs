@@ -1,30 +1,28 @@
 {
     "manifest_version": 2,
-    "name": "Achromeatic",
+    "name": "Achromafox",
     "version": "%PROJECT_VERSION%",
-    "description": "Achromeatic is an AchromaJS-based tool to simulate different conditions of eye vision.",
+    "description": "Achromafox is an AchromaJS-based tool to simulate different conditions of eye vision.",
     "author": "%AUTHOR_NAME%",
+    "background": {
+        "scripts": [
+            "firefox/background.js"
+        ]
+    },
     "icons": {
         "16": "assets/icon_16.png",
         "32": "assets/icon_32.png",
         "48": "assets/icon_48.png",
         "128": "assets/icon_128.png"
     },
-    "background": {
-        "scripts": [
-            "chrome/background.js"
-        ],
-        "persistent": false
-    },
     "permissions": [
         "tabs",
         "activeTab",
-        "declarativeContent",
         "storage",
         "http://*/",
         "https://*/"
     ],
-    "page_action": {
+    "browser_action": {
         "browser_style": true,
         "default_popup": "popup.html",
         "default_icon": {

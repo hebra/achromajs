@@ -1,5 +1,5 @@
 /**
- * Copyright 2015-2019 Hendrik Brandt
+ * Copyright 2015-2020 Hendrik Brandt
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,53 +25,42 @@ class FiltersUIList {
     constructor(private listContainer: HTMLElement | null) {
     }
 
-    build(clickCallback: any, savedSiteFilters?: any) {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            const tabDomain = (new URL(tabs[0].url || '').host);
+    build(clickCallback: any, tabs: any, savedSiteFilters?: any) {
+        const tabDomain = (new URL(tabs[0].url || '').host);
 
-            const currentTabFilter = savedSiteFilters ? savedSiteFilters[tabDomain] : null;
+        let currentTabFilter = savedSiteFilters ? savedSiteFilters[tabDomain] : 'achromajs-filter-none';
+        currentTabFilter = currentTabFilter || 'achromajs-filter-none';
 
-            Filters.getAll().forEach((section) => {
+        Filters.getAll().forEach((section, idx) => {
 
-                if (this.listContainer === null) {
-                    console.error('List holder element is null.');
-                    return;
+            if (this.listContainer === null) {
+                console.error('List holder element is null.');
+                return;
+            }
+
+            if (idx > 0) {
+                this.listContainer.append(document.createElement('hr'));
+            }
+
+            section.forEach((mode) => {
+                const item = document.createElement('div');
+                item.className = "panel-list-item";
+                item.innerHTML =
+                    `<div class="icon"><input type="radio" id="${mode.id}" name="Action" value="${mode.id}" ${currentTabFilter == mode.cssClass ? 'checked' : ''}/></div>
+                     <div class="text"><label for="${mode.id}">${mode.name}</label></div>
+                     <div class="text-shortcut"></div>`
+
+                item.title = mode.description;
+                item.setAttribute('data-mode', mode.id);
+                item.setAttribute('data-cssclass', mode.cssClass);
+                item.onclick = clickCallback;
+
+                if (this.listContainer !== null) {
+                    this.listContainer.append(item);
                 }
 
-                this.listContainer.append(document.createElement('hr'));
-
-                section.forEach((mode) => {
-                    const input = document.createElement('input');
-
-                    input.value = mode.id;
-                    input.id = mode.id;
-                    input.name = 'Action';
-                    input.type = 'radio';
-                    input.checked = currentTabFilter && currentTabFilter == mode.cssClass;
-
-                    const label = document.createElement('label');
-                    label.innerHTML = mode.name;
-                    label.htmlFor = mode.id;
-
-                    const li = document.createElement('li');
-                    li.append(input);
-                    li.append(label);
-                    li.title = mode.description;
-
-                    li.setAttribute('data-mode', mode.id);
-                    li.setAttribute('data-cssclass', mode.cssClass);
-                    li.onclick = clickCallback;
-
-
-                    if (this.listContainer !== null) {
-                        this.listContainer.append(li);
-                    }
-
-                });
             });
         });
-
-
 
     }
 

@@ -38,6 +38,14 @@ module.exports = function (grunt) {
 					{ expand: true, cwd: 'dist/achromajs', src: 'filters.css', dest: 'dist/achromeatic/' }
 				]
 			},
+			firefox: {
+				files: [
+					{ expand: true, cwd: 'src/firefox', src: 'manifest.json', dest: 'dist/achromafox/' },
+					{ expand: true, cwd: 'src/firefox', src: 'style.css', dest: 'dist/achromafox/' },
+					{ expand: true, cwd: 'src/firefox', src: 'popup.html', dest: 'dist/achromafox/' },
+					{ expand: true, cwd: 'dist/achromajs', src: 'filters.css', dest: 'dist/achromafox/' }
+				]
+			},
 			// // This is the last task to be executed
 			// // It will copy the dist/achromajs folder to test
 			tests: {
@@ -50,7 +58,7 @@ module.exports = function (grunt) {
 		replace: {
 			// Populate version and author placeholders
 			placeholders: {
-				src: ['dist/achromeatic/manifest.json'],
+				src: ['dist/**/manifest.json'],
 				overwrite: true,
 				replacements: [{
 					from: '%PROJECT_VERSION%',
@@ -151,6 +159,7 @@ module.exports = function (grunt) {
 			'cssUrlEmbed',
 			'copy:assets',
 			'copy:chrome',
+			'copy:firefox',
 			'replace',
 			'concat',
 			'cssmin',

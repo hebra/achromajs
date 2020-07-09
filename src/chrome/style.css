@@ -4,17 +4,21 @@ body {
     margin: 0;
 }
 
-ul {
+.panel-section-list {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-li {
+.panel-list-item {
     padding: 3px 12px;
     margin: 0;
     list-style: none;
     white-space: nowrap;
+}
+
+.panel-list-item div {
+    display: inline-block;
 }
 
 label {
@@ -23,6 +27,6 @@ label {
     display: inline-block;
 }
 
-li:hover {
+.panel-list-item:hover {
     background: #eee;
 }
