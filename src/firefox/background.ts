@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * See file LICENSE for the full license.
- * 
+ *
  * @author Hendrik Brandt
  *
  */
@@ -19,22 +19,22 @@
 /**
  * Apply selected filter (if any) on page load or change
  */
-browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (!tab || !tab.url || !tab.url.startsWith('http')) {
-        return;
+browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if (!tab || !tab.url || !tab.url.startsWith("http")) {
+        return
     }
-    if (changeInfo.status == 'complete' && tab.active) {
+    if (changeInfo.status === "complete" && tab.active) {
         browser.tabs.executeScript(
             tabId, {
-            code: `
-                var tabId=` + tabId + `;
-                var tabDomain='` + (new URL(tab.url).host) + `';
+                code: `
+                    var tabId=` + tabId + `;
+                    var tabDomain='` + (new URL(tab.url).host) + `';
             `
-        }).then(() => {
+            }).then(() => {
             browser.tabs.executeScript(
                 tabId, {
-                file: 'firefox/set_filter.js'
-            }).catch(console.error);
-        }).catch(console.error);
+                    file: "firefox/set_filter.js"
+                }).catch(console.error)
+        }).catch(console.error)
     }
-});
+})

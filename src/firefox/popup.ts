@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * See file LICENSE for the full license.
- * 
+ *
  * @author Hendrik Brandt
  *
  */
@@ -23,55 +23,54 @@ class AchromafoxPopup {
     }
 
     public init() {
-        browser.storage.local.get('achromajsSelectedFilter').then((items) => {
+        browser.storage.local.get("achromajsSelectedFilter").then((items) => {
             browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-                new FiltersUIList(document.getElementById('ActionList')).build(this.filterClicked, tabs, items.achromajsSelectedFilter);
-            });
-        });
+                new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, items.achromajsSelectedFilter)
+            })
+        })
     }
 
     /**
-     * Handler when a filter was selected from the popup. 
-     * First, store the selected filter CSS class for the current tab's domain, then apply it via the set_filter.js script.
+     * Handler when a filter was selected from the popup.
+     * First, store the selected filter CSS class for the current tab"s domain, then apply it via the set_filter.js script.
      */
     filterClicked(ev: Event) {
-        const selectedCSSClass = (<HTMLElement>ev.currentTarget).getAttribute('data-cssclass');
+        const selectedCSSClass = (<HTMLElement>ev.currentTarget).getAttribute("data-cssclass")
         browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-            const tabId = tabs[0].id;
-            const tabDomain = (new URL(tabs[0].url || '').host);
+            const tabId = tabs[0].id
+            const tabDomain = (new URL(tabs[0].url || "").host)
 
-            browser.storage.local.get('achromajsSelectedFilter').then((savedTabs) => {
+            browser.storage.local.get("achromajsSelectedFilter").then((savedTabs) => {
 
-                const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {};
+                const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {}
 
-                newSavedTabs[tabDomain] = selectedCSSClass;
+                newSavedTabs[tabDomain] = selectedCSSClass
 
                 browser.storage.local.set({
                     achromajsSelectedFilter: newSavedTabs
                 }).then(() => {
                     browser.tabs.executeScript(
                         tabId || 0, {
-                        code: `
-                        var tabId=` + tabId + `;
-                        var tabDomain='` + tabDomain + `';
-                    `
-                    }).then(() => {
+                            code: `
+                                var tabId=` + tabId + `;
+                                var tabDomain="` + tabDomain + `";
+                        `
+                        }).then(() => {
                         browser.tabs.executeScript(
                             tabId || 0, {
-                            file: 'firefox/set_filter.js'
-                        }).then(window.close).catch(console.error);
-                    }).catch(console.error);
-                }).catch(console.error);
-            }).catch(console.error);
-        }).catch(console.error);
+                                file: "firefox/set_filter.js"
+                            }).then(window.close).catch(console.error)
+                    }).catch(console.error)
+                }).catch(console.error)
+            }).catch(console.error)
+        }).catch(console.error)
     }
-
 }
 
 /**
  * Inject the AchromJS popup wrapper into the document.body DOM.
  */
-document.addEventListener('DOMContentLoaded', () => {
-    const ajs = new AchromafoxPopup();
-    ajs.init();
-});
+document.addEventListener("DOMContentLoaded", () => {
+    const ajs = new AchromafoxPopup()
+    ajs.init()
+})

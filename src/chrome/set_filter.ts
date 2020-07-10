@@ -1,5 +1,5 @@
 /**
- * Copyright 2015-2019 Hendrik Brandt
+ * Copyright 2015-2020 Hendrik Brandt
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * See file LICENSE for the full license.
- * 
+ *
  * @author Hendrik Brandt
  *
  */
@@ -20,14 +20,14 @@
  * Set the filter as stored in the browsers storage by domain.
  */
 
-declare var tabId: string;
-declare var tabDomain: number;
+declare var tabId: string
+declare var tabDomain: number
 
-if (chrome && chrome.storage && typeof tabId !== 'undefined' && typeof tabDomain !== 'undefined') {
-    chrome.storage.local.get('achromajsSelectedFilter', function (items) {
+if (chrome && chrome.storage && typeof tabId !== "undefined" && typeof tabDomain !== "undefined") {
+    chrome.storage.local.get("achromajsSelectedFilter", function(items) {
         if (items.achromajsSelectedFilter) {
-            document.body.classList.forEach((c) => { if (c.startsWith('achromajs-')) document.body.classList.remove(c); });
-            document.body.classList.add(items.achromajsSelectedFilter[tabDomain]);
+            document.body.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.body.classList.remove(c) })
+            document.body.classList.add(items.achromajsSelectedFilter[tabDomain])
         }
-    });
+    })
 }

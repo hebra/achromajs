@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * See file LICENSE for the full license.
- * 
+ *
  * @author Hendrik Brandt
  *
  */
@@ -20,15 +20,14 @@
  * Set the filter as stored in the browsers storage by domain.
  */
 
-declare var tabId: string;
-declare var tabDomain: number;
+declare var tabId: string
+declare var tabDomain: number
 
-
-if (browser && browser.storage && typeof tabId !== 'undefined' && typeof tabDomain !== 'undefined') {
-    browser.storage.local.get('achromajsSelectedFilter').then((items) => {
+if (browser && browser.storage && typeof tabId !== "undefined" && typeof tabDomain !== "undefined") {
+    browser.storage.local.get("achromajsSelectedFilter").then((items) => {
         if (items.achromajsSelectedFilter) {
-            document.body.classList.forEach((c) => { if (c.startsWith('achromajs-')) document.body.classList.remove(c); });
-            document.body.classList.add(items.achromajsSelectedFilter[tabDomain]);
+            document.body.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.body.classList.remove(c) })
+            document.body.classList.add(items.achromajsSelectedFilter[tabDomain])
         }
-    });
+    })
 }
