@@ -1,7 +1,7 @@
 ## AchromaJS/Achromafox/Achromeatic
 
 AchromaJS is a Javascript library to simulate different conditions of eye vision.
-Achromafox and Achromeatic are addons for Firefox and Chrome using that library.
+Achromafox and Achromeatic are addons for Firefox and Chrome using this library.
 
 ## Supported Vision Simulations
 
@@ -21,7 +21,7 @@ Achromafox and Achromeatic are addons for Firefox and Chrome using that library.
 
 ## Firefox Addon
 
-Available in the official Firefox addons page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
+Available via the official Firefox addons page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
 
 ## Chrome Extension
 
@@ -33,13 +33,25 @@ Coming soon
 
 ## Supported browsers
 
+The embedded Javascript library supports all modern browsers, including mobile browsers:
 * Mozilla Firefox
 * Google Chrome (and any recent Webkit or Blink based desktop browser)
 * Apple Safari
 * Safari on iOS 7+
 * Chrome on Android
 
+Achromafox requires a recent version of Mozilla Firefox.
+
+Achromeatic requires a recent version of Google Chrome or derived browsers.
+
+
 ## How to use
+
+### Browser addons
+
+Installing the browser addons will add a new button to the browser's toolbar. Clicking the button will open a popup menu which allows to select the different modes.
+
+### Javascript library
 
 * Download the ZIP package and extract it to your web server environment
   * alternatively you can link directly to the Javascript and CSS files on Github
