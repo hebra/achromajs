@@ -1,4 +1,5 @@
 /* global module:false */
+/* eslint-disable */
 module.exports = function (grunt) {
 
 	// Project configuration.
@@ -132,6 +133,17 @@ module.exports = function (grunt) {
 					cwd: 'dist/achromeatic',
 					expand: true
 				}]
+			},
+			achromafox: {
+				options: {
+					archive: './dist/achromafox.xpi',
+					mode: 'zip'
+				},
+				files: [{
+					src: ['**/*'],
+					cwd: 'dist/achromafox',
+					expand: true
+				}]
 			}
 		},
 		watch: {
@@ -168,6 +180,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('bundle',
 		[
-			'compress:achromeatic']);
+			'compress:achromeatic',
+			'compress:achromafox'
+		]);
 
 };
