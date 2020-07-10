@@ -1,6 +1,7 @@
-## AchromaJS
+## AchromaJS/Achromafox/Achromeatic
 
 AchromaJS is a Javascript library to simulate different conditions of eye vision.
+Achromafox and Achromeatic are addons for Firefox and Chrome using that library.
 
 ## Supported Vision Simulations
 
@@ -20,33 +21,15 @@ AchromaJS is a Javascript library to simulate different conditions of eye vision
 
 ## Firefox Addon
 
-Coming soon
+Available in the official Firefox addons page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
 
 ## Chrome Extension
 
 Available in the official Chrome webstore: [Get Achromeatic Chrome extension](https://chrome.google.com/webstore/detail/achromeatic/aaljbccmkbfdgnlbndbngcfimephplbi)
 
-### Developers
-
-* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
-* open the URL [chrome://extensions](chrome://extensions) in Chrome
-* Enable **Developer mode** in the top-right corner
-* click on **Load unpacked**
-* open the folder `dist/achromeatic`
-
-
 ## Javascript library
 
 Coming soon
-
-### Developers
-
-Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just loading a local file from disk.
-To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
-
-* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
-* in a second terminal start `npm run start-server`
-* open the URL http://localhost:8080 in your browser
 
 ## Supported browsers
 
@@ -84,3 +67,23 @@ To allow proper UI/UX testing a small NodeJS test server can be spun up as follo
 
 - recommneded editor is Visual Studio Code
 - a recent NPM and Node installed
+
+### Firefox
+
+Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just loading a local file from disk.
+To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
+
+* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
+* in a second terminal start `npm run start-server`
+* open the URL http://localhost:8080 in your browser
+
+### Chrome
+
+* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
+* open the URL [chrome://extensions](chrome://extensions) in Chrome
+* Enable **Developer mode** in the top-right corner
+* click on **Load unpacked**
+* open the folder `dist/achromeatic`
+
+
+
