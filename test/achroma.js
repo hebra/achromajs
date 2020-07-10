@@ -56,14 +56,30 @@ class FiltersUIList {
             section.forEach((mode) => {
                 const item = document.createElement("div");
                 item.className = "panel-list-item";
-                item.innerHTML =
-                    `<div class="icon"><input type="radio" id="${mode.id}" name="Action" value="${mode.id}" ${currentTabFilter === mode.cssClass ? "checked" : ""}/></div>
-                     <div class="text"><label for="${mode.id}">${mode.name}</label></div>
-                     <div class="text-shortcut"></div>`;
                 item.title = mode.description;
                 item.setAttribute("data-mode", mode.id);
                 item.setAttribute("data-cssclass", mode.cssClass);
                 item.onclick = clickCallback;
+                const icon = document.createElement("div");
+                icon.className = "icon";
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.id = mode.id;
+                input.name = "Action";
+                input.value = mode.id;
+                input.checked = currentTabFilter === mode.cssClass;
+                icon.appendChild(input);
+                item.appendChild(icon);
+                const text = document.createElement("div");
+                text.className = "text";
+                const label = document.createElement("label");
+                label.htmlFor = mode.id;
+                label.textContent = mode.name;
+                text.appendChild(label);
+                item.appendChild(text);
+                const shortcut = document.createElement("div");
+                shortcut.className = "text-shortcut";
+                item.appendChild(shortcut);
                 if (this.listContainer !== null) {
                     this.listContainer.append(item);
                 }
