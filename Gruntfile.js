@@ -1,5 +1,8 @@
 /* global module:false */
 /* eslint-disable */
+
+const sass = require('node-sass');
+
 module.exports = function (grunt) {
 
 	// Project configuration.
@@ -22,7 +25,17 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-
+		sass: {
+			library: {
+				options: {
+					implementation: sass,
+					sourceMap: true
+				},
+				files: {
+					'dist/achromajs/achromajs.css': 'src/library/achroma.scss'
+				}
+			}
+		},
 		copy: {
 			assets: {
 				files: [
@@ -85,20 +98,9 @@ module.exports = function (grunt) {
 				separator: '\\n',
 			},
 			dist: {
-				src: ['src/common/default.css', 'src/library/*.css', 'dist/achromajs/filters.css'],
+				src: ['src/common/default.css', 'dist/achromajs/achromajs.css', 'dist/achromajs/filters.css'],
 				dest: 'dist/achromajs/combined.css',
 			},
-		},
-		cssmin: {
-			target: {
-				files: [{
-					expand: true,
-					cwd: 'dist/achromajs/',
-					src: ['combined.css'],
-					dest: 'dist/achromajs',
-					ext: '.min.css'
-				}]
-			}
 		},
 
 		// Embed the AchromaJS library CSS into the generated achrom.js file
@@ -114,12 +116,20 @@ module.exports = function (grunt) {
 					replacements: [
 						{
 							pattern: 'PLACEHOLDER_FILTER_CSS',
-							replacement: "<%= grunt.file.read('dist/achromajs/combined.min.css') %>"
+							replacement: "<%= grunt.file.read('dist/achromajs/combined.css') %>"
 						}
 					]
 				}
 			}
+		},
 
+		// Minify library JS
+		terser: {
+			library: {
+				files: {
+					'dist/achromajs/achroma.min.js': ['dist/achromajs/achroma.js']
+				}
+			}
 		},
 		// zip-up release bundles
 		compress: {
@@ -160,22 +170,24 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-css-url-embed');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-string-replace');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-terser');
 
 	// Default task.
 	grunt.registerTask('default',
 		[
 			'run',
 			'cssUrlEmbed',
+			'sass:library',
 			'copy:assets',
 			'copy:chrome',
 			'copy:firefox',
 			'replace',
 			'concat',
-			'cssmin',
 			'string-replace',
+			'terser:library',
 			'copy:tests']);
 
 	grunt.registerTask('bundle',

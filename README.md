@@ -69,6 +69,7 @@ Installing the browser addons will add a new button to the browser's toolbar. Cl
 
 ## Known issues
 
+* **Chrome Extension Gallery**: the AchromaJS Chrome extension is not working on the Google Web Store Chrome Extensions Gallery due to restrictions hard-coded into Chrome preventing scripting of these websites
 * **Webkit/Blink** due to [463119](https://code.google.com/p/chromium/issues/detail?id=463119) and [405315](https://code.google.com/p/chromium/issues/detail?id=405315) SVG-based CSS filters require full-path URLs (the library has a workaround script for this)  
 * **Webkit/Blink** SVG filters on the body background image are not applied due a bug in the rendering engine 
 * **Safari on iOS** Body background image filters are sometimes not reset properly, reloading the page helps
