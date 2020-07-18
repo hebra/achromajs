@@ -52,6 +52,8 @@ class AchromaJS {
     }
 
     public init() {
+        const savedTabs = JSON.parse(localStorage.getItem("achromajsSelectedFilter") || "{}") || {}
+
         // Append a new style element to the body containing the minified AchromaJS styles and filters
         const style = document.createElement("style")
         style.innerHTML = this.minifiedCSS
@@ -62,7 +64,7 @@ class AchromaJS {
         this.popup.classList.add("achromajs-wrapper")
         this.popup.classList.add("background-color")
 
-        new FiltersUIList(this.popup).build(this.filterClicked, [{ url: window.location.href }])
+        new FiltersUIList(this.popup).build((ev: Event) => this.filterClicked(ev), [{ url: window.location.href }], savedTabs)
         document.body.append(this.popup)
 
         // Toggle Icon
@@ -71,6 +73,12 @@ class AchromaJS {
         icon.classList.add("achromajs-icon")
         icon.onclick = (ev) => { this.togglePopup(ev) }
         document.body.append(icon)
+
+        // Set filter if there was as saved one in LocalStorage
+        const tabDomain = (new URL(window.location.href).host)
+        if (savedTabs[tabDomain]) {
+            this.applyFilter(savedTabs[tabDomain])
+        }
     }
 
     togglePopup(ev: Event) {
@@ -79,9 +87,30 @@ class AchromaJS {
         }
     }
 
+    applyFilter(selectedCSSClass: string) {
+        // Remove previously added AchromaJS CSS classes
+        document.body.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.body.classList.remove(c) })
+
+        // Set the selected CSS class
+        document.body.classList.add(selectedCSSClass || "")
+    }
 
     filterClicked(ev: Event) {
-        console.log(ev)
+        if (this.popup) {
+            this.popup.style.display = "none"
+        }
+
+        const selectedCSSClass = (<HTMLElement>ev.currentTarget).getAttribute("data-cssclass")
+
+        this.applyFilter(selectedCSSClass || "")
+
+        // Save selected filter in local storage for the current domain
+        if (localStorage) {
+            const tabDomain = (new URL(window.location.href).host)
+            const savedTabs = JSON.parse(localStorage.getItem("achromajsSelectedFilter") || "{}") || {}
+            savedTabs[tabDomain] = selectedCSSClass
+            localStorage.setItem("achromajsSelectedFilter", JSON.stringify(savedTabs))
+        }
     }
 }
 

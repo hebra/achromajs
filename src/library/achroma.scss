@@ -5,27 +5,38 @@
     left: calc(50vw - 100px);
     width: 200px;
     height: auto;
-    display: block;
-}
-
-.panel-list-item {
+    display: none;
+    background: #eee;
+    padding-top: 48px;
+    .panel-list-item {
+        display: block;
+        padding: 5px 9px 5px 4px;
+        margin: 0;
+        .icon {
+            display: table-cell;
+            padding: 0 5px;
+        }
+        .text {
+            display: table-cell;
+        }
+        .text-shortcut {
+            display: table-cell;
+        }
+        &:hover {
+            background: #ccc;
+        }
     
+    }
 }
-
 
 .achromajs-icon {
     position: absolute;
     z-index: 999999;
-    top: -42px;
+    top: -16px;
     border: none;
     width: 64px;
     height: 64px;
     left: calc(50vw - 32px);
     cursor: pointer;
-    transition: top 0.5s ease-in;
-}
-
-.achromajs-icon:hover {
-    top: -16px;
     transition: top 0.5s ease-in;
 }

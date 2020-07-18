@@ -55,7 +55,7 @@ class FiltersUIList {
                 icon.className = "icon"
                 const input = document.createElement("input")
                 input.type = "radio"
-                input.id = mode.id 
+                input.id = mode.id
                 input.name = "Action"
                 input.value = mode.id
                 input.checked = currentTabFilter === mode.cssClass
