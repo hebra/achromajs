@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 		cssUrlEmbed: {
 			encodeDirectly: {
 				files: {
-					'dist/achromajs/filters.css': ['src/filters/filters.css']
+					'dist/achromajs/filters.scss': ['src/filters/filters.scss']
 				}
 			}
 		},
@@ -32,7 +32,8 @@ module.exports = function (grunt) {
 					sourceMap: true
 				},
 				files: {
-					'dist/achromajs/achromajs.css': 'src/library/achroma.scss'
+					'dist/achromajs/achromajs.css': 'src/library/achroma.scss',
+					'dist/achromajs/filters.css': 'dist/achromajs/filters.scss'
 				}
 			}
 		},
