@@ -231,9 +231,9 @@ class AchromaJS {
         }
     }
     applyFilter(selectedCSSClass) {
-        document.body.classList.forEach((c) => { if (c.startsWith("achromajs-"))
-            document.body.classList.remove(c); });
-        document.body.classList.add(selectedCSSClass || "");
+        document.documentElement.classList.forEach((c) => { if (c.startsWith("achromajs-"))
+            document.documentElement.classList.remove(c); });
+        document.documentElement.classList.add(selectedCSSClass || "");
     }
     filterClicked(ev) {
         if (this.popup) {

@@ -26,8 +26,8 @@ declare var tabDomain: number
 if (chrome && chrome.storage && typeof tabId !== "undefined" && typeof tabDomain !== "undefined") {
     chrome.storage.local.get("achromajsSelectedFilter", function(items) {
         if (items.achromajsSelectedFilter) {
-            document.body.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.body.classList.remove(c) })
-            document.body.classList.add(items.achromajsSelectedFilter[tabDomain])
+            document.documentElement.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.documentElement.classList.remove(c) })
+            document.documentElement.classList.add(items.achromajsSelectedFilter[tabDomain])
         }
     })
 }

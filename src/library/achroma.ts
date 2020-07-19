@@ -89,10 +89,10 @@ class AchromaJS {
 
     applyFilter(selectedCSSClass: string) {
         // Remove previously added AchromaJS CSS classes
-        document.body.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.body.classList.remove(c) })
+        document.documentElement.classList.forEach((c) => { if (c.startsWith("achromajs-")) document.documentElement.classList.remove(c) })
 
         // Set the selected CSS class
-        document.body.classList.add(selectedCSSClass || "")
+        document.documentElement.classList.add(selectedCSSClass || "")
     }
 
     filterClicked(ev: Event) {
