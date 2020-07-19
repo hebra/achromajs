@@ -23,6 +23,8 @@ Achromafox and Achromeatic are addons for Firefox and Chrome using this library.
 
 Available via the official Firefox addons page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
 
+See also *Known issues*
+
 ## Chrome Extension
 
 Available in the official Chrome webstore: [Get Achromeatic Chrome extension](https://chrome.google.com/webstore/detail/achromeatic/aaljbccmkbfdgnlbndbngcfimephplbi)
@@ -35,10 +37,13 @@ Coming soon
 
 The embedded Javascript library supports all modern browsers, including mobile browsers:
 * Mozilla Firefox
-* Google Chrome (and any recent Webkit or Blink based desktop browser)
+* Google Chrome (and derived browsers)
+* Chrome on Android
+
+Limited support (see *Known issues*):
 * Apple Safari
 * Safari on iOS 7+
-* Chrome on Android
+
 
 Achromafox requires a recent version of Mozilla Firefox.
 
@@ -53,26 +58,26 @@ Installing the browser addons will add a new button to the browser's toolbar. Cl
 
 ### Javascript library
 
-* Download the ZIP package and extract it to your web server environment
-  * alternatively you can link directly to the Javascript and CSS files on Github
-* include the CSS and Javascript file in your HTML page header, e.g. as this:
-
+* Download the AchromaJS bundled Javascript file
+  * alternatively you can link directly to the Javascript on Github
+* include the Javascript file in your HTML page header, e.g. like this:
 ```
-<link type='text/css' rel='stylesheet' href='achroma/achroma.css' />
-<script type="text/javascript" src="achroma/achroma.js"></script>
+<script type="text/javascript" src="achroma.js"></script>
 ```
 	
-* make sure all files (.js, .css and .svg) are in the same directory
-* load the page in a web browser and add the parameter `achromajs=enable` to the URL
+* load the page in a web browser and add the parameter `achromajs=true` to the URL
   * this parameter will set a per-domain cookie to save the AchromaJS state and applied filter across page changes
-  * to disable AchromaJS use `achromajs=disable` instead
+  * to disable AchromaJS use `achromajs=false` instead
 
 ## Known issues
 
 * **Chrome Extension Gallery**: the AchromaJS Chrome extension is not working on the Google Web Store Chrome Extensions Gallery due to restrictions hard-coded into Chrome preventing scripting of these websites
-* **Webkit/Blink** due to [463119](https://code.google.com/p/chromium/issues/detail?id=463119) and [405315](https://code.google.com/p/chromium/issues/detail?id=405315) SVG-based CSS filters require full-path URLs (the library has a workaround script for this)  
-* **Webkit/Blink** SVG filters on the body background image are not applied due a bug in the rendering engine 
-* **Safari on iOS** Body background image filters are sometimes not reset properly, reloading the page helps
+* **Safari** does not support SVG-based filters yet, therefore only a subset of filters (blur, invert, contrast) will work
+* **Firefox (extension and library)** does not yet fully support `backdrop-filter` therefore the background image on a `body` remains unchanged. There is however developer support for backdrop which can be enabled via 2 `about:config` settings (but might stll not work on some systems):
+  - Enter `about:config` in the address line to open the Firefox configuration internals
+  - search for `gfx.webrender.all` set to `true`
+  - search for `layout.css.backdrop-filter.enabled` set to `true`
+  - restart Firefox
 
 ## Developers
 
