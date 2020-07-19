@@ -54,6 +54,7 @@ class AchromaJS {
     public init() {
         const savedTabs = JSON.parse(localStorage.getItem("achromajsSelectedFilter") || "{}") || {}
 
+
         // Append a new style element to the body containing the minified AchromaJS styles and filters
         const style = document.createElement("style")
         style.innerHTML = this.minifiedCSS
@@ -78,6 +79,11 @@ class AchromaJS {
         const tabDomain = (new URL(window.location.href).host)
         if (savedTabs[tabDomain]) {
             this.applyFilter(savedTabs[tabDomain])
+
+            // Chrome workaround
+            setTimeout(() => {
+                this.applyFilter(savedTabs[tabDomain])
+            }, 100)
         }
     }
 

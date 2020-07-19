@@ -23,7 +23,7 @@ Achromafox and Achromeatic are addons for Firefox and Chrome using this library.
 
 Available via the official Firefox addons page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
 
-See also *Known issues*
+Additional step required, see *Known issues*
 
 ## Chrome Extension
 
@@ -73,7 +73,7 @@ Installing the browser addons will add a new button to the browser's toolbar. Cl
 
 * **Chrome Extension Gallery**: the AchromaJS Chrome extension is not working on the Google Web Store Chrome Extensions Gallery due to restrictions hard-coded into Chrome preventing scripting of these websites
 * **Safari** does not support SVG-based filters yet, therefore only a subset of filters (blur, invert, contrast) will work
-* **Firefox (extension and library)** does not yet fully support `backdrop-filter` therefore the background image on a `body` remains unchanged. There is however developer support for backdrop which can be enabled via 2 `about:config` settings (but might stll not work on some systems):
+* **Firefox (extension and library)** does not yet fully support `backdrop-filter` therefore the background image on a `body` remains unchanged. There is however developer support for backdrop which can be enabled via 2 `about:config` settings:
   - Enter `about:config` in the address line to open the Firefox configuration internals
   - search for `gfx.webrender.all` set to `true`
   - search for `layout.css.backdrop-filter.enabled` set to `true`
