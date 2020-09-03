@@ -2,7 +2,7 @@
     "name": "achromajs",
     "title": "AchromaJS",
     "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
-    "version": "20.7.2",
+    "version": "20.9.0",
     "scripts": {
         "clean": "npx rimraf dist",
         "build:release": "npm run clean && npm run build && npx grunt bundle",
@@ -41,17 +41,17 @@
     },
     "license": "Apache-2.0",
     "devDependencies": {
-        "@types/chrome": "0.0.121",
-        "@types/firefox-webext-browser": "^78.0.0",
-        "@typescript-eslint/eslint-plugin": "^3.6.1",
-        "@typescript-eslint/parser": "^3.6.1",
-        "eslint": "^7.5.0",
+        "@types/chrome": "0.0.122",
+        "@types/firefox-webext-browser": "^78.0.1",
+        "@typescript-eslint/eslint-plugin": "^4.0.1",
+        "@typescript-eslint/parser": "^4.0.1",
+        "eslint": "^7.8.1",
         "eslint-config-standard": "^14.1.1",
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.2.1",
         "eslint-plugin-standard": "^4.0.1",
-        "grunt": "^1.2.1",
+        "grunt": "^1.3.0",
         "grunt-contrib-compress": "^1.6.0",
         "grunt-contrib-concat": "^1.0.1",
         "grunt-contrib-copy": "^1.0.0",
@@ -64,7 +64,7 @@
         "grunt-text-replace": "^0.4.0",
         "node-sass": "^4.14.1",
         "rimraf": "^3.0.2",
-        "typescript": "^3.9.7"
+        "typescript": "^4.0.2"
     },
     "commitplease": {},
     "dependencies": {
