@@ -1,0 +1,28 @@
+name: merge-to-master
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [19.x]
+
+    steps:
+    - uses: actions/checkout@v3.3.0
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: NPM CI
+      run: npm ci
+    - name: Grunt build
+      run: npx grunt
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npx semantic-release
