@@ -22,7 +22,6 @@ jobs:
         uses: actions/setup-node@v3.6.0
         with:
           node-version: ${{ matrix.node-version }}
-          key:
       - name: NPM CI
         run: npm ci
       - name: Grunt build
