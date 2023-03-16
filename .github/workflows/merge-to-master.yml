@@ -1,7 +1,9 @@
 name: merge-to-master
+
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - master
 
 jobs:
   build-release:
