@@ -43,7 +43,7 @@
     "devDependencies": {
         "@semantic-release/changelog": "github:semantic-release/changelog",
         "@semantic-release/git": "^10.0.1",
-        "@types/chrome": "^0.0.231",
+        "@types/chrome": "^0.0.235",
         "@types/firefox-webext-browser": "^111.0.0",
         "@typescript-eslint/eslint-plugin": "^5.48.1",
         "@typescript-eslint/parser": "^5.48.1",
