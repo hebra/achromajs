@@ -4,7 +4,7 @@
     "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
     "version": "23.1.0",
     "scripts": {
-        "clean": "npx rimraf dist",
+        "clean": "npx rimraf dist && npx rimraf release",
         "build:release": "npm run clean && npm run build && npx grunt bundle",
         "build:achromajs": "npx tsc -p tsconfig.achromajs.json",
         "build:achromafox": "npx tsc -p tsconfig.achromafox.json",
