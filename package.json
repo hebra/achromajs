@@ -72,7 +72,7 @@
     "dependencies": {
         "connect": "3.7.0",
         "npm-check-updates": "^16.6.2",
-        "npx": "^3.0.0",
+        "npx": "^10.2.2",
         "serve-static": "^1.15.0"
     }
 }
