@@ -45,7 +45,7 @@ jobs:
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "release/*"
+        artifacts: "release/*.zip,release/*.xpi"
         generateReleaseNotes: true
         makeLatest: true
         tag: ${{ steps.version.outputs.TAG_NAME }}
