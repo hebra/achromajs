@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [19.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v3.3.0
@@ -19,12 +19,33 @@ jobs:
       uses: actions/setup-node@v3.6.0
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Retrieve version
+      run: |
+        echo "TAG_NAME=$(jq -r ".version" package.json)" >> $GITHUB_OUTPUT
+      id: version
+
     - name: NPM CI
       run: npm ci
+
     - name: Grunt build
       run: npx grunt
+
+    - name: Create release tag
+      uses: rickstaa/action-create-tag@v1
+      with:
+        tag: ${{ steps.version.outputs.TAG_NAME }}
+        tag_exists_error: false
+        message: "Release tag ${{ steps.version.outputs.TAG_NAME }}"
+
     - name: Release
+      uses: ncipollo/release-action@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx semantic-release
+      with:
+        allowUpdates: true
+        artifactErrorsFailBuild: true
+        artifacts: "release/*"
+        generateReleaseNotes: true
+        makeLatest: true
+        tag: ${{ steps.version.outputs.TAG_NAME }}

@@ -1,7 +1,7 @@
 /* global module:false */
 /* eslint-disable */
 
-const sass = require('node-sass');
+const sass = require('sass');
 
 module.exports = function (grunt) {
 
@@ -134,9 +134,20 @@ module.exports = function (grunt) {
 		},
 		// zip-up release bundles
 		compress: {
+			achromajs: {
+				options: {
+					archive: './release/achromajs-<%= pkg.version %>.zip',
+					mode: 'zip'
+				},
+				files: [{
+					src: ['**/*'],
+					cwd: 'dist/achromajs',
+					expand: true
+				}]
+			},
 			achromeatic: {
 				options: {
-					archive: './dist/achromeatic.zip',
+					archive: './release/achromeatic-<%= pkg.version %>.zip',
 					mode: 'zip'
 				},
 				files: [{
@@ -147,7 +158,7 @@ module.exports = function (grunt) {
 			},
 			achromafox: {
 				options: {
-					archive: './dist/achromafox.xpi',
+					archive: './release/achromafox-<%= pkg.version %>.xpi',
 					mode: 'zip'
 				},
 				files: [{
@@ -193,6 +204,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('bundle',
 		[
+			'compress:achromajs',
 			'compress:achromeatic',
 			'compress:achromafox'
 		]);

@@ -103,20 +103,26 @@ class AchromaJS {
   height: auto;
   display: none;
   background: #eee;
-  padding-top: 48px; }
-  .achromajs-wrapper .panel-list-item {
-    display: block;
-    padding: 5px 9px 5px 4px;
-    margin: 0; }
-    .achromajs-wrapper .panel-list-item .icon {
-      display: table-cell;
-      padding: 0 5px; }
-    .achromajs-wrapper .panel-list-item .text {
-      display: table-cell; }
-    .achromajs-wrapper .panel-list-item .text-shortcut {
-      display: table-cell; }
-    .achromajs-wrapper .panel-list-item:hover {
-      background: #ccc; }
+  padding-top: 48px;
+}
+.achromajs-wrapper .panel-list-item {
+  display: block;
+  padding: 5px 9px 5px 4px;
+  margin: 0;
+}
+.achromajs-wrapper .panel-list-item .icon {
+  display: table-cell;
+  padding: 0 5px;
+}
+.achromajs-wrapper .panel-list-item .text {
+  display: table-cell;
+}
+.achromajs-wrapper .panel-list-item .text-shortcut {
+  display: table-cell;
+}
+.achromajs-wrapper .panel-list-item:hover {
+  background: #ccc;
+}
 
 .achromajs-icon {
   position: absolute;
@@ -127,7 +133,8 @@ class AchromaJS {
   height: 64px;
   left: calc(50vw - 32px);
   cursor: pointer;
-  transition: top 0.5s ease-in; }
+  transition: top 0.5s ease-in;
+}
 
 /*# sourceMappingURL=achromajs.css.map */\n/*
  * The backdrop-filter: contrast(1); property is required as Firefox otherwise will not apply the filter to the background image.
@@ -136,74 +143,88 @@ class AchromaJS {
 .achromajs-filter-blur1 {
   backdrop-filter: contrast(1);
   filter: blur(1px);
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-blur2 {
   backdrop-filter: contrast(1);
   filter: blur(2px);
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-blur3 {
   backdrop-filter: contrast(1);
   filter: blur(3px);
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 /* Contrast */
 .achromajs-filter-invert {
   backdrop-filter: contrast(1);
   filter: invert(1);
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-lowcontrast {
   backdrop-filter: contrast(1);
   filter: contrast(0.4);
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-highcontrast {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgPGZpbHRlciBpZD0iRmlsdGVyIj4KICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIgcmVzdWx0PSJkZXNhdCIvPgogICAgICA8ZmVDb21wb25lbnRUcmFuc2Zlcj4KICAgICAgICA8ZmVGdW5jUiB0eXBlPSJkaXNjcmV0ZSIgdGFibGVWYWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAuOCAuOSAxIiAvPgogICAgICAgIDxmZUZ1bmNHIHR5cGU9ImRpc2NyZXRlIiB0YWJsZVZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIC44IC45IDEiIC8+CiAgICAgICAgPGZlRnVuY0IgdHlwZT0iZGlzY3JldGUiIHRhYmxlVmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgLjggLjkgMSIgLz4KICAgICAgPC9mZUNvbXBvbmVudFRyYW5zZmVyPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 /* Colour vision */
 .achromajs-filter-achromatomaly {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNjE4IDAuMzIgMC4wNjIgMCAwIDAuMTYzIDAuNzc1IDAuMDYyIDAgMCAwLjE2MyAwLjMyIDAuNTE2IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-achromatopsia {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuMjk5IDAuNTg3IDAuMTE0IDAgMCAwLjI5OSAwLjU4NyAwLjExNCAwIDAgMC4yOTkgMC41ODcgMC4xMTQgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-deuteranopia {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNjI1IDAuMzc1IDAgMCAwIDAuNyAwLjMgMCAwIDAgMCAwLjMgMC43IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-deuteranomaly {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOCAwLjIgMCAwIDAgMC4yNTggMC43NDIgMCAwIDAgMCAwLjE0MiAwLjg1OCAwIDAgMCAwIDAgMSAwIi8+CiAgICA8L2ZpbHRlcj4KPC9zdmc+Cg==#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-protanomaly {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuODE3IDAuMTgzIDAgMCAwIDAuMzMzIDAuNjY3IDAgMCAwIDAgMC4xMjUgMC44NzUgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-protanopia {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNTY3IDAuNDMzIDAgMCAwIDAuNTU4IDAuNDQyIDAgMCAwIDAgMC4yNDIgMC43NTggMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-tritanopia {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOTUgMC4wNSAwIDAgMCAwIDAuNDMzIDAuNTY3IDAgMCAwIDAuNDc1IDAuNTI1IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 .achromajs-filter-tritanomaly {
   backdrop-filter: contrast(1);
   filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOTY3IDAuMDMzIDAgMCAwIDAgMC43MzMgMC4yNjcgMCAwIDAgMC4xODMgMC44MTcgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
-  min-height: 100vh; }
+  min-height: 100vh;
+}
 
 /*# sourceMappingURL=filters.css.map */
     `;
