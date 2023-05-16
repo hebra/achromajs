@@ -1,5 +1,5 @@
 /**
- * Copyright 2015-2020 Hendrik Brandt
+ * Copyright 2015-2023 Hendrik Brandt
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,12 +19,12 @@
 /// <reference path="../common/list.ts" />
 
 class AchromafoxPopup {
-    constructor() {
-    }
 
-    public init() {
+    static instance: AchromafoxPopup = new AchromafoxPopup()
+
+    constructor() {
         browser.storage.local.get("achromajsSelectedFilter").then((items) => {
-            browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+            browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
                 new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, items.achromajsSelectedFilter)
             })
         })
@@ -34,43 +34,38 @@ class AchromafoxPopup {
      * Handler when a filter was selected from the popup.
      * First, store the selected filter CSS class for the current tab"s domain, then apply it via the set_filter.js script.
      */
-    filterClicked(ev: Event) {
+    async filterClicked(ev: Event) {
+
         const selectedCSSClass = (<HTMLElement>ev.currentTarget).getAttribute("data-cssclass")
-        browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-            const tabId = tabs[0].id
-            const tabDomain = (new URL(tabs[0].url || "").host)
 
-            browser.storage.local.get("achromajsSelectedFilter").then((savedTabs) => {
+        if (!await browser.permissions.request({permissions: ["tabs", "activeTab", "scripting"]})) {
+            return
+        }
 
-                const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {}
+        const tabs = await browser.tabs.query({active: true, currentWindow: true})
+        const tabId = tabs[0].id
+        const tabDomain = (new URL(tabs[0].url || "").host)
 
-                newSavedTabs[tabDomain] = selectedCSSClass
+        // Retrieve currently saved achroma tabs and store the new one as part of the updated map
+        const savedTabs = await browser.storage.local.get("achromajsSelectedFilter")
+        const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {}
+        newSavedTabs[tabDomain] = selectedCSSClass
+        await browser.storage.local.set({achromajsSelectedFilter: newSavedTabs})
 
-                browser.storage.local.set({
-                    achromajsSelectedFilter: newSavedTabs
-                }).then(() => {
-                    browser.tabs.executeScript(
-                        tabId || 0, {
-                            code: `
-                                var tabId=` + tabId + `;
-                                var tabDomain="` + tabDomain + `";
-                        `
-                        }).then(() => {
-                        browser.tabs.executeScript(
-                            tabId || 0, {
-                                file: "firefox/set_filter.js"
-                            }).then(window.close).catch(console.error)
-                    }).catch(console.error)
-                }).catch(console.error)
-            }).catch(console.error)
-        }).catch(console.error)
+        await browser.scripting.executeScript({
+            args: [selectedCSSClass],
+            target: {
+                tabId: tabId || 0,
+                allFrames: true
+            },
+            func: (...args) => {
+                document.documentElement.classList.forEach((c) => {
+                    if (c.startsWith("achromajs-")) {
+                        document.documentElement.classList.remove(c)
+                    }
+                })
+                document.documentElement.classList.add(args.pop() || "")
+            }
+        })
     }
 }
-
-/**
- * Inject the AchromJS popup wrapper into the document.body DOM.
- */
-document.addEventListener("DOMContentLoaded", () => {
-    const ajs = new AchromafoxPopup()
-    ajs.init()
-})
