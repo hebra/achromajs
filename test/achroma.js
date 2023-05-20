@@ -173,56 +173,56 @@ class AchromaJS {
 
 .achromajs-filter-highcontrast {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgPGZpbHRlciBpZD0iRmlsdGVyIj4KICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIgcmVzdWx0PSJkZXNhdCIvPgogICAgICA8ZmVDb21wb25lbnRUcmFuc2Zlcj4KICAgICAgICA8ZmVGdW5jUiB0eXBlPSJkaXNjcmV0ZSIgdGFibGVWYWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAuOCAuOSAxIiAvPgogICAgICAgIDxmZUZ1bmNHIHR5cGU9ImRpc2NyZXRlIiB0YWJsZVZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIC44IC45IDEiIC8+CiAgICAgICAgPGZlRnVuY0IgdHlwZT0iZGlzY3JldGUiIHRhYmxlVmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgLjggLjkgMSIgLz4KICAgICAgPC9mZUNvbXBvbmVudFRyYW5zZmVyPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgPGZpbHRlciBpZD0iRmlsdGVyIj4KICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIgcmVzdWx0PSJkZXNhdCIvPgogICAgICA8ZmVDb21wb25lbnRUcmFuc2Zlcj4KICAgICAgICA8ZmVGdW5jUiB0eXBlPSJkaXNjcmV0ZSIgdGFibGVWYWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAuOCAuOSAxIiAvPgogICAgICAgIDxmZUZ1bmNHIHR5cGU9ImRpc2NyZXRlIiB0YWJsZVZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIC44IC45IDEiIC8+CiAgICAgICAgPGZlRnVuY0IgdHlwZT0iZGlzY3JldGUiIHRhYmxlVmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgLjggLjkgMSIgLz4KICAgICAgPC9mZUNvbXBvbmVudFRyYW5zZmVyPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
   min-height: 100vh;
 }
 
 /* Colour vision */
 .achromajs-filter-achromatomaly {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNjE4IDAuMzIgMC4wNjIgMCAwIDAuMTYzIDAuNzc1IDAuMDYyIDAgMCAwLjE2MyAwLjMyIDAuNTE2IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNjE4IDAuMzIgMC4wNjIgMCAwIDAuMTYzIDAuNzc1IDAuMDYyIDAgMCAwLjE2MyAwLjMyIDAuNTE2IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-achromatopsia {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuMjk5IDAuNTg3IDAuMTE0IDAgMCAwLjI5OSAwLjU4NyAwLjExNCAwIDAgMC4yOTkgMC41ODcgMC4xMTQgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuMjk5IDAuNTg3IDAuMTE0IDAgMCAwLjI5OSAwLjU4NyAwLjExNCAwIDAgMC4yOTkgMC41ODcgMC4xMTQgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-deuteranopia {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNjI1IDAuMzc1IDAgMCAwIDAuNyAwLjMgMCAwIDAgMCAwLjMgMC43IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNjI1IDAuMzc1IDAgMCAwIDAuNyAwLjMgMCAwIDAgMCAwLjMgMC43IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-deuteranomaly {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOCAwLjIgMCAwIDAgMC4yNTggMC43NDIgMCAwIDAgMCAwLjE0MiAwLjg1OCAwIDAgMCAwIDAgMSAwIi8+CiAgICA8L2ZpbHRlcj4KPC9zdmc+Cg==#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOCAwLjIgMCAwIDAgMC4yNTggMC43NDIgMCAwIDAgMCAwLjE0MiAwLjg1OCAwIDAgMCAwIDAgMSAwIi8+CiAgICA8L2ZpbHRlcj4KPC9zdmc+Cg==#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-protanomaly {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuODE3IDAuMTgzIDAgMCAwIDAuMzMzIDAuNjY3IDAgMCAwIDAgMC4xMjUgMC44NzUgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuODE3IDAuMTgzIDAgMCAwIDAuMzMzIDAuNjY3IDAgMCAwIDAgMC4xMjUgMC44NzUgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-protanopia {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNTY3IDAuNDMzIDAgMCAwIDAuNTU4IDAuNDQyIDAgMCAwIDAgMC4yNDIgMC43NTggMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuNTY3IDAuNDMzIDAgMCAwIDAuNTU4IDAuNDQyIDAgMCAwIDAgMC4yNDIgMC43NTggMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-tritanopia {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOTUgMC4wNSAwIDAgMCAwIDAuNDMzIDAuNTY3IDAgMCAwIDAuNDc1IDAuNTI1IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOTUgMC4wNSAwIDAgMCAwIDAuNDMzIDAuNTY3IDAgMCAwIDAuNDc1IDAuNTI1IDAgMCAwIDAgMCAxIDAiLz4KICAgIDwvZmlsdGVyPgo8L3N2Zz4K#Filter");
   min-height: 100vh;
 }
 
 .achromajs-filter-tritanomaly {
   backdrop-filter: contrast(1);
-  filter: url("data:null;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOTY3IDAuMDMzIDAgMCAwIDAgMC43MzMgMC4yNjcgMCAwIDAgMC4xODMgMC44MTcgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
+  filter: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZwogICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxmaWx0ZXIgaWQ9IkZpbHRlciI+CiAgICAgICAgPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuOTY3IDAuMDMzIDAgMCAwIDAgMC43MzMgMC4yNjcgMCAwIDAgMC4xODMgMC44MTcgMCAwIDAgMCAwIDEgMCIvPgogICAgPC9maWx0ZXI+Cjwvc3ZnPgo=#Filter");
   min-height: 100vh;
 }
 
@@ -297,4 +297,88 @@ document.addEventListener("DOMContentLoaded", () => {
         ajs.init();
     }
 });
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+    chrome.tabs.get(activeInfo.tabId).then(tab => {
+        if (!tab || !tab.url || !tab.url.startsWith("http") || !tab.active) {
+            return;
+        }
+        setBackgroundFilter(tab);
+    });
+});
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (!tab || !tab.url || !tab.url.startsWith("http") || changeInfo.status !== "complete" || !tab.active) {
+        return;
+    }
+    setBackgroundFilter(tab);
+});
+function setBackgroundFilter(tab) {
+    chrome.scripting.executeScript({
+        target: {
+            tabId: tab.id || 0,
+            allFrames: true
+        },
+        args: [new URL(tab.url || "").host],
+        func: (host) => {
+            chrome.storage.local.get("achromajsSelectedFilter")
+                .then((items) => {
+                if (items.achromajsSelectedFilter) {
+                    document.documentElement.classList.forEach((c) => {
+                        if (c.startsWith("achromajs-"))
+                            document.documentElement.classList.remove(c);
+                    });
+                    document.documentElement.classList.add(items.achromajsSelectedFilter[host]);
+                }
+            });
+        }
+    }).catch(console.error);
+}
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+class AchromafoxPopup {
+    constructor() {
+        chrome.storage.local.get("achromajsSelectedFilter").then((items) => {
+            chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+                new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, items.achromajsSelectedFilter);
+            });
+        });
+    }
+    filterClicked(ev) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const selectedCSSClass = ev.currentTarget.getAttribute("data-cssclass");
+            if (!(yield chrome.permissions.request({ permissions: ["tabs", "activeTab", "scripting"] }))) {
+                return;
+            }
+            const tabs = yield chrome.tabs.query({ active: true, currentWindow: true });
+            const tabId = tabs[0].id;
+            const tabDomain = (new URL(tabs[0].url || "").host);
+            const savedTabs = yield chrome.storage.local.get("achromajsSelectedFilter");
+            const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {};
+            newSavedTabs[tabDomain] = selectedCSSClass;
+            yield chrome.storage.local.set({ achromajsSelectedFilter: newSavedTabs });
+            yield chrome.scripting.executeScript({
+                args: [selectedCSSClass],
+                target: {
+                    tabId: tabId || 0,
+                    allFrames: true
+                },
+                func: (selectedCSSClass) => {
+                    document.documentElement.classList.forEach((c) => {
+                        if (c.startsWith("achromajs-")) {
+                            document.documentElement.classList.remove(c);
+                        }
+                    });
+                    document.documentElement.classList.add(selectedCSSClass || "");
+                }
+            });
+        });
+    }
+}
+AchromafoxPopup.instance = new AchromafoxPopup();
 //# sourceMappingURL=achroma.js.map

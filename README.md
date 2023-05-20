@@ -21,13 +21,13 @@ Achromafox and Achromeatic are addons for Firefox and Chrome using this library.
 
 ## Firefox Addon
 
-Available via the official Firefox addons page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
-
-Additional step required, see *Known issues*
+Available via the official Firefox addons
+page: [Get Achromafox Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/achromafox/)
 
 ## Chrome Extension
 
-Available in the official Chrome webstore: [Get Achromeatic Chrome extension](https://chrome.google.com/webstore/detail/achromeatic/aaljbccmkbfdgnlbndbngcfimephplbi)
+Available in the official Chrome
+webstore: [Get Achromeatic Chrome extension](https://chrome.google.com/webstore/detail/achromeatic/aaljbccmkbfdgnlbndbngcfimephplbi)
 
 ## Javascript library
 
@@ -36,48 +36,49 @@ Coming soon
 ## Supported browsers
 
 The embedded Javascript library supports all modern browsers, including mobile browsers:
+
 * Mozilla Firefox
 * Google Chrome (and derived browsers)
 * Chrome on Android
 
 Limited support (see *Known issues*):
+
 * Apple Safari
 * Safari on iOS 7+
-
-
-Achromafox requires a recent version of Mozilla Firefox.
-
-Achromeatic requires a recent version of Google Chrome or derived browsers.
-
 
 ## How to use
 
 ### Browser addons
 
-Installing the browser addons will add a new button to the browser's toolbar. Clicking the button will open a popup menu which allows to select the different modes.
+Installing the browser addons will add a new button to the browser's toolbar.
+Clicking the button will open a popup menu which allows to select the different modes.
+
+Enabling a filter on a website will store that filter for the website's domain name,
+and will restore the selected filter when the page is loaded next time.
+
+Hint: as the filter restore feature requires additional browser privileges it can be necessary
+to grant these permissions via the addon management settings.
 
 ### Javascript library
 
 * Download the AchromaJS bundled Javascript file
-  * alternatively you can link directly to the Javascript on Github
+    * alternatively you can link directly to the Javascript on Github
 * include the Javascript file in your HTML page header, e.g. like this:
+
 ```
 <script type="text/javascript" src="achroma.js"></script>
 ```
-	
+
 * load the page in a web browser and add the parameter `achromajs=true` to the URL
-  * this parameter will set a per-domain cookie to save the AchromaJS state and applied filter across page changes
-  * to disable AchromaJS use `achromajs=false` instead
+    * this parameter will set a per-domain cookie to save the AchromaJS state and applied filter across page changes
+    * to disable AchromaJS use `achromajs=false` instead
 
 ## Known issues
 
-* **Chrome Extension Gallery**: the AchromaJS Chrome extension is not working on the Google Web Store Chrome Extensions Gallery due to restrictions hard-coded into Chrome preventing scripting of these websites
-* **Safari** does not support SVG-based filters yet, therefore only a subset of filters (blur, invert, contrast) will work
-* **Firefox (extension and library)** does not yet fully support `backdrop-filter` therefore the background image on a `body` remains unchanged. There is however developer support for backdrop which can be enabled via 2 `about:config` settings:
-  - Enter `about:config` in the address line to open the Firefox configuration internals
-  - search for `gfx.webrender.all` set to `true`
-  - search for `layout.css.backdrop-filter.enabled` set to `true`
-  - restart Firefox
+* **Chrome Extension Gallery**: the AchromaJS Chrome extension is not working on the Google Web Store Chrome Extensions
+  Gallery due to restrictions hard-coded into Chrome preventing scripting of these websites
+* **Safari** does not support SVG-based filters yet, therefore only a subset of filters (blur, invert, contrast) will
+  work
 
 ## Developers
 
@@ -88,16 +89,19 @@ Installing the browser addons will add a new button to the browser's toolbar. Cl
 
 ### Firefox
 
-Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just loading a local file from disk.
+Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just
+loading a local file from disk.
 To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
 
-* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
+* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile
+  changed files into `dist`
 * in a second terminal start `npm run start-server`
 * open the URL http://localhost:8080 in your browser
 
 ### Chrome
 
-* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile changed files into `dist`
+* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile
+  changed files into `dist`
 * open the URL [chrome://extensions](chrome://extensions) in Chrome
 * Enable **Developer mode** in the top-right corner
 * click on **Load unpacked**
