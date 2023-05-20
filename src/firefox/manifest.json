@@ -6,7 +6,7 @@
   "author": "%AUTHOR_NAME%",
   "background": {
     "scripts": [
-      "firefox/background.js"
+      "webextension/background.js"
     ]
   },
   "icons": {
@@ -19,7 +19,8 @@
     "tabs",
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "webNavigation"
   ],
   "optional_permissions": [
     "tabs",
@@ -46,14 +47,14 @@
       ],
       "all_frames": true,
       "css": [
-        "filters.css"
+        "filters/filters.css"
       ]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "*.svg"
+        "filters/*.*"
       ],
       "matches": [
         "<all_urls>"

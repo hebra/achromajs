@@ -4,90 +4,90 @@
 
 /* Blur */
 .achromajs-filter-blur1 {
-    backdrop-filter: contrast(1);
-    filter: blur(1px);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: blur(1px);
+  min-height: 100vh;
 }
 
 .achromajs-filter-blur2 {
-    backdrop-filter: contrast(1);
-    filter: blur(2px);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: blur(2px);
+  min-height: 100vh;
 }
 
 .achromajs-filter-blur3 {
-    backdrop-filter: contrast(1);
-    filter: blur(3px);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: blur(3px);
+  min-height: 100vh;
 }
 
 /* Contrast */
 .achromajs-filter-invert {
-    backdrop-filter: contrast(1);
-    filter: invert(1);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: invert(1);
+  min-height: 100vh;
 }
 
 .achromajs-filter-lowcontrast {
-    backdrop-filter: contrast(1);
-    filter: contrast(0.4);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: contrast(0.4);
+  min-height: 100vh;
 }
 
 .achromajs-filter-highcontrast {
-    backdrop-filter: contrast(1);
-    filter: url(highcontrast.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(highcontrast.svg#Filter);
+  min-height: 100vh;
 }
 
 /* Colour vision */
 
 .achromajs-filter-achromatomaly {
-    backdrop-filter: contrast(1);
-    filter: url(achromatomaly.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(achromatomaly.svg#Filter);
+  min-height: 100vh;
 }
 
 .achromajs-filter-achromatopsia {
-    backdrop-filter: contrast(1);
-    filter: url(achromatopsia.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(achromatopsia.svg#Filter);
+  min-height: 100vh;
 }
 
 .achromajs-filter-deuteranopia {
-    backdrop-filter: contrast(1);
-    filter: url(deuteranopia.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(deuteranopia.svg#Filter);
+  min-height: 100vh;
 
 }
 
 .achromajs-filter-deuteranomaly {
-    backdrop-filter: contrast(1);
-    filter: url(deuteranomaly.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(deuteranomaly.svg#Filter);
+  min-height: 100vh;
 }
 
 
 .achromajs-filter-protanomaly {
-    backdrop-filter: contrast(1);
-    filter: url(protanomaly.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(protanomaly.svg#Filter);
+  min-height: 100vh;
 }
 
 .achromajs-filter-protanopia {
-    backdrop-filter: contrast(1);
-    filter: url(protanopia.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(protanopia.svg#Filter);
+  min-height: 100vh;
 }
 
 .achromajs-filter-tritanopia {
-    backdrop-filter: contrast(1);
-    filter: url(tritanopia.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(tritanopia.svg#Filter);
+  min-height: 100vh;
 }
 
 .achromajs-filter-tritanomaly {
-    backdrop-filter: contrast(1);
-    filter: url(tritanomaly.svg#Filter);
-    min-height: 100vh;
+  backdrop-filter: contrast(1);
+  filter: url(tritanomaly.svg#Filter);
+  min-height: 100vh;
 }

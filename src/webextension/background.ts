@@ -19,7 +19,8 @@
 /**
  * Apply selected filter (if any) on page load or change
  */
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (!tab || !tab.url || !tab.url.startsWith("http")) {
         return
     }
@@ -28,21 +29,21 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         return
     }
 
-    browser.scripting.executeScript(
+    chrome.scripting.executeScript(
         {
             target: {
                 tabId,
                 allFrames: true
             },
             args: [new URL(tab.url).host],
-            func: (...args) => {
-                browser.storage.local.get("achromajsSelectedFilter")
+            func: (host) => {
+                chrome.storage.local.get("achromajsSelectedFilter")
                     .then((items) => {
                         if (items.achromajsSelectedFilter) {
                             document.documentElement.classList.forEach((c) => {
                                 if (c.startsWith("achromajs-")) document.documentElement.classList.remove(c)
                             })
-                            document.documentElement.classList.add(items.achromajsSelectedFilter[args.pop() || ""])
+                            document.documentElement.classList.add(items.achromajsSelectedFilter[host || ""])
                         }
                     })
             }

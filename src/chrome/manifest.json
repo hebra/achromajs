@@ -1,48 +1,60 @@
 {
-    "manifest_version": 2,
-    "name": "Achromeatic",
-    "version": "%PROJECT_VERSION%",
-    "description": "Achromeatic is an AchromaJS-based tool to simulate different conditions of eye vision.",
-    "author": "%AUTHOR_NAME%",
-    "icons": {
-        "16": "assets/icon_16.png",
-        "32": "assets/icon_32.png",
-        "48": "assets/icon_48.png",
-        "128": "assets/icon_128.png"
-    },
-    "background": {
-        "scripts": [
-            "chrome/background.js"
-        ],
-        "persistent": false
-    },
-    "permissions": [
-        "tabs",
-        "activeTab",
-        "declarativeContent",
-        "storage",
-        "http://*/",
-        "https://*/"
-    ],
-    "page_action": {
-        "browser_style": true,
-        "default_popup": "popup.html",
-        "default_icon": {
-            "16": "assets/icon_16.png",
-            "32": "assets/icon_32.png",
-            "48": "assets/icon_48.png",
-            "128": "assets/icon_128.png"
-        }
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "all_frames": true,
-            "css": [
-                "filters.css"
-            ]
-        }
-    ]
+  "manifest_version": 3,
+  "name": "Achromeatic",
+  "version": "%PROJECT_VERSION%",
+  "description": "Achromeatic is an AchromaJS-based tool to simulate different conditions of eye vision.",
+  "author": "%AUTHOR_NAME%",
+  "background": {
+    "service_worker": "webextension/background.js",
+    "mode": "module"
+  },
+  "icons": {
+    "16": "assets/icon_16.png",
+    "32": "assets/icon_32.png",
+    "48": "assets/icon_48.png",
+    "128": "assets/icon_128.png"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting",
+    "storage",
+    "declarativeContent",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "browser_style": true,
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icon_16.png",
+      "32": "assets/icon_32.png",
+      "48": "assets/icon_48.png",
+      "128": "assets/icon_128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "css": [
+        "filters/filters.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "filters/*.svg",
+        "*.svg"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
 }

@@ -18,6 +18,13 @@ module.exports = function (grunt) {
                 exec: 'npm run build:grunt'
             }
         },
+        cssUrlEmbed: {
+            encodeDirectly: {
+                files: {
+                    'dist/achromajs/filters.scss': ['src/filters/filters.scss']
+                }
+            }
+        },
         sass: {
             library: {
                 options: {
@@ -26,7 +33,9 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'dist/achromajs/achromajs.css': 'src/library/achroma.scss',
-                    'dist/achromajs/filters.css': 'src/filters/filters.scss'
+                    'dist/achromeatic/filters/filters.css': 'dist/achromajs/filters.scss',
+                    'dist/achromajs/filters.css': 'dist/achromajs/filters.scss',
+                    'dist/achromafox/filters/filters.css': 'src/filters/filters.scss'
                 }
             }
         },
@@ -37,25 +46,23 @@ module.exports = function (grunt) {
                     {expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromafox/assets/'},
                     {expand: true, cwd: 'src/assets', src: '**', dest: 'dist/achromajs/assets/'},
 
-                    {expand: true, cwd: 'src/filters', src: '**', dest: 'dist/achromeatic/'},
-                    {expand: true, cwd: 'src/filters', src: '**', dest: 'dist/achromafox/'},
-                    {expand: true, cwd: 'src/filters', src: '**', dest: 'dist/achromajs/'},
+                    {expand: true, cwd: 'src/filters', src: '*.svg', dest: 'dist/achromafox/filters'},
                 ]
             },
             chrome: {
                 files: [
                     {expand: true, cwd: 'src/chrome', src: 'manifest.json', dest: 'dist/achromeatic/'},
-                    {expand: true, cwd: 'src/chrome', src: 'popup.html', dest: 'dist/achromeatic/'},
-                    {expand: true, cwd: 'src/chrome', src: 'style.css', dest: 'dist/achromeatic/'},
-                    {expand: true, cwd: 'dist/achromajs', src: 'filters.css', dest: 'dist/achromeatic/'}
+                    {expand: true, cwd: 'src/webextension', src: 'popup.html', dest: 'dist/achromeatic/'},
+                    {expand: true, cwd: 'src/webextension', src: 'style.css', dest: 'dist/achromeatic/'},
+                    {expand: true, cwd: 'dist/achromajs', src: 'filters/filters.css', dest: 'dist/achromeatic/'}
                 ]
             },
             firefox: {
                 files: [
                     {expand: true, cwd: 'src/firefox', src: 'manifest.json', dest: 'dist/achromafox/'},
-                    {expand: true, cwd: 'src/firefox', src: 'style.css', dest: 'dist/achromafox/'},
-                    {expand: true, cwd: 'src/firefox', src: 'popup.html', dest: 'dist/achromafox/'},
-                    {expand: true, cwd: 'dist/achromajs', src: 'filters.css', dest: 'dist/achromafox/'}
+                    {expand: true, cwd: 'src/webextension', src: 'style.css', dest: 'dist/achromafox/'},
+                    {expand: true, cwd: 'src/webextension', src: 'popup.html', dest: 'dist/achromafox/'},
+                    {expand: true, cwd: 'dist/achromajs', src: 'filters/filters.css', dest: 'dist/achromafox/'}
                 ]
             },
             // // This is the last task to be executed
@@ -87,6 +94,15 @@ module.exports = function (grunt) {
                 replacements: [{
                     from: '");',
                     to: '#Filter");'
+                }]
+            },
+            // Fix data:null in data-uri after CSS embedding of SVG files
+            fix_data_null: {
+                src: ['dist/**/filters.css'],
+                overwrite: true,
+                replacements: [{
+                    from: 'data:null',
+                    to: 'data:image/svg+xml'
                 }]
             }
         },
@@ -188,6 +204,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default',
         [
             'run',
+            'cssUrlEmbed',
             'sass:library',
             'copy:assets',
             'copy:chrome',

@@ -23,8 +23,8 @@ class AchromafoxPopup {
     static instance: AchromafoxPopup = new AchromafoxPopup()
 
     constructor() {
-        browser.storage.local.get("achromajsSelectedFilter").then((items) => {
-            browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+        chrome.storage.local.get("achromajsSelectedFilter").then((items) => {
+            chrome.tabs.query({active: true, currentWindow: true}).then((tabs) => {
                 new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, items.achromajsSelectedFilter)
             })
         })
@@ -38,34 +38,35 @@ class AchromafoxPopup {
 
         const selectedCSSClass = (<HTMLElement>ev.currentTarget).getAttribute("data-cssclass")
 
-        if (!await browser.permissions.request({permissions: ["tabs", "activeTab", "scripting"]})) {
+        if (!await chrome.permissions.request({permissions: ["tabs", "activeTab", "scripting"]})) {
             return
         }
 
-        const tabs = await browser.tabs.query({active: true, currentWindow: true})
+        const tabs = await chrome.tabs.query({active: true, currentWindow: true})
         const tabId = tabs[0].id
         const tabDomain = (new URL(tabs[0].url || "").host)
 
         // Retrieve currently saved achroma tabs and store the new one as part of the updated map
-        const savedTabs = await browser.storage.local.get("achromajsSelectedFilter")
+        const savedTabs = await chrome.storage.local.get("achromajsSelectedFilter")
         const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {}
         newSavedTabs[tabDomain] = selectedCSSClass
-        await browser.storage.local.set({achromajsSelectedFilter: newSavedTabs})
+        await chrome.storage.local.set({achromajsSelectedFilter: newSavedTabs})
 
-        await browser.scripting.executeScript({
+        await chrome.scripting.executeScript({
             args: [selectedCSSClass],
             target: {
                 tabId: tabId || 0,
                 allFrames: true
             },
-            func: (...args) => {
+            func: (selectedCSSClass) => {
                 document.documentElement.classList.forEach((c) => {
                     if (c.startsWith("achromajs-")) {
                         document.documentElement.classList.remove(c)
                     }
                 })
-                document.documentElement.classList.add(args.pop() || "")
+                document.documentElement.classList.add(selectedCSSClass || "")
             }
         })
     }
 }
+
