@@ -20,22 +20,30 @@
  * Apply selected filter (if any) on page load or change
  */
 
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+    chrome.tabs.get(activeInfo.tabId).then(tab => {
+        if (!tab || !tab.url || !tab.url.startsWith("http") || !tab.active) {
+            return
+        }
+        setBackgroundFilter(tab)
+    })
+})
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (!tab || !tab.url || !tab.url.startsWith("http")) {
+    if (!tab || !tab.url || !tab.url.startsWith("http") || changeInfo.status !== "complete" || !tab.active) {
         return
     }
+    setBackgroundFilter(tab)
+})
 
-    if (changeInfo.status !== "complete" || !tab.active) {
-        return
-    }
-
+function setBackgroundFilter(tab: chrome.tabs.Tab) {
     chrome.scripting.executeScript(
         {
             target: {
-                tabId,
+                tabId: tab.id || 0,
                 allFrames: true
             },
-            args: [new URL(tab.url).host],
+            args: [new URL(tab.url || "").host],
             func: (host) => {
                 chrome.storage.local.get("achromajsSelectedFilter")
                     .then((items) => {
@@ -43,9 +51,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                             document.documentElement.classList.forEach((c) => {
                                 if (c.startsWith("achromajs-")) document.documentElement.classList.remove(c)
                             })
-                            document.documentElement.classList.add(items.achromajsSelectedFilter[host || ""])
+                            document.documentElement.classList.add(items.achromajsSelectedFilter[host])
                         }
                     })
             }
         }).catch(console.error)
-})
+}
