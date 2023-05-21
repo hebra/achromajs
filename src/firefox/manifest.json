@@ -4,6 +4,12 @@
   "version": "%PROJECT_VERSION%",
   "description": "Achromafox is an AchromaJS-based tool to simulate different conditions of eye vision.",
   "author": "%AUTHOR_NAME%",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "achromafox@hebra.github.io",
+      "strict_min_version": "109.0"
+    }
+  },
   "background": {
     "scripts": [
       "webextension/background.js"
