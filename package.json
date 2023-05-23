@@ -2,7 +2,7 @@
   "name": "achromajs",
   "title": "AchromaJS",
   "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
-  "version": "23.5.3",
+  "version": "23.5.4",
   "scripts": {
     "clean": "npx rimraf dist && npx rimraf release",
     "build:release": "npm run clean && npm run build && npx grunt bundle",
