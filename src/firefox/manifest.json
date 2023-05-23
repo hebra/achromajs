@@ -6,7 +6,7 @@
   "author": "%AUTHOR_NAME%",
   "browser_specific_settings": {
     "gecko": {
-      "id": "achromafox@hebra.github.io",
+      "id": "{bd6259af-e478-46c6-83c9-d3fcab41725f}",
       "strict_min_version": "109.0",
       "update_url": "https://raw.githubusercontent.com/hebra/achromajs/master/updates.json"
     }
