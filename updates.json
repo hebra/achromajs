@@ -3,11 +3,11 @@
     "{achromafox@hebra.github.io}": {
       "updates": [
         {
-          "version": "23.5.4",
-          "update_link": "https://github.com/hebra/achromajs/releases/download/23.5.4/achromafox-23.5.4.xpi",
+          "version": "23.5.5",
+          "update_link": "https://github.com/hebra/achromajs/releases/download/23.5.5/achromafox-23.5.5.xpi",
           "applications": {
             "gecko": {
-              "strict_min_version": "109"
+              "strict_min_version": "109.0"
             }
           }
         }
