@@ -2,7 +2,7 @@
   "name": "achromajs",
   "title": "AchromaJS",
   "description": "A Javascript library and browser extensions to simulate different conditions of eye vision.",
-  "version": "23.7.0",
+  "version": "24.3.27",
   "scripts": {
     "clean": "npx rimraf dist && npx rimraf release",
     "build:release": "npm run clean && npm run build && npx grunt bundle",
@@ -43,10 +43,10 @@
   "devDependencies": {
     "@semantic-release/changelog": "github:semantic-release/changelog",
     "@semantic-release/git": "^10.0.1",
-    "@types/chrome": "^0.0.236",
-    "@types/firefox-webext-browser": "^111.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
-    "@typescript-eslint/parser": "^5.48.1",
+    "@types/chrome": "^0.0.263",
+    "@types/firefox-webext-browser": "^120.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.31.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -66,8 +66,8 @@
     "grunt-text-replace": "0.4.0",
     "rimraf": "^5.0.0",
     "sass": "^1.62.1",
-    "typescript": "^5.0.4",
-    "serve-static": "^1.15.0"
+    "serve-static": "^1.15.0",
+    "typescript": "^5.0.4"
   },
   "commitplease": {},
   "dependencies": {
