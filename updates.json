@@ -3,6 +3,14 @@
     "{bd6259af-e478-46c6-83c9-d3fcab41725f}": {
       "updates": [
         {
+          "version": "24.3.31",
+          "update_link": "https://github.com/hebra/achromajs/releases/download/24.3.31/achromafox-24.3.31.xpi",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "109.0"
+            }
+          },
+        {
           "version": "24.3.27",
           "update_link": "https://github.com/hebra/achromajs/releases/download/24.3.27/achromafox-24.3.27.xpi",
           "applications": {
