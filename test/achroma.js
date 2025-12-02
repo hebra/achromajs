@@ -323,12 +323,13 @@ function setBackgroundFilter(tab) {
         func: (host) => {
             chrome.storage.local.get("achromajsSelectedFilter")
                 .then((items) => {
-                if (items.achromajsSelectedFilter) {
+                const selectedFilter = items.achromajsSelectedFilter;
+                if (selectedFilter && selectedFilter[host]) {
                     document.documentElement.classList.forEach((c) => {
                         if (c.startsWith("achromajs-"))
                             document.documentElement.classList.remove(c);
                     });
-                    document.documentElement.classList.add(items.achromajsSelectedFilter[host]);
+                    document.documentElement.classList.add(selectedFilter[host]);
                 }
             });
         }
@@ -361,7 +362,7 @@ class AchromafoxPopup {
             const tabId = tabs[0].id;
             const tabDomain = (new URL(tabs[0].url || "").host);
             const savedTabs = yield chrome.storage.local.get("achromajsSelectedFilter");
-            const newSavedTabs = savedTabs && savedTabs.achromajsSelectedFilter ? savedTabs.achromajsSelectedFilter : {};
+            const newSavedTabs = savedTabs.achromajsSelectedFilter || {};
             newSavedTabs[tabDomain] = selectedCSSClass;
             yield chrome.storage.local.set({ achromajsSelectedFilter: newSavedTabs });
             yield chrome.scripting.executeScript({

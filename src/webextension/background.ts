@@ -47,11 +47,12 @@ function setBackgroundFilter(tab: chrome.tabs.Tab) {
             func: (host) => {
                 chrome.storage.local.get("achromajsSelectedFilter")
                     .then((items) => {
-                        if (items.achromajsSelectedFilter) {
+                        const selectedFilter = (items as any).achromajsSelectedFilter
+                        if (selectedFilter && selectedFilter[host]) {
                             document.documentElement.classList.forEach((c) => {
                                 if (c.startsWith("achromajs-")) document.documentElement.classList.remove(c)
                             })
-                            document.documentElement.classList.add(items.achromajsSelectedFilter[host])
+                            document.documentElement.classList.add(selectedFilter[host])
                         }
                     })
             }
