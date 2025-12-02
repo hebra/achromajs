@@ -1,12 +1,15 @@
-.PHONY: clean build build:release start start-server
+.PHONY: clean bump-version build build-release start start-server
 
 clean:
 	npm run clean
 
+bump-version:
+	npx grunt bump-version
+
 build:
 	npm run build
 
-build:release:
+build-release:
 	npm run build:release
 
 start:

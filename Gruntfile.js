@@ -200,6 +200,36 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-terser');
 
+    // Custom task to bump version based on current date
+    grunt.registerTask('bump-version', function() {
+        const now = new Date();
+        const yy = (now.getUTCFullYear() % 100).toString();
+        const m = (now.getUTCMonth() + 1).toString();
+        const d = now.getUTCDate().toString();
+        const baseVersion = `${yy}.${m}.${d}`;
+
+        const pkg = grunt.file.readJSON('package.json');
+        const currentVersion = pkg.version;
+        const currentParts = currentVersion.split('.').map(Number);
+
+        let newVersion;
+        if (currentParts.length >= 3 &&
+            currentParts[0] === parseInt(yy) &&
+            currentParts[1] === parseInt(m) &&
+            currentParts[2] === parseInt(d)) {
+            // Current version matches today's date, increment fourth part
+            const fourth = currentParts.length === 3 ? 1 : currentParts[3] + 1;
+            newVersion = `${baseVersion}.${fourth}`;
+        } else {
+            // Set to today's date version
+            newVersion = baseVersion;
+        }
+
+        pkg.version = newVersion;
+        grunt.file.write('package.json', JSON.stringify(pkg, null, 2) + '\n');
+        grunt.log.ok(`Version updated from ${currentVersion} to ${newVersion}`);
+    });
+
     // Default task.
     grunt.registerTask('default',
         [
