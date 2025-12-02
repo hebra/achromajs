@@ -136,7 +136,8 @@ class AchromaJS {
   transition: top 0.5s ease-in;
 }
 
-/*# sourceMappingURL=achromajs.css.map */\n/*
+/*# sourceMappingURL=achromajs.css.map */
+\n/*
  * The backdrop-filter: contrast(1); property is required as Firefox otherwise will not apply the filter to the background image.
  */
 /* Blur */
@@ -227,6 +228,7 @@ class AchromaJS {
 }
 
 /*# sourceMappingURL=filters.css.map */
+
     `;
     }
     isEnabled() {
