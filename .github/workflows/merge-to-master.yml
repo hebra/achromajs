@@ -9,27 +9,20 @@ jobs:
   build-release:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
     - uses: actions/checkout@v3.3.0
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3.6.0
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        deno-version: v2.x
 
     - name: Retrieve version
       run: |
-        echo "TAG_NAME=$(jq -r ".version" package.json)" >> $GITHUB_OUTPUT
+        echo "TAG_NAME=$(jq -r ".version" deno.json)" >> $GITHUB_OUTPUT
       id: version
 
-    - name: NPM CI
-      run: npm ci
-
-    - name: Grunt build
-      run: npm run build:release
+    - name: Build release
+      run: make build-release
 
     - name: Create release tag
       uses: rickstaa/action-create-tag@v1
