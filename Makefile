@@ -1,19 +1,19 @@
 .PHONY: clean bump-version build build-release start start-server
 
 clean:
-	npm run clean
+	deno task clean
 
 bump-version:
-	npx grunt bump-version
+	deno task bump-version
 
 build:
-	npm run build
+	deno task build
 
 build-release:
-	npm run build:release
+	deno task build:release
 
 start:
-	npm run start
+	deno task start
 
 start-server:
-	npm run start-server
+	deno task start-server

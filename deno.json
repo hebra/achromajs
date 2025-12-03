@@ -1,0 +1,46 @@
+{
+  "version": "25.12.3.2",
+  "compilerOptions": {
+    "lib": [
+      "es2022",
+      "dom"
+    ],
+    "strict": true
+  },
+  "tasks": {
+    "clean": "rm -rf dist release",
+    "build:achromajs": "deno run --allow-read --allow-write --allow-run build.ts achromajs",
+    "build:achromafox": "deno run --allow-read --allow-write --allow-run build.ts achromafox",
+    "build:achromeatic": "deno run --allow-read --allow-write --allow-run build.ts achromeatic",
+    "build:grunt": "deno task build:achromajs && deno task build:achromafox && deno task build:achromeatic",
+    "build": "deno run --allow-read --allow-write --allow-run build.ts",
+    "start": "deno task clean && deno task build && deno run --allow-read --allow-write --allow-run watch.ts",
+    "start-server": "deno run --allow-net --allow-read test/server.ts",
+    "bump-version": "deno run --allow-read --allow-write build.ts bump-version",
+    "bundle": "deno run --allow-read --allow-write --allow-run build.ts bundle",
+    "build:release": "deno task clean && deno task build && deno task bundle",
+    "lint": "deno lint",
+    "fmt": "deno fmt",
+    "check": "deno check src/**/*.ts"
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.224.0/"
+  },
+  "fmt": {
+    "files": {
+      "include": [
+        "src/",
+        "test/",
+        "build.ts",
+        "watch.ts"
+      ]
+    }
+  },
+  "lint": {
+    "include": [
+      "build.ts",
+      "watch.ts",
+      "test/server.ts"
+    ]
+  }
+}
