@@ -22,7 +22,7 @@
 - **Content script injection**: CSS filters loaded via content scripts, JavaScript via `chrome.scripting.executeScript`
 
 ## Build Architecture
-- **Grunt-based pipeline**: Multi-stage compilation with TypeScript, SCSS, SVG processing, and string replacement
+- **Deno build pipeline**: Multi-stage compilation with TypeScript, SCSS, SVG processing, and string replacement
 - **Target-specific configs**: Separate tsconfig.json files for library vs extension builds
 - **Asset processing**: SVG filters → base64 → CSS → embedded in JavaScript via build-time string replacement
 

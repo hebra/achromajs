@@ -12,13 +12,13 @@
 - **src/common/**: Shared TypeScript classes (FilterMode, Filters, FiltersUIList)
 
 ## Build Process Details
-- **Grunt pipeline**: TypeScript → SCSS compilation → SVG embedding → base64 encoding → string replacement
+- **Deno build pipeline**: TypeScript → SCSS compilation → SVG embedding → base64 encoding → string replacement
 - **Single outfile strategy**: Library compiles to one JavaScript file with embedded CSS
 - **Extension packaging**: Different compression targets (.zip for Chrome, .xpi for Firefox)
 
 ## Development Workflow
-- **Watch mode**: `npm run start` runs Grunt watch, compiles all targets simultaneously
-- **Test server**: `npm run start-server` serves static files on port 8080 for local testing
+- **Watch mode**: `deno task start` runs custom watch script, compiles all targets simultaneously
+- **Test server**: `deno task start-server` runs Deno native HTTP server on port 8080 for local testing
 - **Extension loading**: Chrome loads from `dist/achromeatic/`, Firefox from `dist/achromafox/`
 
 ## Key Implementation Details
