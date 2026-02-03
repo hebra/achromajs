@@ -8,10 +8,12 @@
 ## Setup Commands
 Install [Deno](https://deno.com/) first.
 - **Build all targets:** `deno task build` (or `make build`)
-- **Development mode (watch & build):** `deno task start`
-- **Clean build artifacts:** `deno task clean`
-- **Create release packages:** `deno task build:release`
-- **Lint & Format:** `deno task lint` and `deno task fmt`
+- **Specific target builds:** `make build-achromajs`, `make build-achromafox`, `make build-achromeatic`
+- **Development mode (watch & build):** `deno task start` (or `make start`)
+- **Clean build artifacts:** `deno task clean` (or `make clean`)
+- **Create release packages:** `deno task build:release` (or `make build-release`)
+- **Lint & Format:** `make lint` and `make fmt`
+- **Type Check:** `make check`
 
 ## Code Style & Structure
 - **Language:** TypeScript for logic, SCSS for styling and filters.
