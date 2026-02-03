@@ -1,32 +1,61 @@
 # AGENTS.md
 
-This file provides guidance to agents when working with code in this repository.
+## Project Overview
+**Project Name:** AchromaJS / Achromafox / Achromeatic
+**Project Purpose:** A JavaScript library and browser extensions (Firefox/Chrome) to simulate various vision conditions (color blindness, blur, contrast) using SVG filters and CSS.
+**Key Technologies:** Deno 2.x, TypeScript, SCSS, Web Extensions API.
 
-## Build System
-- **Deno 2 migration**: Project migrated from Node.js/Grunt to Deno 2 with custom build scripts
-- **Custom build pipeline**: `build.ts` handles TypeScript compilation, SCSS processing, SVG embedding, and asset management
-- **Multi-target builds**: Separate TypeScript configs for achromajs (library), achromafox (Firefox), achromeatic (Chrome)
-- **CSS embedding**: Filters embedded as base64 strings directly into JavaScript via build-time string replacement
-- **Module system quirk**: Base tsconfig uses `module: "none"` but library compiles to single outfile for distribution
+## Setup Commands
+Install [Deno](https://deno.com/) first.
+- **Build all targets:** `deno task build` (or `make build`)
+- **Development mode (watch & build):** `deno task start`
+- **Clean build artifacts:** `deno task clean`
+- **Create release packages:** `deno task build:release`
+- **Lint & Format:** `deno task lint` and `deno task fmt`
 
-## Browser Extension Architecture
-- **Manifest differences**: Chrome uses service worker background, Firefox uses traditional background scripts
-- **Content script injection**: CSS filters loaded via content scripts, JavaScript functionality via manual injection
-- **Web accessible resources**: SVG filters must be declared in manifest for cross-origin access
+## Code Style & Structure
+- **Language:** TypeScript for logic, SCSS for styling and filters.
+- **Environment:** Deno-first for tooling. Project migrated from Node.js/Grunt to Deno 2.
+- **Architecture:**
+  - **Class-based:** Uses classes like `FilterMode`, `Filters`, `FiltersUIList`, `AchromaJS`.
+  - **DOM:** Direct element creation and event binding without frameworks.
+  - **Multi-target builds:** Separate TS configs for `achromajs` (library), `achromafox` (Firefox), `achromeatic` (Chrome).
+  - **CSS Embedding:** Filters are defined as SVG files, compiled to CSS with base64 encoding, and embedded into JS via `build.ts`.
+- **Naming Conventions:**
+  - Classes: `PascalCase`
+  - Variables/Functions: `camelCase`
+  - CSS Classes: `achromajs-filter-*` for core filters.
+- **File Structure:**
+  - `src/common/`: Shared logic and filter definitions.
+  - `src/library/`: Core library implementation (`achroma.ts`).
+  - `src/webextension/`: Extension-specific UI and background logic.
+  - `src/filters/`: SVG filter definitions and styles.
+  - `dist/`: Generated build output (do not edit directly).
 
-## Filter System
-- **SVG-based filters**: Color vision filters defined as SVG files, compiled to CSS with base64 encoding
-- **CSS class application**: Filters activated by adding `achromajs-*` classes to `document.documentElement`
-- **Chrome workaround**: `setTimeout` required after initial filter application for reliable rendering in Chrome
+## Testing Instructions
+There are currently no automated unit tests. Verification is performed manually:
+1. **Start development build:** `deno task start`
+2. **Launch test server:** `deno task start-server`
+3. **Open browser:** Navigate to `http://localhost:8080/test/index.html`
+4. **Library Testing:** Use `?achromajs=true` query parameter to enable the library on the test page.
+5. **Extension Testing:** Load the unpacked extension from `dist/achromafox` or `dist/achromeatic` into the browser.
 
-## Code Patterns
-- **Global class instances**: `FiltersUIList` and `Filters` are intentionally global (ESLint configured to allow)
-- **Class-based architecture**: Uses classes for FilterMode, Filters, FiltersUIList, AchromaJS
-- **DOM manipulation**: Direct element creation and event binding without framework abstractions
-- **Storage pattern**: Domain-specific filter persistence using host-based localStorage keys
+## Git Workflow
+- **Commit Messages:** Use descriptive messages.
+- **Branching:** `master` is the main branch.
+- **Version Management:** Version is stored in `deno.json`. Use `deno task bump-version` to update it.
 
-## Development Setup
-- **Test server**: `deno task start-server` runs Deno native HTTP server on port 8080
-- **Watch mode**: `deno task start` runs custom watch script for automatic rebuilding
-- **Extension loading**: Chrome loads from `dist/achromeatic/`, Firefox from `dist/achromafox/`
-- **Version management**: Version stored in deno.json instead of package.json
+## Boundaries & Constraints (Do's and Don'ts)
+- **Do:**
+  - Follow Deno best practices for scripts.
+  - Ensure compatibility with both Firefox (Manifest V2) and Chrome (Manifest V3) extension APIs.
+  - Use `deno fmt` and `deno lint` before committing.
+  - **Apply Chrome workaround:** Use `setTimeout` after initial filter application for reliable rendering in Chrome.
+- **Don't:**
+  - **Never** modify files in `dist/` or `release/` manually.
+  - Avoid adding heavy external dependencies; prefer standard Web APIs and Deno standard library.
+  - Do not commit secrets or environment-specific configs.
+- **Ask Before:**
+  - Adding new npm/external dependencies.
+  - Changing the core filter logic or SVG definitions.
+  - Modifying the build pipeline in `build.ts`.
