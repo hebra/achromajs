@@ -11,7 +11,7 @@ async function runCommand(cmd: string[], cwd?: string): Promise<void> {
   const command = new Deno.Command(cmd[0], {
     args: cmd.slice(1),
     cwd,
-    stdout: "inherit",
+    stdout: "null",
     stderr: "inherit",
   });
   const process = command.spawn();
@@ -25,7 +25,16 @@ async function compileTypeScript(config: string): Promise<void> {
   console.log(`Compiling TypeScript with ${config}...`);
   // Ensure @types/chrome is available for the compiler by including it in the run command if necessary,
   // but TSC usually looks in node_modules. Since we don't have node_modules, we can try to use deno's cache.
-  await runCommand(["deno", "run", "-A", "npm:typescript@5.9.3/tsc", "-p", config]);
+  const command = new Deno.Command("deno", {
+    args: ["run", "-A", "npm:typescript@5.9.3/tsc", "-p", config],
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  const process = command.spawn();
+  const status = await process.status;
+  if (!status.success) {
+    throw new Error(`Command failed: deno run -A npm:typescript@5.9.3/tsc -p ${config}`);
+  }
 }
 
 async function cssUrlEmbed(): Promise<void> {
@@ -39,6 +48,9 @@ async function compileSass(): Promise<void> {
   console.log("Compiling Sass...");
   // Use external sass compiler
   try {
+    const sassAvailable = await runCommand(["which", "sass"]).then(() => true).catch(() => false);
+    if (!sassAvailable) throw new Error("sass not found");
+
     await runCommand(["sass", "--style=expanded", "--source-map", "src/library/achroma.scss", "dist/achromajs/achromajs.css"]);
     await runCommand(["sass", "--style=expanded", "--source-map", "dist/achromajs/filters.scss", "dist/achromeatic/filters/filters.css"]);
     await runCommand(["sass", "--style=expanded", "--source-map", "dist/achromajs/filters.scss", "dist/achromajs/filters.css"]);
@@ -242,6 +254,10 @@ async function bumpVersion(): Promise<void> {
 }
 
 async function defaultBuild(): Promise<void> {
+  await ensureDir("dist/achromajs");
+  await ensureDir("dist/achromafox/filters");
+  await ensureDir("dist/achromeatic/filters");
+
   await compileTypeScript("tsconfig.achromajs.json");
   await compileTypeScript("tsconfig.achromafox.json");
   await compileTypeScript("tsconfig.achromeatic.json");
