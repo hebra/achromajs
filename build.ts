@@ -213,16 +213,19 @@ async function copyTests(): Promise<void> {
 async function compressReleases(): Promise<void> {
   console.log("Creating release archives...");
 
+  await ensureDir("release");
+  const releaseDir = await Deno.realPath("release");
+
   const version = await getVersion();
 
   // AchromaJS library
-  await runCommand(["zip", "-r", `release/achromajs-${version}.zip`, "."], "dist/achromajs");
+  await runCommand(["zip", "-r", join(releaseDir, `achromajs-${version}.zip`), "."], "dist/achromajs");
 
   // Chrome extension
-  await runCommand(["zip", "-r", `release/achromeatic-${version}.zip`, "."], "dist/achromeatic");
+  await runCommand(["zip", "-r", join(releaseDir, `achromeatic-${version}.zip`), "."], "dist/achromeatic");
 
   // Firefox extension
-  await runCommand(["zip", "-r", `release/achromafox-${version}.xpi`, "."], "dist/achromafox");
+  await runCommand(["zip", "-r", join(releaseDir, `achromafox-${version}.xpi`), "."], "dist/achromafox");
 }
 
 async function bumpVersion(): Promise<void> {
