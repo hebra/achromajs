@@ -23,6 +23,8 @@ async function runCommand(cmd: string[], cwd?: string): Promise<void> {
 
 async function compileTypeScript(config: string): Promise<void> {
   console.log(`Compiling TypeScript with ${config}...`);
+  // Ensure @types/chrome is available for the compiler by including it in the run command if necessary,
+  // but TSC usually looks in node_modules. Since we don't have node_modules, we can try to use deno's cache.
   await runCommand(["deno", "run", "-A", "npm:typescript@5.9.3/tsc", "-p", config]);
 }
 

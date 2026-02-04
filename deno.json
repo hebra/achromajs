@@ -21,7 +21,7 @@
     "build:release": "deno task clean && deno task build && deno task bundle",
     "lint": "deno lint",
     "fmt": "deno fmt",
-    "check": "deno check src/**/*.ts"
+    "check": "deno task build:achromajs && deno task build:achromafox && deno task build:achromeatic"
   },
   "imports": {
     "std/": "https://deno.land/std@0.224.0/"

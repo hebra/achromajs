@@ -5,6 +5,7 @@
   },
   "exclude": [
     "src/firefox",
-    "src/chrome"
+    "src/chrome",
+    "src/webextension"
   ]
 }
