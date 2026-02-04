@@ -23,9 +23,9 @@ class AchromafoxPopup {
     static instance: AchromafoxPopup = new AchromafoxPopup()
 
     constructor() {
-        chrome.storage.local.get("achromajsSelectedFilter").then((items) => {
-            chrome.tabs.query({active: true, currentWindow: true}).then((tabs) => {
-                new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, (items as any).achromajsSelectedFilter)
+        chrome.storage.local.get("achromajsSelectedFilter").then((items: { [key: string]: any }) => {
+            chrome.tabs.query({active: true, currentWindow: true}).then((tabs: chrome.tabs.Tab[]) => {
+                new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, items.achromajsSelectedFilter)
             })
         })
     }
@@ -47,8 +47,8 @@ class AchromafoxPopup {
         const tabDomain = (new URL(tabs[0].url || "").host)
 
         // Retrieve currently saved achroma tabs and store the new one as part of the updated map
-        const savedTabs = await chrome.storage.local.get("achromajsSelectedFilter")
-        const newSavedTabs = (savedTabs as any).achromajsSelectedFilter || {}
+        const savedTabs = await chrome.storage.local.get("achromajsSelectedFilter") as { [key: string]: any }
+        const newSavedTabs = savedTabs.achromajsSelectedFilter || {}
         newSavedTabs[tabDomain] = selectedCSSClass
         await chrome.storage.local.set({achromajsSelectedFilter: newSavedTabs})
 
@@ -58,7 +58,7 @@ class AchromafoxPopup {
                 tabId: tabId || 0,
                 allFrames: true
             },
-            func: (selectedCSSClass) => {
+            func: (selectedCSSClass: string | null) => {
                 document.documentElement.classList.forEach((c) => {
                     if (c.startsWith("achromajs-")) {
                         document.documentElement.classList.remove(c)

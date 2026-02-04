@@ -84,23 +84,23 @@ to grant these permissions via the addon management settings.
 
 ### Preconditions
 
-- recommneded editor is Visual Studio Code
-- a recent NPM and Node installed
+- recommended editor is Visual Studio Code
+- Deno 2.x installed (https://deno.com/)
 
 ### Firefox
 
 Most browsers allow certain DOM Javascript manipulation only if a page is loaded via a HTTP/HTTPS instead of just
 loading a local file from disk.
-To allow proper UI/UX testing a small NodeJS test server can be spun up as follows:
+To allow proper UI/UX testing a small Deno test server can be spun up as follows:
 
-* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile
+* from the projects root folder start `deno task start`, this will start a file watcher which will compile
   changed files into `dist`
-* in a second terminal start `npm run start-server`
+* in a second terminal start `deno task start-server`
 * open the URL http://localhost:8080 in your browser
 
 ### Chrome
 
-* fromt the projects root folder start `npm run start`, this will start a Grunt process which will watch and compile
+* from the projects root folder start `deno task start`, this will start a file watcher which will compile
   changed files into `dist`
 * open the URL [chrome://extensions](chrome://extensions) in Chrome
 * Enable **Developer mode** in the top-right corner

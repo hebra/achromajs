@@ -3,7 +3,7 @@
 ## Build Configuration
 - **TypeScript compilation**: Use separate configs for different targets - achromajs (library), achromafox (Firefox), achromeatic (Chrome)
 - **Module system quirk**: Base tsconfig uses `module: "none"` but compiles to single outfile for library distribution
-- **CSS embedding**: Filters are embedded as base64 strings directly into JavaScript via Grunt string replacement
+- **CSS embedding**: Filters are embedded as base64 strings directly into JavaScript via build-time string replacement
 
 ## Extension Architecture
 - **Manifest differences**: Chrome uses service worker background, Firefox uses traditional background scripts

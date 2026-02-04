@@ -20,7 +20,7 @@
  * Apply selected filter (if any) on page load or change
  */
 
-chrome.tabs.onActivated.addListener(function (activeInfo) {
+chrome.tabs.onActivated.addListener(function (activeInfo: chrome.tabs.ActiveInfo) {
     chrome.tabs.get(activeInfo.tabId).then(tab => {
         if (!tab || !tab.url || !tab.url.startsWith("http") || !tab.active) {
             return
@@ -29,7 +29,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     })
 })
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
     if (!tab || !tab.url || !tab.url.startsWith("http") || changeInfo.status !== "complete" || !tab.active) {
         return
     }
@@ -44,7 +44,7 @@ function setBackgroundFilter(tab: chrome.tabs.Tab) {
                 allFrames: true
             },
             args: [new URL(tab.url || "").host],
-            func: (host) => {
+            func: (host: string) => {
                 chrome.storage.local.get("achromajsSelectedFilter")
                     .then((items) => {
                         const selectedFilter = (items as any).achromajsSelectedFilter
