@@ -52,6 +52,8 @@ async function compileSass(): Promise<void> {
     if (!sassAvailable) throw new Error("sass not found");
 
     await runCommand(["sass", "--style=expanded", "--source-map", "src/library/achroma.scss", "dist/achromajs/achromajs.css"]);
+    await runCommand(["sass", "--style=expanded", "--source-map", "src/webextension/style.scss", "dist/achromafox/style.css"]);
+    await runCommand(["sass", "--style=expanded", "--source-map", "src/webextension/style.scss", "dist/achromeatic/style.css"]);
     await runCommand(["sass", "--style=expanded", "--source-map", "dist/achromajs/filters.scss", "dist/achromeatic/filters/filters.css"]);
     await runCommand(["sass", "--style=expanded", "--source-map", "dist/achromajs/filters.scss", "dist/achromajs/filters.css"]);
     await runCommand(["sass", "--style=expanded", "--source-map", "src/filters/filters.scss", "dist/achromafox/filters/filters.css"]);
@@ -59,6 +61,8 @@ async function compileSass(): Promise<void> {
     console.warn("Sass compilation failed. Using fallback: copying SCSS as CSS.");
     // Fallback: just copy the files as-is for now
     await copy("src/library/achroma.scss", "dist/achromajs/achromajs.css", { overwrite: true });
+    await copy("src/webextension/style.scss", "dist/achromafox/style.css", { overwrite: true });
+    await copy("src/webextension/style.scss", "dist/achromeatic/style.css", { overwrite: true });
     await copy("dist/achromajs/filters.scss", "dist/achromeatic/filters/filters.css", { overwrite: true });
     await copy("dist/achromajs/filters.scss", "dist/achromajs/filters.css", { overwrite: true });
     await copy("src/filters/filters.scss", "dist/achromafox/filters/filters.css", { overwrite: true });
@@ -91,14 +95,12 @@ async function copyChrome(): Promise<void> {
   console.log("Copying Chrome extension files...");
   await copy("src/chrome/manifest.json", "dist/achromeatic/manifest.json", { overwrite: true });
   await copy("src/webextension/popup.html", "dist/achromeatic/popup.html", { overwrite: true });
-  await copy("src/webextension/style.css", "dist/achromeatic/style.css", { overwrite: true });
   await copy("dist/achromajs/filters.css", "dist/achromeatic/filters.css", { overwrite: true });
 }
 
 async function copyFirefox(): Promise<void> {
   console.log("Copying Firefox extension files...");
   await copy("src/firefox/manifest.json", "dist/achromafox/manifest.json", { overwrite: true });
-  await copy("src/webextension/style.css", "dist/achromafox/style.css", { overwrite: true });
   await copy("src/webextension/popup.html", "dist/achromafox/popup.html", { overwrite: true });
   await copy("dist/achromajs/filters.css", "dist/achromafox/filters.css", { overwrite: true });
 }
