@@ -88,7 +88,7 @@ To automatically rebuild the project whenever you make changes to the source fil
 To test the core library (`achroma.ts`) without the extension wrapper:
 
 1.  Ensure the development server is running (`deno task start-server`).
-2.  Open `http://localhost:8080/test/index.html` in your browser.
+2.  Open `http://localhost:8080/index.html` in your browser.
 3.  Append `?achromajs=true` to the URL to enable the library's UI on the test page.
 4.  Use the UI overlay to toggle different vision simulations.
 

@@ -48,7 +48,7 @@ The project is a multi-target build system based on Deno:
 ## Setup & Testing
 - **Build all:** `deno task build`
 - **Watch mode:** `deno task start`
-- **Test server:** `deno task start-server` (at `http://localhost:8080/test/index.html`)
+- **Test server:** `deno task start-server` (at `http://localhost:8080/index.html`)
 - **Quality Control:** `deno task lint`, `deno task fmt`, `deno task check`
 - **Versioning:** Use `deno task bump-version` to update `deno.json`.
 
@@ -58,6 +58,9 @@ The project is a multi-target build system based on Deno:
 - **Release:** `deno task build:release` generates ZIP archives in the `release/` directory.
 
 ## Changelog
+- **2026-04-14**:
+  - Fixed `start-server` to serve the `test/` directory instead of the project root.
+  - Updated documentation to reflect the new test server URL (`http://localhost:8080/index.html`).
 - **2024-04-14**:
   - Restructured file to meet Project Architect & Documentation Specialist requirements.
   - Detailed the tech stack including Deno 2.x and build-time tools.

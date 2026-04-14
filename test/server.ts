@@ -7,7 +7,7 @@ Deno.serve((req) => {
   console.log(`${req.method} ${url.pathname}`);
 
   return serveDir(req, {
-    fsRoot: ".",
+    fsRoot: "test",
     showDirListing: true,
     quiet: false,
   });
