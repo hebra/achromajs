@@ -75,6 +75,7 @@ async function copyAssets(): Promise<void> {
   await ensureDir("dist/achromafox/assets");
   await ensureDir("dist/achromajs/assets");
   await ensureDir("dist/achromafox/filters");
+  await ensureDir("dist/achromajs/filters");
 
   // Copy assets
   for await (const entry of Deno.readDir("src/assets")) {
@@ -83,10 +84,11 @@ async function copyAssets(): Promise<void> {
     await copy(join("src/assets", entry.name), join("dist/achromajs/assets", entry.name), { overwrite: true });
   }
 
-  // Copy SVG filters for Firefox
+  // Copy SVG filters for all targets
   for await (const entry of Deno.readDir("src/filters")) {
     if (extname(entry.name) === ".svg") {
       await copy(join("src/filters", entry.name), join("dist/achromafox/filters", entry.name), { overwrite: true });
+      await copy(join("src/filters", entry.name), join("dist/achromajs/filters", entry.name), { overwrite: true });
     }
   }
 }
@@ -96,6 +98,14 @@ async function copyChrome(): Promise<void> {
   await copy("src/chrome/manifest.json", "dist/achromeatic/manifest.json", { overwrite: true });
   await copy("src/webextension/popup.html", "dist/achromeatic/popup.html", { overwrite: true });
   await copy("dist/achromajs/filters.css", "dist/achromeatic/filters.css", { overwrite: true });
+
+  // Copy SVG filters for Chrome
+  await ensureDir("dist/achromeatic/filters");
+  for await (const entry of Deno.readDir("src/filters")) {
+    if (extname(entry.name) === ".svg") {
+      await copy(join("src/filters", entry.name), join("dist/achromeatic/filters", entry.name), { overwrite: true });
+    }
+  }
 }
 
 async function copyFirefox(): Promise<void> {
@@ -210,6 +220,10 @@ async function copyTests(): Promise<void> {
   console.log("Copying test files...");
   await copy("dist/achromajs/achroma.js", "test/achroma.js", { overwrite: true });
   await copy("dist/achromajs/achroma.js.map", "test/achroma.js.map", { overwrite: true });
+  await ensureDir("test/filters");
+  for await (const entry of Deno.readDir("dist/achromajs/filters")) {
+    await copy(join("dist/achromajs/filters", entry.name), join("test/filters", entry.name), { overwrite: true });
+  }
 }
 
 async function compressReleases(): Promise<void> {

@@ -29,6 +29,7 @@ class FilterMode {
 
 /**
  * Holder class for all available filter modes, grouped by vision type.
+ * Simulation matrices are based on Machado et al. (2009) and Viénot et al. (1999) models.
  */
 
 /* eslint no-unused-vars: "off" */

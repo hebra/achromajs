@@ -46,6 +46,12 @@ Limited support (see *Known issues*):
 * Apple Safari
 * Safari on iOS 7+
 
+## Simulation Accuracy
+The color vision deficiency simulations in AchromaJS/Achromafox/Achromeatic are based on the latest research and models:
+* **Machado et al. (2009)** model is used for all anomalous trichromacy (Anomaly) and dichromacy (Anopia) types.
+* **Viénot et al. (1999)** matrices are integrated for high-accuracy dichromacy simulation.
+* All calculations are performed explicitly in the **Linear RGB** color space for maximum fidelity.
+
 ## How to use
 
 ### Browser addons
