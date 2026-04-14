@@ -42,12 +42,13 @@ class Filters {
     tritan: FilterMode[] = [];
 
     constructor() {
-        this.reset.push(new FilterMode("NoFilter", "No Filter", "Display page without any filters applied", "achromajs-filter-none"))
+        this.reset.push(new FilterMode("NoFilter", "None Filter", "Display page without any filters applied", "achromajs-filter-none"))
 
         this.blur.push(new FilterMode("Blur1", "Light Blur", "A light blur of 1px radius", "achromajs-filter-blur1"))
         this.blur.push(new FilterMode("Blur2", "Medium Blur", "A medium blur of 2px radius", "achromajs-filter-blur2"))
         this.blur.push(new FilterMode("Blur3", "Strong Blur", "A strong blur of 3px radius", "achromajs-filter-blur3"))
 
+        this.contrast.push(new FilterMode("NoContrast", "None Filter", "No visual effect applied", "achromajs-filter-none"))
         this.contrast.push(new FilterMode("Invert", "Invert Colours", "Invert all colours", "achromajs-filter-invert"))
         this.contrast.push(new FilterMode("LowContrast", "Low Contrast", "Apply a low contrast filter", "achromajs-filter-lowcontrast"))
         this.contrast.push(new FilterMode("HighContrast", "High Contrast", "Apply a high contrast filter", "achromajs-filter-highcontrast"))
