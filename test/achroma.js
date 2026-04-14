@@ -16,10 +16,11 @@ class Filters {
         this.prot = [];
         this.deuter = [];
         this.tritan = [];
-        this.reset.push(new FilterMode("NoFilter", "No Filter", "Display page without any filters applied", "achromajs-filter-none"));
+        this.reset.push(new FilterMode("NoFilter", "None Filter", "Display page without any filters applied", "achromajs-filter-none"));
         this.blur.push(new FilterMode("Blur1", "Light Blur", "A light blur of 1px radius", "achromajs-filter-blur1"));
         this.blur.push(new FilterMode("Blur2", "Medium Blur", "A medium blur of 2px radius", "achromajs-filter-blur2"));
         this.blur.push(new FilterMode("Blur3", "Strong Blur", "A strong blur of 3px radius", "achromajs-filter-blur3"));
+        this.contrast.push(new FilterMode("NoContrast", "None Filter", "No visual effect applied", "achromajs-filter-none"));
         this.contrast.push(new FilterMode("Invert", "Invert Colours", "Invert all colours", "achromajs-filter-invert"));
         this.contrast.push(new FilterMode("LowContrast", "Low Contrast", "Apply a low contrast filter", "achromajs-filter-lowcontrast"));
         this.contrast.push(new FilterMode("HighContrast", "High Contrast", "Apply a high contrast filter", "achromajs-filter-highcontrast"));
@@ -87,9 +88,17 @@ class FiltersUIList {
                     item.setAttribute("data-cssclass", mode.cssClass);
                     item.onclick = (ev) => {
                         var _a;
+                        const isAlreadyActive = item.classList.contains("active");
                         (_a = category.container) === null || _a === void 0 ? void 0 : _a.querySelectorAll(".list-item").forEach(i => i.classList.remove("active"));
-                        item.classList.add("active");
+                        if (isAlreadyActive) {
+                            item.setAttribute("data-cssclass", "achromajs-filter-none");
+                        }
+                        else {
+                            item.classList.add("active");
+                            item.setAttribute("data-cssclass", mode.cssClass);
+                        }
                         clickCallback(ev);
+                        item.setAttribute("data-cssclass", mode.cssClass);
                     };
                     const content = document.createElement("div");
                     content.className = "list-item-content";
