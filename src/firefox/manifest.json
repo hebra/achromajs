@@ -37,7 +37,6 @@
     "<all_urls>"
   ],
   "action": {
-    "browser_style": true,
     "default_popup": "popup.html",
     "default_icon": {
       "16": "assets/icon_16.png",
