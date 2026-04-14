@@ -35,7 +35,7 @@ This aesthetic is tailored for a professional browser extension that needs to fe
 ## 3. Components & Interaction
 
 ### Segmented Controls (Filters)
-- Used for General Filters and Visual Effects.
+- Used for Blur and Visual Effects.
 - **Active State:** Solid primary blue background with high-contrast text.
 - **Inactive State:** Transparent background with subtle hover states.
 
