@@ -3,61 +3,65 @@
 ## Project Overview
 **Project Name:** AchromaJS / Achromafox / Achromeatic
 **Project Purpose:** A JavaScript library and browser extensions (Firefox/Chrome) to simulate various vision conditions (color blindness, blur, contrast) using SVG filters and CSS.
-**Key Technologies:** Deno 2.x, TypeScript, SCSS, Web Extensions API.
 
-## Setup Commands
-Install [Deno](https://deno.com/) first.
-- **Build all targets:** `deno task build` (or `make build`)
-- **Specific target builds:** `make build-achromajs`, `make build-achromafox`, `make build-achromeatic`
-- **Development mode (watch & build):** `deno task start` (or `make start`)
-- **Clean build artifacts:** `deno task clean` (or `make clean`)
-- **Create release packages:** `deno task build:release` (or `make build-release`)
-- **Lint & Format:** `make lint` and `make fmt`
-- **Type Check:** `make check`
+## Tech Stack
+- **Runtime:** Deno 2.x (Primary for tooling, build system, and dev server).
+- **Languages:** TypeScript (Logic), SCSS (Styling), SVG (Filter definitions).
+- **APIs:** Web Extensions API (Manifest V2 for Firefox, Manifest V3 for Chrome).
+- **Build Tools:** Custom `build.ts` and `watch.ts` scripts using `npm:typescript/tsc`, `sass` (CLI), and `npm:terser` (for minification).
 
-## Code Style & Structure
-- **Language:** TypeScript for logic, SCSS for styling and filters.
-- **Environment:** Deno-first for tooling. Project migrated from Node.js/Grunt to Deno 2.
-- **Architecture:**
-  - **Class-based:** Uses classes like `FilterMode`, `Filters`, `FiltersUIList`, `AchromaJS`.
-  - **DOM:** Direct element creation and event binding without frameworks.
-  - **Multi-target builds:** Separate TS configs for `achromajs` (library), `achromafox` (Firefox), `achromeatic` (Chrome).
-  - **CSS Embedding:** Filters are defined as SVG files, compiled to CSS with base64 encoding, and embedded into JS via `build.ts`.
+## Core Architecture
+The project is a multi-target build system based on Deno:
+- `src/common/`: Shared TypeScript logic (`modes.ts`, `list.ts`).
+- `src/library/`: Core `achroma.ts` library implementation and styles.
+- `src/webextension/`: Extension-specific UI logic (`popup.ts`), background scripts, and popup HTML.
+- `src/filters/`: SVG filter definitions and primary SCSS for filters.
+- `src/chrome/` & `src/firefox/`: Platform-specific manifest files.
+- `dist/`: Target-specific build output (achromajs, achromafox, achromeatic).
+- `test/`: Manual test suite and a Deno-based local server (`server.ts`).
+
+## Coding Standards
+- **Paradigm:** Class-based TypeScript with direct DOM manipulation; no external UI frameworks (React/Vue/etc.).
 - **Naming Conventions:**
   - Classes: `PascalCase`
   - Variables/Functions: `camelCase`
   - CSS Classes: `achromajs-filter-*` for core filters.
-- **File Structure:**
-  - `src/common/`: Shared logic and filter definitions.
-  - `src/library/`: Core library implementation (`achroma.ts`).
-  - `src/webextension/`: Extension-specific UI and background logic.
-  - `src/filters/`: SVG filter definitions and styles.
-  - `dist/`: Generated build output (do not edit directly).
+- **Formatting:** Strictly follow `deno fmt` and `deno lint` rules defined in `deno.json`.
+- **Patterns:**
+  - **CSS Embedding:** Filter definitions and styles are concatenated and embedded directly into the JS library during the build process (see `build.ts`).
+  - **Workarounds:** Always apply a `setTimeout` (approx. 100ms) after the initial filter application in Chrome to ensure reliable rendering.
 
-## Testing Instructions
-There are currently no automated unit tests. Verification is performed manually:
-1. **Start development build:** `deno task start`
-2. **Launch test server:** `deno task start-server`
-3. **Open browser:** Navigate to `http://localhost:8080/test/index.html`
-4. **Library Testing:** Use `?achromajs=true` query parameter to enable the library on the test page.
-5. **Extension Testing:** Load the unpacked extension from `dist/achromafox` or `dist/achromeatic` into the browser.
-
-## Git Workflow
-- **Commit Messages:** Use descriptive messages.
-- **Branching:** `master` is the main branch.
-- **Version Management:** Version is stored in `deno.json`. Use `deno task bump-version` to update it.
-
-## Boundaries & Constraints (Do's and Don'ts)
+## Agent Constraints (Do's and Don'ts)
 - **Do:**
-  - Follow Deno best practices for scripts.
-  - Ensure compatibility with both Firefox (Manifest V2) and Chrome (Manifest V3) extension APIs.
-  - Use `deno fmt` and `deno lint` before committing.
-  - **Apply Chrome workaround:** Use `setTimeout` after initial filter application for reliable rendering in Chrome.
+  - Maintain compatibility for both Firefox (MV2) and Chrome (MV3).
+  - Use `deno task` or `make` commands for all build and quality control operations.
+  - Follow Deno best practices for script execution and dependency management.
+  - Reference `LOCAL_DEVELOPMENT.md` for detailed setup and manual testing procedures.
 - **Don't:**
   - **Never** modify files in `dist/` or `release/` manually.
-  - Avoid adding heavy external dependencies; prefer standard Web APIs and Deno standard library.
-  - Do not commit secrets or environment-specific configs.
+  - Avoid adding heavy external npm/Deno dependencies; prefer standard Web APIs.
+  - Do not change core filter logic or SVG definitions without explicit instructions.
 - **Ask Before:**
-  - Adding new npm/external dependencies.
-  - Changing the core filter logic or SVG definitions.
   - Modifying the build pipeline in `build.ts`.
+  - Adding any new external dependencies.
+
+## Setup & Testing
+- **Build all:** `deno task build`
+- **Watch mode:** `deno task start`
+- **Test server:** `deno task start-server` (at `http://localhost:8080/test/index.html`)
+- **Quality Control:** `deno task lint`, `deno task fmt`, `deno task check`
+- **Versioning:** Use `deno task bump-version` to update `deno.json`.
+
+## Git Workflow
+- **Commit Messages:** Use descriptive messages; standard format is preferred.
+- **Branching:** `master` is the main development branch.
+- **Release:** `deno task build:release` generates ZIP archives in the `release/` directory.
+
+## Changelog
+- **2024-04-14**:
+  - Restructured file to meet Project Architect & Documentation Specialist requirements.
+  - Detailed the tech stack including Deno 2.x and build-time tools.
+  - Added Core Architecture section mapping folder structure to functionality.
+  - Formalized Coding Standards including CSS embedding and Chrome workarounds.
+  - Updated Agent Constraints to include references to `LOCAL_DEVELOPMENT.md`.
+  - Synchronized all commands with `deno.json` tasks.

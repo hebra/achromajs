@@ -82,6 +82,8 @@ to grant these permissions via the addon management settings.
 
 ## Developers
 
+Please see the [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md) file for detailed instructions on how to set up, build, and test the project locally.
+
 ### Preconditions
 
 - recommended editor is Visual Studio Code
