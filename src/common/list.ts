@@ -75,9 +75,18 @@ class FiltersUIList {
                     item.className = `list-item ${isActive ? "active" : ""}`
                     item.setAttribute("data-cssclass", mode.cssClass)
                     item.onclick = (ev) => {
+                        const isAlreadyActive = item.classList.contains("active")
                         category.container?.querySelectorAll(".list-item").forEach(i => i.classList.remove("active"))
-                        item.classList.add("active")
+                        
+                        if (isAlreadyActive) {
+                            item.setAttribute("data-cssclass", "achromajs-filter-none")
+                        } else {
+                            item.classList.add("active")
+                            item.setAttribute("data-cssclass", mode.cssClass)
+                        }
                         clickCallback(ev)
+                        // Restore original class for future clicks if it was changed
+                        item.setAttribute("data-cssclass", mode.cssClass)
                     }
 
                     const content = document.createElement("div")
