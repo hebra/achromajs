@@ -38,50 +38,77 @@ class Filters {
     }
 }
 class FiltersUIList {
-    constructor(listContainer) {
-        this.listContainer = listContainer;
+    constructor(generalContainer, effectsContainer = null, cvdContainer = null) {
+        this.generalContainer = generalContainer;
+        this.effectsContainer = effectsContainer;
+        this.cvdContainer = cvdContainer;
     }
     build(clickCallback, tabs, savedSiteFilters) {
         const tabDomain = (new URL(tabs[0].url || "").host);
         let currentTabFilter = savedSiteFilters ? savedSiteFilters[tabDomain] : "achromajs-filter-none";
         currentTabFilter = currentTabFilter || "achromajs-filter-none";
-        Filters.getAll().forEach((section, idx) => {
-            if (this.listContainer === null) {
-                console.error("List holder element is null.");
+        const filters = new Filters();
+        let categories = [];
+        if (this.effectsContainer && this.cvdContainer) {
+            categories = [
+                { container: this.generalContainer, modes: [...filters.reset, ...filters.blur], type: 'segmented' },
+                { container: this.effectsContainer, modes: filters.contrast, type: 'segmented' },
+                { container: this.cvdContainer, modes: [...filters.achromato, ...filters.prot, ...filters.deuter, ...filters.tritan], type: 'list' }
+            ];
+        }
+        else {
+            categories = [
+                { container: this.generalContainer, modes: [...filters.reset, ...filters.blur, ...filters.contrast, ...filters.achromato, ...filters.prot, ...filters.deuter, ...filters.tritan], type: 'list' }
+            ];
+        }
+        categories.forEach(category => {
+            if (!category.container)
                 return;
-            }
-            if (idx > 0) {
-                this.listContainer.append(document.createElement("hr"));
-            }
-            section.forEach((mode) => {
-                const item = document.createElement("div");
-                item.className = "panel-list-item";
-                item.title = mode.description;
-                item.setAttribute("data-mode", mode.id);
-                item.setAttribute("data-cssclass", mode.cssClass);
-                item.onclick = clickCallback;
-                const icon = document.createElement("div");
-                icon.className = "icon";
-                const input = document.createElement("input");
-                input.type = "radio";
-                input.id = mode.id;
-                input.name = "Action";
-                input.value = mode.id;
-                input.checked = currentTabFilter === mode.cssClass;
-                icon.appendChild(input);
-                item.appendChild(icon);
-                const text = document.createElement("div");
-                text.className = "text";
-                const label = document.createElement("label");
-                label.htmlFor = mode.id;
-                label.textContent = mode.name;
-                text.appendChild(label);
-                item.appendChild(text);
-                const shortcut = document.createElement("div");
-                shortcut.className = "text-shortcut";
-                item.appendChild(shortcut);
-                if (this.listContainer !== null) {
-                    this.listContainer.append(item);
+            category.modes.forEach(mode => {
+                var _a, _b;
+                const isActive = currentTabFilter === mode.cssClass;
+                if (category.type === 'segmented') {
+                    const btn = document.createElement("button");
+                    btn.textContent = mode.name.replace(" Filter", "").replace(" Colours", "");
+                    btn.className = isActive ? "active" : "";
+                    btn.title = mode.description;
+                    btn.setAttribute("data-cssclass", mode.cssClass);
+                    btn.onclick = (ev) => {
+                        var _a;
+                        (_a = category.container) === null || _a === void 0 ? void 0 : _a.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        clickCallback(ev);
+                    };
+                    (_a = category.container) === null || _a === void 0 ? void 0 : _a.appendChild(btn);
+                }
+                else {
+                    const item = document.createElement("div");
+                    item.className = `list-item ${isActive ? "active" : ""}`;
+                    item.setAttribute("data-cssclass", mode.cssClass);
+                    item.onclick = (ev) => {
+                        var _a;
+                        (_a = category.container) === null || _a === void 0 ? void 0 : _a.querySelectorAll(".list-item").forEach(i => i.classList.remove("active"));
+                        item.classList.add("active");
+                        clickCallback(ev);
+                    };
+                    const content = document.createElement("div");
+                    content.className = "list-item-content";
+                    const name = document.createElement("span");
+                    name.className = "list-item-name";
+                    name.textContent = mode.name;
+                    content.appendChild(name);
+                    const desc = document.createElement("span");
+                    desc.className = "list-item-description";
+                    desc.textContent = mode.description;
+                    content.appendChild(desc);
+                    item.appendChild(content);
+                    const toggle = document.createElement("div");
+                    toggle.className = "toggle-switch";
+                    const knob = document.createElement("div");
+                    knob.className = "toggle-knob";
+                    toggle.appendChild(knob);
+                    item.appendChild(toggle);
+                    (_b = category.container) === null || _b === void 0 ? void 0 : _b.appendChild(item);
                 }
             });
         });
@@ -96,33 +123,81 @@ class AchromaJS {
 
 
 .achromajs-wrapper {
-  font-family: sans-serif;
+  font-family: "Inter", sans-serif;
   position: absolute;
-  top: 0;
-  left: calc(50vw - 100px);
-  width: 200px;
-  height: auto;
+  top: 48px;
+  left: calc(50vw - 150px);
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
   display: none;
-  background: #eee;
-  padding-top: 48px;
+  background-color: #131315;
+  color: #e5e1e4;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  z-index: 999999;
 }
-.achromajs-wrapper .panel-list-item {
-  display: block;
-  padding: 5px 9px 5px 4px;
-  margin: 0;
+.achromajs-wrapper .list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(73, 68, 85, 0.1);
 }
-.achromajs-wrapper .panel-list-item .icon {
-  display: table-cell;
-  padding: 0 5px;
+.achromajs-wrapper .list-item:last-child {
+  border-bottom: none;
 }
-.achromajs-wrapper .panel-list-item .text {
-  display: table-cell;
+.achromajs-wrapper .list-item:hover {
+  background-color: #2a2a2c;
 }
-.achromajs-wrapper .panel-list-item .text-shortcut {
-  display: table-cell;
+.achromajs-wrapper .list-item.active {
+  background-color: rgba(176, 198, 255, 0.05);
 }
-.achromajs-wrapper .panel-list-item:hover {
-  background: #ccc;
+.achromajs-wrapper .list-item.active .list-item-name {
+  color: #b0c6ff;
+}
+.achromajs-wrapper .list-item.active .list-item-description {
+  color: rgba(176, 198, 255, 0.6);
+}
+.achromajs-wrapper .list-item.active .toggle-switch {
+  background-color: rgba(176, 198, 255, 0.2);
+  justify-content: flex-end;
+}
+.achromajs-wrapper .list-item.active .toggle-switch .toggle-knob {
+  background-color: #b0c6ff;
+}
+.achromajs-wrapper .list-item .list-item-content {
+  display: flex;
+  flex-direction: column;
+}
+.achromajs-wrapper .list-item .list-item-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+.achromajs-wrapper .list-item .list-item-description {
+  font-size: 10px;
+  color: #cac3d8;
+}
+.achromajs-wrapper .list-item .toggle-switch {
+  width: 40px;
+  height: 20px;
+  border-radius: 9999px;
+  background-color: #353437;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  transition: all 0.2s ease;
+}
+.achromajs-wrapper .list-item .toggle-switch .toggle-knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background-color: #948ea1;
+  transition: all 0.2s ease;
 }
 
 .achromajs-icon {

@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -25,10 +28,26 @@
 -->
 
 <body>
-<div id="ActionList" class="panel-section panel-section-list"></div>
-<script src="common/modes.js"></script>
-<script src="common/list.js"></script>
-<script src="webextension/popup.js"></script>
+    <main>
+        <section>
+            <h2>General Filters</h2>
+            <div id="GeneralFilters" class="segmented-control"></div>
+        </section>
+
+        <section>
+            <h2>Visual Effects</h2>
+            <div id="VisualEffects" class="segmented-control"></div>
+        </section>
+
+        <section>
+            <h2>Color Deficiencies</h2>
+            <div id="ColorDeficiencies" class="cvd-list"></div>
+        </section>
+    </main>
+
+    <script src="common/modes.js"></script>
+    <script src="common/list.js"></script>
+    <script src="webextension/popup.js"></script>
 </body>
 
 </html>

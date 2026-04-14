@@ -1,31 +1,81 @@
 .achromajs-wrapper {
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif;
     position: absolute;
-    top: 0;
-    left: calc(50vw - 100px);
-    width: 200px;
-    height: auto;
+    top: 48px;
+    left: calc(50vw - 150px);
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
     display: none;
-    background: #eee;
-    padding-top: 48px;
-    .panel-list-item {
-        display: block;
-        padding: 5px 9px 5px 4px;
-        margin: 0;
-        .icon {
-            display: table-cell;
-            padding: 0 5px;
+    background-color: #131315;
+    color: #e5e1e4;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    z-index: 999999;
+
+    .list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border-bottom: 1px solid rgba(73, 68, 85, 0.1);
+
+        &:last-child {
+            border-bottom: none;
         }
-        .text {
-            display: table-cell;
-        }
-        .text-shortcut {
-            display: table-cell;
-        }
+
         &:hover {
-            background: #ccc;
+            background-color: #2a2a2c;
         }
-    
+
+        &.active {
+            background-color: rgba(176, 198, 255, 0.05);
+            .list-item-name { color: #b0c6ff; }
+            .list-item-description { color: rgba(176, 198, 255, 0.6); }
+            .toggle-switch {
+                background-color: rgba(176, 198, 255, 0.2);
+                justify-content: flex-end;
+                .toggle-knob { background-color: #b0c6ff; }
+            }
+        }
+
+        .list-item-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-item-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .list-item-description {
+            font-size: 10px;
+            color: #cac3d8;
+        }
+
+        .toggle-switch {
+            width: 40px;
+            height: 20px;
+            border-radius: 9999px;
+            background-color: #353437;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 3px;
+            transition: all 0.2s ease;
+
+            .toggle-knob {
+                width: 14px;
+                height: 14px;
+                border-radius: 9999px;
+                background-color: #948ea1;
+                transition: all 0.2s ease;
+            }
+        }
     }
 }
 

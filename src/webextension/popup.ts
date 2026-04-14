@@ -25,7 +25,12 @@ class AchromafoxPopup {
     constructor() {
         chrome.storage.local.get("achromajsSelectedFilter").then((items: { [key: string]: any }) => {
             chrome.tabs.query({active: true, currentWindow: true}).then((tabs: chrome.tabs.Tab[]) => {
-                new FiltersUIList(document.getElementById("ActionList")).build(this.filterClicked, tabs, items.achromajsSelectedFilter)
+                const uiList = new FiltersUIList(
+                    document.getElementById("GeneralFilters"),
+                    document.getElementById("VisualEffects"),
+                    document.getElementById("ColorDeficiencies")
+                )
+                uiList.build(this.filterClicked, tabs, items.achromajsSelectedFilter)
             })
         })
     }

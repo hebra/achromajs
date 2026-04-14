@@ -24,8 +24,11 @@
 
 /* eslint no-unused-vars: "off" */
 class FiltersUIList {
-    constructor(private listContainer: HTMLElement | null) {
-    }
+    constructor(
+        private generalContainer: HTMLElement | null,
+        private effectsContainer: HTMLElement | null = null,
+        private cvdContainer: HTMLElement | null = null
+    ) { }
 
     build(clickCallback: any, tabs: any, savedSiteFilters?: any) {
         const tabDomain = (new URL(tabs[0].url || "").host)
@@ -33,49 +36,73 @@ class FiltersUIList {
         let currentTabFilter = savedSiteFilters ? savedSiteFilters[tabDomain] : "achromajs-filter-none"
         currentTabFilter = currentTabFilter || "achromajs-filter-none"
 
-        Filters.getAll().forEach((section, idx) => {
-            if (this.listContainer === null) {
-                console.error("List holder element is null.")
-                return
-            }
+        const filters = new Filters()
+        let categories: { container: HTMLElement | null, modes: FilterMode[], type: 'segmented' | 'list' }[] = []
 
-            if (idx > 0) {
-                this.listContainer.append(document.createElement("hr"))
-            }
+        if (this.effectsContainer && this.cvdContainer) {
+            // Multi-container mode (new WebExtension UI)
+            categories = [
+                { container: this.generalContainer, modes: [...filters.reset, ...filters.blur], type: 'segmented' },
+                { container: this.effectsContainer, modes: filters.contrast, type: 'segmented' },
+                { container: this.cvdContainer, modes: [...filters.achromato, ...filters.prot, ...filters.deuter, ...filters.tritan], type: 'list' }
+            ]
+        } else {
+            // Single container mode (Library / Legacy)
+            categories = [
+                { container: this.generalContainer, modes: [...filters.reset, ...filters.blur, ...filters.contrast, ...filters.achromato, ...filters.prot, ...filters.deuter, ...filters.tritan], type: 'list' }
+            ]
+        }
 
-            section.forEach((mode) => {
-                const item = document.createElement("div")
-                item.className = "panel-list-item"
-                item.title = mode.description
-                item.setAttribute("data-mode", mode.id)
-                item.setAttribute("data-cssclass", mode.cssClass)
-                item.onclick = clickCallback
+        categories.forEach(category => {
+            if (!category.container) return
 
-                const icon = document.createElement("div")
-                icon.className = "icon"
-                const input = document.createElement("input")
-                input.type = "radio"
-                input.id = mode.id
-                input.name = "Action"
-                input.value = mode.id
-                input.checked = currentTabFilter === mode.cssClass
-                icon.appendChild(input)
-                item.appendChild(icon)
+            category.modes.forEach(mode => {
+                const isActive = currentTabFilter === mode.cssClass
+                if (category.type === 'segmented') {
+                    const btn = document.createElement("button")
+                    btn.textContent = mode.name.replace(" Filter", "").replace(" Colours", "")
+                    btn.className = isActive ? "active" : ""
+                    btn.title = mode.description
+                    btn.setAttribute("data-cssclass", mode.cssClass)
+                    btn.onclick = (ev) => {
+                        category.container?.querySelectorAll("button").forEach(b => b.classList.remove("active"))
+                        btn.classList.add("active")
+                        clickCallback(ev)
+                    }
+                    category.container?.appendChild(btn)
+                } else {
+                    const item = document.createElement("div")
+                    item.className = `list-item ${isActive ? "active" : ""}`
+                    item.setAttribute("data-cssclass", mode.cssClass)
+                    item.onclick = (ev) => {
+                        category.container?.querySelectorAll(".list-item").forEach(i => i.classList.remove("active"))
+                        item.classList.add("active")
+                        clickCallback(ev)
+                    }
 
-                const text = document.createElement("div")
-                text.className = "text"
-                const label = document.createElement("label")
-                label.htmlFor = mode.id
-                label.textContent = mode.name
-                text.appendChild(label)
-                item.appendChild(text)
+                    const content = document.createElement("div")
+                    content.className = "list-item-content"
 
-                const shortcut = document.createElement("div")
-                shortcut.className = "text-shortcut"
-                item.appendChild(shortcut)
+                    const name = document.createElement("span")
+                    name.className = "list-item-name"
+                    name.textContent = mode.name
+                    content.appendChild(name)
 
-                if (this.listContainer !== null) {
-                    this.listContainer.append(item)
+                    const desc = document.createElement("span")
+                    desc.className = "list-item-description"
+                    desc.textContent = mode.description
+                    content.appendChild(desc)
+
+                    item.appendChild(content)
+
+                    const toggle = document.createElement("div")
+                    toggle.className = "toggle-switch"
+                    const knob = document.createElement("div")
+                    knob.className = "toggle-knob"
+                    toggle.appendChild(knob)
+                    item.appendChild(toggle)
+
+                    category.container?.appendChild(item)
                 }
             })
         })
