@@ -1,33 +1,33 @@
 html,
 body {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
 .panel-section-list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .panel-list-item {
-    padding: 3px 12px;
-    margin: 0;
-    list-style: none;
-    white-space: nowrap;
+  padding: 3px 12px;
+  margin: 0;
+  list-style: none;
+  white-space: nowrap;
 }
 
 .panel-list-item div {
-    display: inline-block;
+  display: inline-block;
 }
 
 label {
-    margin: 0 0 0 6px;
-    padding: 6px 0;
-    display: inline-block;
+  margin: 0 0 0 6px;
+  padding: 6px 0;
+  display: inline-block;
 }
 
 .panel-list-item:hover {
-    background: #eee;
+  background: #eee;
 }

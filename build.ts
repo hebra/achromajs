@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write --allow-run
 
 import { parseArgs } from "std/cli/parse_args.ts";
-import { ensureDir, copy } from "std/fs/mod.ts";
+import { copy, ensureDir } from "std/fs/mod.ts";
 import { basename as _basename, extname, join } from "std/path/mod.ts";
 
 const args = parseArgs(Deno.args);
@@ -33,7 +33,9 @@ async function compileTypeScript(config: string): Promise<void> {
   const process = command.spawn();
   const status = await process.status;
   if (!status.success) {
-    throw new Error(`Command failed: deno run -A npm:typescript@5.9.3/tsc -p ${config}`);
+    throw new Error(
+      `Command failed: deno run -A npm:typescript@5.9.3/tsc -p ${config}`,
+    );
   }
 }
 
@@ -41,31 +43,88 @@ async function cssUrlEmbed(): Promise<void> {
   console.log("Embedding CSS URLs...");
   // This would need a Deno equivalent or external tool
   // For now, copy the file as-is
-  await copy("src/filters/filters.scss", "dist/achromajs/filters.scss", { overwrite: true });
+  await copy("src/filters/filters.scss", "dist/achromajs/filters.scss", {
+    overwrite: true,
+  });
 }
 
 async function compileSass(): Promise<void> {
   console.log("Compiling Sass...");
   // Use external sass compiler
   try {
-    const sassAvailable = await runCommand(["which", "sass"]).then(() => true).catch(() => false);
+    const sassAvailable = await runCommand(["which", "sass"]).then(() => true)
+      .catch(() => false);
     if (!sassAvailable) throw new Error("sass not found");
 
-    await runCommand(["sass", "--style=expanded", "--source-map", "src/library/achroma.scss", "dist/achromajs/achromajs.css"]);
-    await runCommand(["sass", "--style=expanded", "--source-map", "src/webextension/style.scss", "dist/achromafox/style.css"]);
-    await runCommand(["sass", "--style=expanded", "--source-map", "src/webextension/style.scss", "dist/achromeatic/style.css"]);
-    await runCommand(["sass", "--style=expanded", "--source-map", "dist/achromajs/filters.scss", "dist/achromeatic/filters/filters.css"]);
-    await runCommand(["sass", "--style=expanded", "--source-map", "dist/achromajs/filters.scss", "dist/achromajs/filters.css"]);
-    await runCommand(["sass", "--style=expanded", "--source-map", "src/filters/filters.scss", "dist/achromafox/filters/filters.css"]);
+    await runCommand([
+      "sass",
+      "--style=expanded",
+      "--source-map",
+      "src/library/achroma.scss",
+      "dist/achromajs/achromajs.css",
+    ]);
+    await runCommand([
+      "sass",
+      "--style=expanded",
+      "--source-map",
+      "src/webextension/style.scss",
+      "dist/achromafox/style.css",
+    ]);
+    await runCommand([
+      "sass",
+      "--style=expanded",
+      "--source-map",
+      "src/webextension/style.scss",
+      "dist/achromeatic/style.css",
+    ]);
+    await runCommand([
+      "sass",
+      "--style=expanded",
+      "--source-map",
+      "dist/achromajs/filters.scss",
+      "dist/achromeatic/filters/filters.css",
+    ]);
+    await runCommand([
+      "sass",
+      "--style=expanded",
+      "--source-map",
+      "dist/achromajs/filters.scss",
+      "dist/achromajs/filters.css",
+    ]);
+    await runCommand([
+      "sass",
+      "--style=expanded",
+      "--source-map",
+      "src/filters/filters.scss",
+      "dist/achromafox/filters/filters.css",
+    ]);
   } catch (_error) {
-    console.warn("Sass compilation failed. Using fallback: copying SCSS as CSS.");
+    console.warn(
+      "Sass compilation failed. Using fallback: copying SCSS as CSS.",
+    );
     // Fallback: just copy the files as-is for now
-    await copy("src/library/achroma.scss", "dist/achromajs/achromajs.css", { overwrite: true });
-    await copy("src/webextension/style.scss", "dist/achromafox/style.css", { overwrite: true });
-    await copy("src/webextension/style.scss", "dist/achromeatic/style.css", { overwrite: true });
-    await copy("dist/achromajs/filters.scss", "dist/achromeatic/filters/filters.css", { overwrite: true });
-    await copy("dist/achromajs/filters.scss", "dist/achromajs/filters.css", { overwrite: true });
-    await copy("src/filters/filters.scss", "dist/achromafox/filters/filters.css", { overwrite: true });
+    await copy("src/library/achroma.scss", "dist/achromajs/achromajs.css", {
+      overwrite: true,
+    });
+    await copy("src/webextension/style.scss", "dist/achromafox/style.css", {
+      overwrite: true,
+    });
+    await copy("src/webextension/style.scss", "dist/achromeatic/style.css", {
+      overwrite: true,
+    });
+    await copy(
+      "dist/achromajs/filters.scss",
+      "dist/achromeatic/filters/filters.css",
+      { overwrite: true },
+    );
+    await copy("dist/achromajs/filters.scss", "dist/achromajs/filters.css", {
+      overwrite: true,
+    });
+    await copy(
+      "src/filters/filters.scss",
+      "dist/achromafox/filters/filters.css",
+      { overwrite: true },
+    );
   }
 }
 
@@ -79,40 +138,76 @@ async function copyAssets(): Promise<void> {
 
   // Copy assets
   for await (const entry of Deno.readDir("src/assets")) {
-    await copy(join("src/assets", entry.name), join("dist/achromeatic/assets", entry.name), { overwrite: true });
-    await copy(join("src/assets", entry.name), join("dist/achromafox/assets", entry.name), { overwrite: true });
-    await copy(join("src/assets", entry.name), join("dist/achromajs/assets", entry.name), { overwrite: true });
+    await copy(
+      join("src/assets", entry.name),
+      join("dist/achromeatic/assets", entry.name),
+      { overwrite: true },
+    );
+    await copy(
+      join("src/assets", entry.name),
+      join("dist/achromafox/assets", entry.name),
+      { overwrite: true },
+    );
+    await copy(
+      join("src/assets", entry.name),
+      join("dist/achromajs/assets", entry.name),
+      { overwrite: true },
+    );
   }
 
   // Copy SVG filters for all targets
   for await (const entry of Deno.readDir("src/filters")) {
     if (extname(entry.name) === ".svg") {
-      await copy(join("src/filters", entry.name), join("dist/achromafox/filters", entry.name), { overwrite: true });
-      await copy(join("src/filters", entry.name), join("dist/achromajs/filters", entry.name), { overwrite: true });
+      await copy(
+        join("src/filters", entry.name),
+        join("dist/achromafox/filters", entry.name),
+        { overwrite: true },
+      );
+      await copy(
+        join("src/filters", entry.name),
+        join("dist/achromajs/filters", entry.name),
+        { overwrite: true },
+      );
     }
   }
 }
 
 async function copyChrome(): Promise<void> {
   console.log("Copying Chrome extension files...");
-  await copy("src/chrome/manifest.json", "dist/achromeatic/manifest.json", { overwrite: true });
-  await copy("src/webextension/popup.html", "dist/achromeatic/popup.html", { overwrite: true });
-  await copy("dist/achromajs/filters.css", "dist/achromeatic/filters.css", { overwrite: true });
+  await copy("src/chrome/manifest.json", "dist/achromeatic/manifest.json", {
+    overwrite: true,
+  });
+  await copy("src/webextension/popup.html", "dist/achromeatic/popup.html", {
+    overwrite: true,
+  });
+  await copy("dist/achromajs/filters.css", "dist/achromeatic/filters.css", {
+    overwrite: true,
+  });
 
   // Copy SVG filters for Chrome
   await ensureDir("dist/achromeatic/filters");
   for await (const entry of Deno.readDir("src/filters")) {
     if (extname(entry.name) === ".svg") {
-      await copy(join("src/filters", entry.name), join("dist/achromeatic/filters", entry.name), { overwrite: true });
+      await copy(
+        join("src/filters", entry.name),
+        join("dist/achromeatic/filters", entry.name),
+        { overwrite: true },
+      );
     }
   }
 }
 
 async function copyFirefox(): Promise<void> {
   console.log("Copying Firefox extension files...");
-  await copy("src/firefox/manifest.json", "dist/achromafox/manifest.json", { overwrite: true });
-  await copy("src/webextension/popup.html", "dist/achromafox/popup.html", { overwrite: true });
-  await copy("dist/achromajs/filters.css", "dist/achromafox/filters.css", { overwrite: true });
+  await copy("src/firefox/manifest.json", "dist/achromafox/manifest.json", {
+    overwrite: true,
+  });
+  await copy("src/webextension/popup.html", "dist/achromafox/popup.html", {
+    overwrite: true,
+  });
+  await copy("dist/achromajs/filters.css", "dist/achromafox/filters.css", {
+    overwrite: true,
+  });
 }
 
 async function getVersion(): Promise<string> {
@@ -123,7 +218,10 @@ async function getVersion(): Promise<string> {
 async function setVersion(version: string): Promise<void> {
   const denoConfig = JSON.parse(await Deno.readTextFile("deno.json"));
   denoConfig.version = version;
-  await Deno.writeTextFile("deno.json", JSON.stringify(denoConfig, null, 2) + "\n");
+  await Deno.writeTextFile(
+    "deno.json",
+    JSON.stringify(denoConfig, null, 2) + "\n",
+  );
 }
 
 async function replacePlaceholders(): Promise<void> {
@@ -134,7 +232,7 @@ async function replacePlaceholders(): Promise<void> {
 
   const manifests = [
     "dist/achromeatic/manifest.json",
-    "dist/achromafox/manifest.json"
+    "dist/achromafox/manifest.json",
   ];
 
   for (const manifest of manifests) {
@@ -145,35 +243,63 @@ async function replacePlaceholders(): Promise<void> {
   }
 }
 
-async function fixCssEmbedded(): Promise<void> {
-  console.log("Fixing embedded CSS...");
+async function embedSvgFilters(): Promise<void> {
+  console.log("Embedding SVG filters into JavaScript...");
 
-  const cssFiles = [
-    "dist/achromeatic/filters/filters.css",
-    "dist/achromafox/filters/filters.css",
-    "dist/achromajs/filters.css"
-  ];
+  const svgFiltersDir = "src/filters";
+  let combinedSvg = "";
 
-  for (const file of cssFiles) {
-    let content = await Deno.readTextFile(file);
-    content = content.replace(/\);$/, '#Filter");');
-    await Deno.writeTextFile(file, content);
+  for await (const entry of Deno.readDir(svgFiltersDir)) {
+    if (entry.isFile && entry.name.endsWith(".svg")) {
+      const name = entry.name.replace(".svg", "");
+      const content = await Deno.readTextFile(join(svgFiltersDir, entry.name));
+      // Extract the <filter> element(s)
+      const filterMatch = content.match(/<filter[\s\S]*?<\/filter>/g);
+      if (filterMatch) {
+        for (let filter of filterMatch) {
+          // Update the ID to be unique
+          filter = filter.replace(
+            /id="Filter"/,
+            `id="achromajs-filter-${name}"`,
+          );
+          combinedSvg += filter;
+        }
+      }
+    }
   }
-}
 
-async function fixDataNull(): Promise<void> {
-  console.log("Fixing data null in CSS...");
+  const minifiedSvg = (
+    `<svg xmlns="http://www.w3.org/2000/svg" id="achromajs-svg-filters" style="position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none;" aria-hidden="true"><defs>${combinedSvg}</defs></svg>`
+  )
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/>\s+</g, "><")
+    .replace(/\s+/g, " ")
+    .trim();
 
-  const cssFiles = [
-    "dist/achromeatic/filters/filters.css",
-    "dist/achromafox/filters/filters.css",
-    "dist/achromajs/filters.css"
+  // Replace in achroma.js
+  const achromaJsPath = "dist/achromajs/achroma.js";
+  if (await Deno.stat(achromaJsPath).then(() => true).catch(() => false)) {
+    let content = await Deno.readTextFile(achromaJsPath);
+    content = content.replace(/PLACEHOLDER_SVG_FILTERS/g, minifiedSvg);
+    await Deno.writeTextFile(achromaJsPath, content);
+  }
+
+  // Replace in inject_svg.js and other webextension scripts
+  const injectSvgPaths = [
+    "dist/achromafox/webextension/inject_svg.js",
+    "dist/achromafox/webextension/popup.js",
+    "dist/achromafox/webextension/background.js",
+    "dist/achromeatic/webextension/inject_svg.js",
+    "dist/achromeatic/webextension/popup.js",
+    "dist/achromeatic/webextension/background.js",
   ];
 
-  for (const file of cssFiles) {
-    let content = await Deno.readTextFile(file);
-    content = content.replace(/data:null/g, 'data:image/svg+xml');
-    await Deno.writeTextFile(file, content);
+  for (const path of injectSvgPaths) {
+    if (await Deno.stat(path).then(() => true).catch(() => false)) {
+      let content = await Deno.readTextFile(path);
+      content = content.replace(/PLACEHOLDER_SVG_FILTERS/g, minifiedSvg);
+      await Deno.writeTextFile(path, content);
+    }
   }
 }
 
@@ -183,7 +309,7 @@ async function concatCss(): Promise<void> {
   const files = [
     "src/common/default.css",
     "dist/achromajs/achromajs.css",
-    "dist/achromajs/filters.css"
+    "dist/achromajs/filters.css",
   ];
 
   let combined = "";
@@ -210,7 +336,17 @@ async function minifyJs(): Promise<void> {
   console.log("Minifying JavaScript...");
   // Use Deno's built-in minifier or terser
   try {
-    await runCommand(["deno", "run", "-A", "npm:terser@5.36.0", "dist/achromajs/achroma.js", "-o", "dist/achromajs/achroma.min.js", "--compress", "--mangle"]);
+    await runCommand([
+      "deno",
+      "run",
+      "-A",
+      "npm:terser@5.36.0",
+      "dist/achromajs/achroma.js",
+      "-o",
+      "dist/achromajs/achroma.min.js",
+      "--compress",
+      "--mangle",
+    ]);
   } catch (_error) {
     console.warn("Terser not available, skipping minification");
   }
@@ -218,11 +354,19 @@ async function minifyJs(): Promise<void> {
 
 async function copyTests(): Promise<void> {
   console.log("Copying test files...");
-  await copy("dist/achromajs/achroma.js", "test/achroma.js", { overwrite: true });
-  await copy("dist/achromajs/achroma.js.map", "test/achroma.js.map", { overwrite: true });
+  await copy("dist/achromajs/achroma.js", "test/achroma.js", {
+    overwrite: true,
+  });
+  await copy("dist/achromajs/achroma.js.map", "test/achroma.js.map", {
+    overwrite: true,
+  });
   await ensureDir("test/filters");
   for await (const entry of Deno.readDir("dist/achromajs/filters")) {
-    await copy(join("dist/achromajs/filters", entry.name), join("test/filters", entry.name), { overwrite: true });
+    await copy(
+      join("dist/achromajs/filters", entry.name),
+      join("test/filters", entry.name),
+      { overwrite: true },
+    );
   }
 }
 
@@ -235,13 +379,28 @@ async function compressReleases(): Promise<void> {
   const version = await getVersion();
 
   // AchromaJS library
-  await runCommand(["zip", "-r", join(releaseDir, `achromajs-${version}.zip`), "."], "dist/achromajs");
+  await runCommand([
+    "zip",
+    "-r",
+    join(releaseDir, `achromajs-${version}.zip`),
+    ".",
+  ], "dist/achromajs");
 
   // Chrome extension
-  await runCommand(["zip", "-r", join(releaseDir, `achromeatic-${version}.zip`), "."], "dist/achromeatic");
+  await runCommand([
+    "zip",
+    "-r",
+    join(releaseDir, `achromeatic-${version}.zip`),
+    ".",
+  ], "dist/achromeatic");
 
   // Firefox extension
-  await runCommand(["zip", "-r", join(releaseDir, `achromafox-${version}.xpi`), "."], "dist/achromafox");
+  await runCommand([
+    "zip",
+    "-r",
+    join(releaseDir, `achromafox-${version}.xpi`),
+    ".",
+  ], "dist/achromafox");
 }
 
 async function bumpVersion(): Promise<void> {
@@ -255,13 +414,15 @@ async function bumpVersion(): Promise<void> {
   const baseVersion = `${yy}.${m}.${d}`;
 
   const currentVersion = await getVersion();
-  const currentParts = currentVersion.split('.').map(Number);
+  const currentParts = currentVersion.split(".").map(Number);
 
   let newVersion;
-  if (currentParts.length >= 3 &&
-      currentParts[0] === parseInt(yy) &&
-      currentParts[1] === parseInt(m) &&
-      currentParts[2] === parseInt(d)) {
+  if (
+    currentParts.length >= 3 &&
+    currentParts[0] === parseInt(yy) &&
+    currentParts[1] === parseInt(m) &&
+    currentParts[2] === parseInt(d)
+  ) {
     const fourth = currentParts.length === 3 ? 1 : currentParts[3] + 1;
     newVersion = `${baseVersion}.${fourth}`;
   } else {
@@ -287,8 +448,7 @@ async function defaultBuild(): Promise<void> {
   await copyChrome();
   await copyFirefox();
   await replacePlaceholders();
-  await fixCssEmbedded();
-  await fixDataNull();
+  await embedSvgFilters();
   await concatCss();
   await embedCssIntoJs();
   await minifyJs();

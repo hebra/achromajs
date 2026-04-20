@@ -13,48 +13,84 @@
  * See file LICENSE for the full license.
  *
  * @author Hendrik Brandt
- *
  */
 
 /**
  * Apply selected filter (if any) on page load or change
  */
 
-chrome.tabs.onActivated.addListener(function (activeInfo: chrome.tabs.ActiveInfo) {
-    chrome.tabs.get(activeInfo.tabId).then(tab => {
-        if (!tab || !tab.url || !tab.url.startsWith("http") || !tab.active) {
-            return
-        }
-        setBackgroundFilter(tab)
-    })
-})
+console.log("AchromaJS: Background script loaded.");
 
-chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
-    if (!tab || !tab.url || !tab.url.startsWith("http") || changeInfo.status !== "complete" || !tab.active) {
-        return
+chrome.tabs.onActivated.addListener(
+  function (activeInfo: chrome.tabs.ActiveInfo) {
+    console.log("AchromaJS: Tab activated", activeInfo);
+    chrome.tabs.get(activeInfo.tabId).then((tab) => {
+      if (!tab || !tab.url || !tab.url.startsWith("http") || !tab.active) {
+        return;
+      }
+      setBackgroundFilter(tab);
+    });
+  },
+);
+
+chrome.tabs.onUpdated.addListener(
+  (
+    tabId: number,
+    changeInfo: chrome.tabs.TabChangeInfo,
+    tab: chrome.tabs.Tab,
+  ) => {
+    if (
+      !tab || !tab.url || !tab.url.startsWith("http") ||
+      changeInfo.status !== "complete" || !tab.active
+    ) {
+      return;
     }
-    setBackgroundFilter(tab)
-})
+    console.log("AchromaJS: Tab updated", tabId, changeInfo.status);
+    setBackgroundFilter(tab);
+  },
+);
 
 function setBackgroundFilter(tab: chrome.tabs.Tab) {
-    chrome.scripting.executeScript(
-        {
-            target: {
-                tabId: tab.id || 0,
-                allFrames: true
-            },
-            args: [new URL(tab.url || "").host],
-            func: (host: string) => {
-                chrome.storage.local.get("achromajsSelectedFilter")
-                    .then((items) => {
-                        const selectedFilter = (items as any).achromajsSelectedFilter
-                        if (selectedFilter && selectedFilter[host]) {
-                            document.documentElement.classList.forEach((c) => {
-                                if (c.startsWith("achromajs-")) document.documentElement.classList.remove(c)
-                            })
-                            document.documentElement.classList.add(selectedFilter[host])
-                        }
-                    })
+  console.log("AchromaJS: Setting background filter for", tab.url);
+  const svgFilters = `PLACEHOLDER_SVG_FILTERS`;
+  chrome.scripting.executeScript(
+    {
+      target: {
+        tabId: tab.id || 0,
+        allFrames: true,
+      },
+      args: [new URL(tab.url || "").host, svgFilters],
+      func: (host: string, svgFilters: string) => {
+        chrome.storage.local.get("achromajsSelectedFilter")
+          .then((items) => {
+            const svgId = "achromajs-svg-filters";
+            if (
+              !document.getElementById(svgId) && svgFilters &&
+              svgFilters.includes("<svg")
+            ) {
+              const container = document.body || document.documentElement;
+              if (container) {
+                console.log("AchromaJS: Inserting SVG filters...");
+                container.insertAdjacentHTML("afterbegin", svgFilters);
+                console.log("AchromaJS: SVG filters inserted.");
+              }
             }
-        }).catch(console.error)
+
+            const selectedFilter = (items as any).achromajsSelectedFilter;
+            if (selectedFilter && selectedFilter[host]) {
+              console.log(
+                "AchromaJS: Applying background filter",
+                selectedFilter[host],
+              );
+              document.body.classList.forEach((c) => {
+                if (c.startsWith("achromajs-")) {
+                  document.body.classList.remove(c);
+                }
+              });
+              document.body.classList.add(selectedFilter[host]);
+            }
+          });
+      },
+    },
+  ).catch(console.error);
 }

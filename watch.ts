@@ -22,7 +22,10 @@ async function watchFiles(): Promise<void> {
   let timeoutId: number | null = null;
 
   for await (const event of watcher) {
-    if (event.kind === "modify" || event.kind === "create" || event.kind === "remove") {
+    if (
+      event.kind === "modify" || event.kind === "create" ||
+      event.kind === "remove"
+    ) {
       console.log(`File changed: ${relative(".", event.paths[0])}`);
 
       // Debounce rebuilds

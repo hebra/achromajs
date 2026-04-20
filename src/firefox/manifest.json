@@ -53,6 +53,9 @@
       "all_frames": true,
       "css": [
         "filters/filters.css"
+      ],
+      "js": [
+        "webextension/inject_svg.js"
       ]
     }
   ],

@@ -1,34 +1,29 @@
-html {
-}
+html {}
 
 body {
-    background: url(LIQENI_HILLIER_-_ROZE.jpg);
-
-    
-
-
+  background: url(LIQENI_HILLIER_-_ROZE.jpg);
 }
 
 p {
-    color: #000;
+  color: #000;
 }
 
-p+p {
-    color: #333;
+p + p {
+  color: #333;
 }
 
-p+p+p {
-    color: #888;
+p + p + p {
+  color: #888;
 }
 
-p+p+p+p {
-    color: #aaa;
+p + p + p + p {
+  color: #aaa;
 }
 
-p+p+p+p+p {
-    color: #ccc;
+p + p + p + p + p {
+  color: #ccc;
 }
 
-p+p+p+p+p+p {
-    color: #fff;
+p + p + p + p + p + p {
+  color: #fff;
 }

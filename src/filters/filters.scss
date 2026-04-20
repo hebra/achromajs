@@ -36,7 +36,7 @@
 
 .achromajs-filter-highcontrast {
   backdrop-filter: contrast(1);
-  filter: url(highcontrast.svg#Filter);
+  filter: url("#achromajs-filter-highcontrast");
   min-height: 100vh;
 }
 
@@ -44,50 +44,48 @@
 
 .achromajs-filter-achromatomaly {
   backdrop-filter: contrast(1);
-  filter: url(achromatomaly.svg#Filter);
+  filter: url("#achromajs-filter-achromatomaly");
   min-height: 100vh;
 }
 
 .achromajs-filter-achromatopsia {
   backdrop-filter: contrast(1);
-  filter: url(achromatopsia.svg#Filter);
+  filter: url("#achromajs-filter-achromatopsia");
   min-height: 100vh;
 }
 
 .achromajs-filter-deuteranopia {
   backdrop-filter: contrast(1);
-  filter: url(deuteranopia.svg#Filter);
+  filter: url("#achromajs-filter-deuteranopia");
   min-height: 100vh;
-
 }
 
 .achromajs-filter-deuteranomaly {
   backdrop-filter: contrast(1);
-  filter: url(deuteranomaly.svg#Filter);
+  filter: url("#achromajs-filter-deuteranomaly");
   min-height: 100vh;
 }
 
-
 .achromajs-filter-protanomaly {
   backdrop-filter: contrast(1);
-  filter: url(protanomaly.svg#Filter);
+  filter: url("#achromajs-filter-protanomaly");
   min-height: 100vh;
 }
 
 .achromajs-filter-protanopia {
   backdrop-filter: contrast(1);
-  filter: url(protanopia.svg#Filter);
+  filter: url("#achromajs-filter-protanopia");
   min-height: 100vh;
 }
 
 .achromajs-filter-tritanopia {
   backdrop-filter: contrast(1);
-  filter: url(tritanopia.svg#Filter);
+  filter: url("#achromajs-filter-tritanopia");
   min-height: 100vh;
 }
 
 .achromajs-filter-tritanomaly {
   backdrop-filter: contrast(1);
-  filter: url(tritanomaly.svg#Filter);
+  filter: url("#achromajs-filter-tritanomaly");
   min-height: 100vh;
 }

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>AchromaJS - SVG Filter Debug</title>
+    <style>
+      body {
+        background-color: white;
+        color: black;
+        font-family: sans-serif;
+        padding: 2em;
+        min-height: 100vh;
+        margin: 0;
+        transition: filter 0.2s ease;
+      }
+      .box {
+        width: 150px;
+        height: 150px;
+        margin: 10px;
+        display: inline-block;
+        line-height: 150px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        border: 1px solid #000;
+      }
+      .red {
+        background-color: #f44336;
+      }
+      .green {
+        background-color: #4caf50;
+      }
+      .blue {
+        background-color: #2196f3;
+      }
+      .yellow {
+        background-color: #ffeb3b;
+        color: black;
+      }
+
+      /* Filter classes */
+      .filter-none {
+        filter: none !important;
+      }
+      .filter-invert-css {
+        filter: invert(1) !important;
+      }
+      .filter-invert-svg {
+        filter: url(#achromajs-filter-invert-svg) !important;
+      }
+      .filter-highcontrast-svg {
+        filter: url(#achromajs-filter-highcontrast) !important;
+      }
+
+      .controls {
+        margin-bottom: 2em;
+        border: 2px solid #333;
+        padding: 1.5em;
+        background: #eee;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      button {
+        padding: 0.8em 1.2em;
+        margin: 0.2em;
+        cursor: pointer;
+        font-size: 1rem;
+        border: 1px solid #333;
+        background: white;
+      }
+      button.active {
+        background-color: #333;
+        color: white;
+      }
+      .content {
+        padding-top: 1em;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ccc;
+      }
+      .status {
+        margin-top: 1em;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="filter-none">
+    <h1>AchromaJS - SVG Filter Debug</h1>
+    <p>
+      This page helps debug whether SVG filters are correctly applied by the
+      browser.
+    </p>
+
+    <div class="controls">
+      <strong>Apply Filter to Body:</strong><br>
+      <button onclick='apply("filter-none", this)' class="active">None</button>
+      <button onclick='apply("filter-invert-css", this)'>CSS Invert(1)</button>
+      <button onclick='apply("filter-invert-svg", this)'>
+        SVG Invert (Matrix)
+      </button>
+      <button onclick='apply("filter-highcontrast-svg", this)'>
+        SVG High Contrast (Discrete Transfer)
+      </button>
+      <div id="status" class="status">Current Filter: None</div>
+    </div>
+
+    <div class="content">
+      <div class="box red">Red</div>
+      <div class="box green">Green</div>
+      <div class="box blue">Blue</div>
+      <div class="box yellow">Yellow</div>
+
+      <p>
+        Sample text with <span style="color: red; font-weight: bold">red</span>,
+        <span style="color: green; font-weight: bold">green</span>, and
+        <span style="color: blue; font-weight: bold">blue</span> colors.
+      </p>
+
+      <div style="margin-top: 20px">
+        <p>Test image:</p>
+        <img
+          src="assets/LIQENI_HILLIER_-_ROZE.jpg"
+          alt="Test Image"
+          width="400"
+        >
+      </div>
+    </div>
+
+    <!-- SVG Filters Definition -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; width: 0; height: 0; pointer-events: none"
+      aria-hidden="true"
+    >
+      <!-- SVG version of color inversion -->
+      <filter
+        id="achromajs-filter-invert-svg"
+        color-interpolation-filters="sRGB"
+      >
+        <feColorMatrix
+          type="matrix"
+          values="-1 0 0 0 1
+                                           0 -1 0 0 1
+                                           0 0 -1 0 1
+                                           0 0 0 1 0"
+        />
+      </filter>
+
+      <!-- High Contrast filter from src/filters/highcontrast.svg -->
+      <filter
+        id="achromajs-filter-highcontrast"
+        color-interpolation-filters="sRGB"
+      >
+        <feColorMatrix type="saturate" values="0" result="desat" />
+        <feComponentTransfer>
+          <feFuncR
+            type="discrete"
+            tableValues="0 0 0 0 0 0 0 0 0 0 0 0 0 0 .8 .9 1"
+          />
+          <feFuncG
+            type="discrete"
+            tableValues="0 0 0 0 0 0 0 0 0 0 0 0 0 0 .8 .9 1"
+          />
+          <feFuncB
+            type="discrete"
+            tableValues="0 0 0 0 0 0 0 0 0 0 0 0 0 0 .8 .9 1"
+          />
+        </feComponentTransfer>
+      </filter>
+    </svg>
+
+    <script>
+      function apply(className, btn) {
+        document.body.classList.remove(
+          "filter-none",
+          "filter-invert-css",
+          "filter-invert-svg",
+          "filter-highcontrast-svg",
+        );
+        document.body.classList.add(className);
+
+        document.querySelectorAll("button").forEach((b) =>
+          b.classList.remove("active")
+        );
+        btn.classList.add("active");
+
+        document.getElementById("status").innerText = "Current Filter: " +
+          btn.innerText;
+      }
+    </script>
+  </body>
+</html>
